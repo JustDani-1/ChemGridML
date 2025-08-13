@@ -1,0 +1,106 @@
+Baptista et al (13.08.):
+------------------------
+Goal:
+- compare the performance of learnable representations and computational representations / fingerprints
+-> fingerprint vs. end-to-end DL
+- start with the claim, that the problem determines the best representation
+
+Method:
+- narrow down the problem: predicting drug sensitivity in cancer cell lines
+- 12 representations, 5 datasets
+- after the featurization, a standard FNN was used
+- hyperparameter optim. via 5fold CV with stratified split
+- classification with BCE loss & AUROC metric, regression with MSE loss & RMSE metric
+
+Result:
+- fp vs. e-t-e DL perform similar, with the best representation depending mostly on the dataset itself
+
+Representations:
+- ECFP4
+	- D=1024
+- ECFP6
+	- D=1024
+- MACCS
+	- D=166
+- AtomPair
+	- topological fingerprint based on the shortest distance between all pairs of atoms
+	- D=1024
+- RDKitFP
+	- topological fingerprint based on subgraphs
+	- binary vector of fixed length
+	- D=1024
+- LayeredRDKitFP
+	- same as RDKitFP, but introduces layering mechanism
+	- D=1024
+- Mol2Vec
+- TextCNN
+	- 1D CNN, originally for sentence classification
+	- uses tokenized and one-hot encoded SMILES
+	- several 1C convolutional filters, followed my a max-over-time pooling operation
+- GraphConv (Neural Fingerprints)
+- GCN (Graph Convolutional Neural network)
+- GAT (Graph Attention Network)
+- AttentiveFP
+
+
+Stepisnik et al (13.08.):
+-------------------------
+Goal:
+- expert (fingerprints/numeric properties) vs. learnable (task-indep=prelearned/task-dep=learnable)
+- pair-wise combination of representations
+
+Method:
+- 8 representations, 11 datasets
+- after the featurization, a standard FNN and PCTs were used
+- classification with BCE loss & AUROC metric, regression with MSE loss & RRMSE metric
+
+Result:
+- similar performance, problem specific
+
+Representations:
+- ECFP (Extended-Connectivity Fingerprints)
+	- identifier for each atom that gets updated iteratively through neighborhood
+	- radius parameter
+	- identifiers then get hashed into parametrically-determined-length binary vector
+- MACCS (Molecular ACCess System)
+	- binary vector of length 166
+	- presence/absence of predetermined patterns or substructure
+- PaDEL (Molecular Descriptors)
+	- calculated (physical) properties like molWeight, atom count, charge descriptors, ...
+	- calculated using PaDEL software
+	- 1444 2D properties, 431 3D properties = 1875 total
+- Spectrophores
+	- calculated from 3D atomic properties
+	- physical properties
+	- vector of 48 real numbers
+- Mol2vec
+	- learn representations, from substructures
+	- model that was pre-trained on ZINC database
+	- vector of 300 real numbers
+- CDDD (Continuous data-driven descriptors)
+	- calculated with RNN autoencoder
+	- model was pre-trained on ZINC database
+	- input are SMILES, output vector of 512 real numbers
+- GCN (Graph Convolutional Neural network)
+	- continuous analogue of ECFP
+	- learn task-specific molecular features
+- Weave models
+	- similar to GCN
+	- for updating the features of an atom, take all other atoms into account, not just neighbors
+	- computationally expensive
+	- learn task-specific features
+	
+
+
+Mayr et al (13.08.):
+--------------------
+Goal:
+- compare machine learning methods for drug target prediction on ChEMBL
+Method:
+- compound series bias
+	- compounds are tested in series with many very similar compounds
+	- makes it easier for the model, if the series is both in the train and test set
+	-> cluster data and then always include entire clusters into folds
+- FNN, SVM, SmilesLSTM, GCN, RF (Rand Forr), Weave, KNN (K-Nearest), NB (Naive Bayes), SEA (Sim. Ens. Appr.)
+- used different features, mostly computational
+Result:
