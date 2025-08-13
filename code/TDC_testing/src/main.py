@@ -58,6 +58,7 @@ def train_model(model, train_loader, val_loader, epochs, lr):
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 
     best_val_loss = float('inf')
+    best_model_state = None
     patience_counter = 0
 
     for e in range(epochs):
@@ -91,6 +92,7 @@ def train_model(model, train_loader, val_loader, epochs, lr):
         # Patience for early stopping
         if val_loss < best_val_loss:
             best_val_loss = val_loss
+            best_model_state = model.state_dict().copy()
             patience_counter = 0
         else:
             patience_counter += 1
@@ -101,6 +103,9 @@ def train_model(model, train_loader, val_loader, epochs, lr):
 
         if e % 10 == 0:
             print(f"Epoch: {e+1}, Train: {train_loss:.3f}, Val: {val_loss:.3f}")
+
+    if best_model_state is not None:
+        model.load_state_dict(best_model_state)
 
     return model, best_val_loss
 
@@ -163,6 +168,7 @@ def objective(trial):
 study = optuna.create_study(direction='minimize')
 study.optimize(objective, n_trials=30, show_progress_bar=True)
 
-joblib.dump(study, 'optuna_study_02.pkl')
+joblib.dump(study, 'optuna_study_03.pkl')
+
 
         

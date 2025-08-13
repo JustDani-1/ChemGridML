@@ -2,7 +2,7 @@ import joblib
 import optuna.visualization as vis
 
 # Load the study
-study = joblib.load('optuna_study.pkl')
+study = joblib.load('optuna_study_03.pkl')
 
 # Now you have everything back!
 print(f"Best params: {study.best_params}")
