@@ -5,14 +5,31 @@ import numpy as np
 import torch, optuna, joblib
 import optuna.visualization as vis
 from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import KFold
+from sklearn.model_selection import KFold, train_test_split
 from sklearn.metrics import mean_squared_error
 from torch.utils.data import DataLoader, TensorDataset
 
-DEVICE = 'mps' if torch.backends.mps.is_available() else 'cpu'
+# Hyperparameters
+EPOCHS = 200
+PATIENCE = 25
+LEARN_RATE = 0.001
+BATCH_SIZE = 16
+N_FOLDS = 5
+VAL_SIZE = 0.15
+HIDDEN_SIZE = 128
+DROPOUT = 0.3
+TEST_SIZE = 0.2
+
+# Set device
+DEVICE = 'cpu'
+if torch.backends.mps.is_available():
+    DEVICE = 'mps'
+if torch.cuda.is_available():
+    DEVICE = 'cuda'
 print(DEVICE)
 
-class NN(torch.nn.Module):
+# Define network
+class FNN(torch.nn.Module):
     def __init__(self, input_size=512, hidden_size=128, dropout_rate=0.3):
         super().__init__()
         self.network = torch.nn.Sequential(
@@ -38,24 +55,19 @@ smiles = df['Drug']
 mols = [Chem.MolFromSmiles(x) for x in smiles]
 morgan_fp_gen = rdFingerprintGenerator.GetMorganGenerator(includeChirality=True, radius=2, fpSize=512)
 
-# Features and Labels
-morgans = np.stack([np.array(morgan_fp_gen.GetFingerprint(x)) for x in mols])
+#Labels
 labels = torch.tensor(df['Y'], dtype=torch.float32).unsqueeze(1)
-    
-# Hyperparameters
-EPOCHS = 200
-PATIENCE = 25
-LEARN_RATE = 0.001
-BATCH_SIZE = 16
-N_FOLDS = 5
-VAL_SIZE = 0.15
-HIDDEN_SIZE = 128
-DROPOUT = 0.3
 
-def train_model(model, train_loader, val_loader, epochs, lr):
+# Features
+morgans = np.stack([np.array(morgan_fp_gen.GetFingerprint(x)) for x in mols])
+X_train, X_test, Y_train, Y_test = train_test_split(morgans, labels, test_size=TEST_SIZE, random_state=42)
+scaler = StandardScaler()
+scaler.fit(X_train)
+X_train, X_test = scaler.transform(X_train), scaler.transform(X_test)
+X_train, X_test = torch.tensor(X_train, dtype=torch.float32), torch.tensor(X_test, dtype=torch.float32)
+
+def train_model(model, loss_fn, optimizer, train_loader, val_loader, epochs):
     """Train the model for given epochs using train & val data"""
-    loss_fn = torch.nn.MSELoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 
     best_val_loss = float('inf')
     best_model_state = None
@@ -107,68 +119,65 @@ def train_model(model, train_loader, val_loader, epochs, lr):
     if best_model_state is not None:
         model.load_state_dict(best_model_state)
 
-    return model, best_val_loss
+    return model
 
 
 def kfold_cv(X, Y, epochs=EPOCHS, hidden_size=HIDDEN_SIZE, dropout=DROPOUT, lr=LEARN_RATE, batch_size=BATCH_SIZE):
-    """Train using kFold Cross Validation to avoid overfitting"""
+    """K-fold CV"""
+    
     kfold = KFold(N_FOLDS, shuffle=True, random_state=42)
 
-    avg_test_loss = 0.0
-
-    for fold, (train_val_idx, test_idx) in enumerate(kfold.split(X)):
+    avg_val_loss = 0.0
+    
+    for fold, (train_idx, val_idx) in enumerate(kfold.split(X)):
         print(f"Fold {fold+1}/{N_FOLDS}")
-        # Split data into train, val and test
-        X_train_val, X_test = X[train_val_idx], X[test_idx]
-        Y_train_val, Y_test = Y[train_val_idx], Y[test_idx]
-
-        val_idx = int(len(X_train_val) * (1 - VAL_SIZE))
-        X_train, X_val = X_train_val[:val_idx], X_train_val[val_idx:]
-        Y_train, Y_val = Y_train_val[:val_idx], Y_train_val[val_idx:]
         
-        # Standardize features
-        scaler = StandardScaler()
-        X_train_scaled = torch.tensor(scaler.fit_transform(X_train), dtype=torch.float32)
-        X_val_scaled = torch.tensor(scaler.transform(X_val), dtype=torch.float32)
-        X_test_scaled = torch.tensor(scaler.transform(X_test), dtype=torch.float32)
+        X_train, X_val = X[train_idx], X[val_idx]
+        Y_train, Y_val = Y[train_idx], Y[val_idx]
         
-        # Create data loaders
-        train_dataset = TensorDataset(X_train_scaled, Y_train)
-        val_dataset = TensorDataset(X_val_scaled, Y_val)
+        train_dataset = TensorDataset(X_train, Y_train)
+        val_dataset = TensorDataset(X_val, Y_val)
         train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
         val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
-
-        model = NN(hidden_size=hidden_size, dropout_rate=dropout).to(DEVICE)
-        model, best_val_loss = train_model(model, train_loader, val_loader, epochs, lr)
+        
+        model = FNN(hidden_size=hidden_size, dropout_rate=dropout).to(DEVICE)
+        loss_fn = torch.nn.MSELoss()
+        optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+        model = train_model(model, loss_fn, optimizer, train_loader, val_loader, epochs)
 
         model.eval()
+        X_val = X_val.to(DEVICE)
         with torch.no_grad():
-            X_test_scaled = X_test_scaled.to(DEVICE)
-            outputs = model(X_test_scaled).cpu()
-            test_loss = mean_squared_error(outputs, Y_test)
+            outputs = model(X_val).cpu()
+        val_loss = mean_squared_error(outputs, Y_val)
 
-        avg_test_loss += test_loss
-        
-        print(f"Fold Result: Best Val: {best_val_loss:.3f}, Test Loss: {test_loss:.3f}")
+        avg_val_loss += val_loss
 
-    return avg_test_loss / N_FOLDS
-
+    return avg_val_loss
+    
+def test_model(model, X, Y):
+    model.eval()
+    X = X.to(DEVICE)
+    with torch.no_grad(): 
+        outputs = model(X).cpu()
+    return mean_squared_error(outputs, Y)
 
 def objective(trial):
+    """Optuna hyperparameter optimization with respect to average validation loss accross folds"""
     # Possible hyperparameters
     epochs = trial.suggest_categorical('epochs', [100, 120, 150, 180, 200])
     hidden_size = trial.suggest_int('hidden_size', 64, 512)
     lr = trial.suggest_float('lr', 1e-5, 1e-2, log=True)
     
     # Run your k-fold CV with these params
-    avg_train_loss = kfold_cv(morgans, labels, epochs=epochs, hidden_size=hidden_size, lr=lr)
-    return avg_train_loss
+    avg_val_loss = kfold_cv(X_train, Y_train, epochs=epochs, hidden_size=hidden_size, lr=lr)
+    return avg_val_loss
 
 
 study = optuna.create_study(direction='minimize')
 study.optimize(objective, n_trials=30, show_progress_bar=True)
 
-joblib.dump(study, 'optuna_study_03.pkl')
+joblib.dump(study, 'optuna_study_04.pkl')
 
 
         
