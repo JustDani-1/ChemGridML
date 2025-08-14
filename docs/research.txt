@@ -96,11 +96,31 @@ Mayr et al (13.08.):
 --------------------
 Goal:
 - compare machine learning methods for drug target prediction on ChEMBL
+
 Method:
 - compound series bias
 	- compounds are tested in series with many very similar compounds
 	- makes it easier for the model, if the series is both in the train and test set
 	-> cluster data and then always include entire clusters into folds
+	- single-linkage clustering with on Jaccard distances of the ECFP4, with minD=0.3 
 - FNN, SVM, SmilesLSTM, GCN, RF (Rand Forr), Weave, KNN (K-Nearest), NB (Naive Bayes), SEA (Sim. Ens. Appr.)
 - used different features, mostly computational
+
 Result:
+
+Representations:
+- StaticF
+	- common computed static features
+	- charge, geometry, connectivity, autocorrelation, ...
+- SemiF
+	- common semisparse features
+	- CATS2D, MACCS, PCFP, SHED, ...
+- ToxF
+	- 2,276 in-house toxicophore features
+- ECFP
+	- rad=2 and rad=3
+	- DFS8
+
+
+
+
