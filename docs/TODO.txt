@@ -1,11 +1,11 @@
-13.08.:
+18.08.:
 -------
-- prepare for meeting with Mark, to determine the direction of the project
-- discuss, whether it makes sense to just consider the molecular descriptors
-- what to predict?: just chemical properties or targets?
-- TDC or ChEMBL
-- show him the paper, prepare to present it to Mark
-- search for other papers about my project
+- write script for complete loop of fingerprint, model, dataset
+    - small numbers, just for cluster-testing
+    - automatic class or regress detection
+    - just 3 config arrays that hold names of fingerprints, models, datasets
+- get cluster pipeline working, run and evaluate first job
+- inform yourself about research strategy, maybe make LATEX template to include citations
 
 
 Presentation for Mark:
@@ -27,7 +27,12 @@ Follow-up:
 - features -> models -> datasets
 
 
-
+Methods:
+- We want a vectorization of all features
+- Graphs:
+    - test just plain GCN combined with other architectures
+    - graphical autoencoder with other architectures, 
+    - extract embedding from traditional GCN, combine with other architectures
 
 
 

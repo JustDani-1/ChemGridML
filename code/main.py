@@ -1,6 +1,5 @@
 from tdc.single_pred import ADME
 from rdkit import Chem
-from rdkit.Chem import rdFingerprintGenerator
 import numpy as np
 import torch, optuna, joblib
 import optuna.visualization as vis
@@ -8,6 +7,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import KFold, train_test_split
 from sklearn.metrics import mean_squared_error
 from torch.utils.data import DataLoader, TensorDataset
+import fingerprints
+
 
 # Hyperparameters
 EPOCHS = 200
@@ -53,13 +54,12 @@ data = ADME(name = 'Caco2_Wang')
 df = data.get_data()
 smiles = df['Drug']
 mols = [Chem.MolFromSmiles(x) for x in smiles]
-morgan_fp_gen = rdFingerprintGenerator.GetMorganGenerator(includeChirality=True, radius=2, fpSize=512)
 
 #Labels
 labels = torch.tensor(df['Y'], dtype=torch.float32).unsqueeze(1)
 
 # Features
-morgans = np.stack([np.array(morgan_fp_gen.GetFingerprint(x)) for x in mols])
+morgans = fingerprints.MOL2VEC(mols)
 X_train, X_test, Y_train, Y_test = train_test_split(morgans, labels, test_size=TEST_SIZE, random_state=42)
 scaler = StandardScaler()
 scaler.fit(X_train)
@@ -139,8 +139,8 @@ def kfold_cv(X, Y, epochs=EPOCHS, hidden_size=HIDDEN_SIZE, dropout=DROPOUT, lr=L
         val_dataset = TensorDataset(X_val, Y_val)
         train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
         val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
-        
-        model = FNN(hidden_size=hidden_size, dropout_rate=dropout).to(DEVICE)
+
+        model = FNN(input_size=len(X_train[0,:]), hidden_size=hidden_size, dropout_rate=dropout).to(DEVICE)
         loss_fn = torch.nn.MSELoss()
         optimizer = torch.optim.Adam(model.parameters(), lr=lr)
         model = train_model(model, loss_fn, optimizer, train_loader, val_loader, epochs)
