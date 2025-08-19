@@ -4,6 +4,7 @@ import numpy as np
 from gensim.models import word2vec
 from altered_mol2vec import mol2alt_sentence, sentences2vec
 import env
+import numpy as np
 
 def AtomPair(mols, fpSize=env.DEFAULT_FP_SIZE):
     gen = rdFingerprintGenerator.GetAtomPairGenerator(includeChirality=True, fpSize=fpSize)
@@ -30,4 +31,12 @@ def MOL2VEC(mols):
     vecs = sentences2vec(sentences, model)
     return vecs
 
+def getFP(mols, fingerprint: str):
+    if fingerprint not in globals():
+        raise ValueError(f"Unknown fingerprint type: {fingerprint}")
     
+    func = globals()[fingerprint]
+    if not callable(func):
+        raise ValueError(f"{fingerprint} is not a callable function")
+    
+    return func(mols)
