@@ -60,6 +60,7 @@ class FNN(BaseModel, torch.nn.Module):
     
     @staticmethod
     def get_hyperparameter_space(trial):
+        # commented out the big hyperparams for development
         # return {
         #     # Model hyperparameters
         #     'hidden_sizes': trial.suggest_categorical('hidden_sizes', [[128], [128, 64], [256, 128, 64]]),
