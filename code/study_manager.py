@@ -1,6 +1,6 @@
 import datasets, env, models, trainers
 from sklearn.model_selection import KFold
-import torch, optuna, os, joblib
+import torch, optuna, os, time
 from torch.utils.data import DataLoader, TensorDataset
 
 class BenchmarkResults:
@@ -18,23 +18,12 @@ class BenchmarkResults:
             'params': best_params
         }
     
-    def get_summary_table(self):
-        """Return pandas DataFrame with results summary"""
-        # Implementation for creating comparison tables
-        pass
-    
-    def plot_results(self):
-        """Generate comparison plots"""
-        pass
 
 class StudyManager:
     def __init__(self, save_dir='studies'):
         self.save_dir = save_dir
         
-    def kfold_cv(self, data, model_class, hyperparams, trainer):   
-        # Load dataset
-        X, Y = data.X_train, data.Y_train
-        
+    def kfold_cv(self, X, Y, model_class, hyperparams, trainer: trainers.BaseTrainer):   
         kfold = KFold(env.N_FOLDS, shuffle=True, random_state=42)
         fold_scores = []
         
@@ -60,20 +49,46 @@ class StudyManager:
                 lr=hyperparams['lr'],
             )
             
-            trained_model = trainer.train(model, optimizer, train_loader, val_loader, hyperparams['epochs'])
-            fold_score = trainer.evaluate(trained_model, val_loader)
+            model = trainer.train_with_val(model, optimizer, train_loader, val_loader, hyperparams['epochs'])
+            fold_score = trainer.evaluate(model, val_loader)
             fold_scores.append(fold_score)
 
         return sum(fold_scores) / len(fold_scores)
     
-    def run_study(self, fp_name, model_name, dataset_name):
+    def final_model_score(self, data: datasets.TDC_Dataset, model_class, hyperparams, trainer: trainers.BaseTrainer):
+        train_loader = DataLoader(
+            TensorDataset(data.X_train, data.Y_train), 
+            batch_size=hyperparams['batch_size'], 
+            shuffle=True
+        )
+
+        test_loader = DataLoader(
+            TensorDataset(data.X_test, data.Y_test), 
+            batch_size=hyperparams['batch_size'], 
+            shuffle=False
+        )
+
+        model = model_class(input_size=data.X_train.shape[1], **hyperparams).to(env.DEVICE)
+
+        optimizer = torch.optim.Adam(
+            model.parameters(), 
+            lr=hyperparams['lr'],
+        )
+
+        model = trainer.train_without_val(model, optimizer, train_loader, hyperparams['epochs'])
+        score = trainer.metric(model, test_loader)
+        
+        return score
+        
+    
+    def run_study(self, fp_name, model_name, dataset_name, timestamp):
         """Run hyperparameter optimization"""
         study_id = f"{fp_name}_{model_name}_{dataset_name}"
 
         os.makedirs(self.save_dir, exist_ok=True)
         study = optuna.create_study(
             study_name=study_id,
-            storage="sqlite:///studies/fp_study_02.db",
+            storage=f"sqlite:///studies/fp_study_{timestamp}.db",
             direction="minimize",
             load_if_exists=True
         )
@@ -90,8 +105,12 @@ class StudyManager:
             hyperparams = model_class.get_hyperparameter_space(trial)
             
             # Run k-fold CV
-            return self.kfold_cv(data, model_class, hyperparams, trainer)
+            return self.kfold_cv(data.X_train, data.Y_train, model_class, hyperparams, trainer)
         
         study.optimize(objective, n_trials=env.N_TRIALS)
+
+        best_params = study.best_params
+
+        score = self.final_model_score(data, model_class, best_params, trainer)
         
-        return study
+        return study, score

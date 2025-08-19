@@ -16,6 +16,8 @@ from gensim.models import word2vec
 import timeit
 from joblib import Parallel, delayed
 
+warnings.filterwarnings('ignore')
+
 
 class DfVec(object):
     """

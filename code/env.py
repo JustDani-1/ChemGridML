@@ -1,7 +1,7 @@
 import torch
 
 # Environment
-DEFAULT_FP_SIZE = 1024
+DEFAULT_FP_SIZE = 256
 TEST_SIZE = 0.2
 N_FOLDS = 5
 PATIENCE = 15
@@ -12,7 +12,7 @@ if torch.cuda.is_available():
     DEVICE = 'cuda'
 
 # Study
-FINGERPRINTS =  ['ECFP', 'AtomPair', 'MACCS', 'RDKitFP', 'TOPOTOR', 'MOL2VEC']
+FINGERPRINTS = ['ECFP', 'AtomPair'] #['ECFP', 'AtomPair', 'MACCS', 'RDKitFP', 'TOPOTOR', 'MOL2VEC']
 MODELS = ['FNN']
-DATASETS = ['Caco2_Wang', 'BBB_Martins']
-N_TRIALS = 5
+DATASETS = ['Caco2_Wang', 'BBB_Martins'] #['Caco2_Wang', 'BBB_Martins', 'PPBR_AZ', 'Lipophilicity_AstraZeneca']
+N_TRIALS = 3

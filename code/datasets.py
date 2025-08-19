@@ -4,6 +4,7 @@ import torch
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 import fingerprints, env
+import numpy as np
 
 class TDC_Dataset():
     def __init__(self, dataset_name: str, fingerprint: str):
@@ -11,10 +12,12 @@ class TDC_Dataset():
         data = ADME(name = dataset_name)
         df = data.get_data()
         smiles = df['Drug']
+        labels = df['Y']
+
         mols = [Chem.MolFromSmiles(x) for x in smiles]
 
         #Labels
-        labels = torch.tensor(df['Y'], dtype=torch.float32).unsqueeze(1)
+        labels = torch.tensor(labels, dtype=torch.float32).unsqueeze(1)
 
         # Features
         fps = fingerprints.getFP(mols, fingerprint)
