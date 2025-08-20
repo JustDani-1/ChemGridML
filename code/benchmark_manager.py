@@ -249,57 +249,51 @@ class BenchmarkManager:
         for idx, dataset in enumerate(datasets):
             if idx >= len(axes):
                 break
-                
             ax = axes[idx]
             dataset_df = df[df['dataset'] == dataset]
-
             metric_name = dataset_df['metric'].iloc[0]
             
             # Create grouped bar plot
             fingerprints = sorted(dataset_df['fingerprint'].unique())
             models = sorted(dataset_df['model'].unique())
-            
             x = np.arange(len(fingerprints))
             width = 0.8 / len(models)
             
-            colors = plt.cm.Set3(np.linspace(0, 1, len(models)))
+            # Define colors for fingerprints (consistent across all datasets)
+            all_fingerprints = sorted(df['fingerprint'].unique())  # Get all fingerprints across datasets
+            fingerprint_colors = plt.cm.Set3(np.linspace(0, 1, len(all_fingerprints)))
+            fingerprint_color_map = {fp: fingerprint_colors[i] for i, fp in enumerate(all_fingerprints)}
             
             for i, model in enumerate(models):
-                model_data = []
-                for fp in fingerprints:
-                    subset = dataset_df[(dataset_df['fingerprint'] == fp) & 
-                                      (dataset_df['model'] == model)]
+                for j, fp in enumerate(fingerprints):
+                    subset = dataset_df[(dataset_df['fingerprint'] == fp) &
+                                    (dataset_df['model'] == model)]
                     if len(subset) > 0:
-                        model_data.append(subset['score'].iloc[0])
-                    else:
-                        model_data.append(np.nan)
-                
-                # Filter out NaN values for plotting
-                valid_indices = ~np.isnan(model_data)
-                if np.any(valid_indices):
-                    ax.bar(x[valid_indices] + i * width, np.array(model_data)[valid_indices], 
-                          width, label=model, color=colors[i], alpha=0.8)
-            
+                        ax.bar(x[j] + i * width, subset['score'].iloc[0],
+                            width, label=f'{model}' if j == 0 else "", 
+                            color=fingerprint_color_map[fp], alpha=1)
             
             ax.set_xlabel('Fingerprint')
             ax.set_ylabel(metric_name)
             ax.set_title(f'{dataset}')
             ax.set_xticks(x + width * (len(models) - 1) / 2)
             ax.set_xticklabels(fingerprints, rotation=45, ha='right', fontsize=8)
-            ax.legend(fontsize=8)
+            
+            # Only show legend on first subplot to avoid redundancy
+            if idx == 0:
+                ax.legend(fontsize=8)
             ax.grid(axis='y', alpha=0.3)
-        
+
         # Hide unused subplots
         for idx in range(len(datasets), len(axes)):
             axes[idx].set_visible(False)
-        
+
         plt.tight_layout()
-        
+
         # Save plot
         plot_path = os.path.join(self.save_dir, f'detailed_comparison_{self.run_timestamp}.png')
         plt.savefig(plot_path, dpi=300, bbox_inches='tight')
         plt.show()
-        
         print(f"Detailed comparison saved to: {plot_path}")
     
     def analyze_and_visualize(self):

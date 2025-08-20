@@ -3,22 +3,6 @@ from sklearn.model_selection import KFold
 import torch, optuna, os, time
 from torch.utils.data import DataLoader, TensorDataset
 
-class BenchmarkResults:
-    def __init__(self):
-        self.results = {}
-    
-    def add_result(self, fingerprint, model, dataset, best_score, best_params):
-        if fingerprint not in self.results:
-            self.results[fingerprint] = {}
-        if model not in self.results[fingerprint]:
-            self.results[fingerprint][model] = {}
-        
-        self.results[fingerprint][model][dataset] = {
-            'score': best_score,
-            'params': best_params
-        }
-    
-
 class StudyManager:
     def __init__(self, save_dir='studies'):
         self.save_dir = save_dir
