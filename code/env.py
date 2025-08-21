@@ -6,10 +6,10 @@ TEST_SIZE = 0.2
 N_FOLDS = 5
 PATIENCE = 15
 DEVICE = 'cpu'
-if torch.backends.mps.is_available():
-    DEVICE = 'mps'
-if torch.cuda.is_available():
-    DEVICE = 'cuda'
+#if torch.backends.mps.is_available():
+#    DEVICE = 'mps'
+#if torch.cuda.is_available():
+#    DEVICE = 'cuda'
 
 # Study
 FINGERPRINTS = ['ECFP', 'AtomPair', 'TOPOTOR', 'MOL2VEC']#['ECFP', 'AtomPair', 'MACCS', 'RDKitFP', 'TOPOTOR', 'MOL2VEC']
