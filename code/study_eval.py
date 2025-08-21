@@ -15,3 +15,5 @@ print(f"Best value: {study.best_value}")
 
 vis.plot_optimization_history(study).show()
 vis.plot_param_importances(study).show()
+
+print("test")
