@@ -17,10 +17,7 @@
 # Set the working directory to somewhere in your scratch space.  
 # This is a necessary step as compute nodes cannot write to $HOME.
 # Replace "<your_UCL_id>" with your UCL user ID.
-#$ -wd /home/ucnwdma/Scratch/UCL_internship/code
-# Specify output and error files (optional but recommended)
-#$ -o output.log
-#$ -e error.log
+#$ -wd /home/ucnwdma/Scratch/UCL_internship
 
 cp -r /home/ucnwdma/Scratch/workspace/UCL_internship/ $TMPDIR/
 
