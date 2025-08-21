@@ -17,19 +17,20 @@
 # Set the working directory to somewhere in your scratch space.  
 # This is a necessary step as compute nodes cannot write to $HOME.
 # Replace "<your_UCL_id>" with your UCL user ID.
-#$ -wd /home/ucnwdma/Scratch/UCL_internship
+#$ -wd /home/ucnwdma/Scratch/UCL_internship/output
 
-cp -r /home/ucnwdma/Scratch/workspace/UCL_internship/ $TMPDIR/
+cp -r /home/ucnwdma/Scratch/UCL_internship/code/ $TMPDIR/
+cp -r /home/ucnwdma/Scratch/UCL_internship/models/ $TMPDIR/
 
 cd $TMPDIR
-
-cd code
+mkdir output
 
 conda activate internship
 
-python main.py
+python ./code/main.py
 
 # Preferably, tar-up (archive) all output files onto the shared scratch area
-tar -zcvf $HOME/Scratch/UCL_internship/files_from_job_$JOB_ID.tar.gz $TMPDIR
+tar -zcvf 
+$HOME/Scratch/UCL_internship/output/files_from_job_$JOB_ID.tar.gz $TMPDIR/output/
 
 # Make sure you have given enough time for the copy to complete!
