@@ -23,9 +23,11 @@ cp -r /home/ucnwdma/Scratch/workspace/UCL_internship/ $TMPDIR/
 
 cd $TMPDIR
 
+cd code
+
 conda activate internship
 
-python /code/main.py
+python main.py
 
 # Preferably, tar-up (archive) all output files onto the shared scratch area
 tar -zcvf $HOME/Scratch/UCL_internship/files_from_job_$JOB_ID.tar.gz $TMPDIR

@@ -26,7 +26,7 @@ def TOPOTOR(mols, fpSize=env.DEFAULT_FP_SIZE):
     return np.stack([np.array(gen.GetFingerprint(x)) for x in mols])
 
 def MOL2VEC(mols):
-    model = word2vec.Word2Vec.load('models/mol2vec_300dim.pkl')
+    model = word2vec.Word2Vec.load('../models/mol2vec_300dim.pkl')
     sentences = [mol2alt_sentence(mol, 1) for mol in mols]
     vecs = sentences2vec(sentences, model)
     return vecs
