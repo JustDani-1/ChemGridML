@@ -34,7 +34,6 @@ conda activate internship
 python ./main.py
 
 # Preferably, tar-up (archive) all output files onto the shared scratch area
-tar -zcvf 
-$HOME/Scratch/UCL_internship/output/files_from_job_$JOB_ID.tar.gz $TMPDIR/output/
+tar -zcvf $HOME/Scratch/UCL_internship/output/files_from_job_$JOB_ID.tar.gz $TMPDIR/output/
 
 # Make sure you have given enough time for the copy to complete!
