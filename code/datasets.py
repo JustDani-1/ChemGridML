@@ -17,12 +17,11 @@ class TDC_Dataset():
         mols = [Chem.MolFromSmiles(x) for x in smiles]
 
         #Labels
-        labels = torch.tensor(labels, dtype=torch.float32).unsqueeze(1)
+        labels = np.array(labels)
 
         # Features
         fps = fingerprints.getFP(mols, fingerprint)
         X_train, X_test, self.Y_train, self.Y_test = train_test_split(fps, labels, test_size=env.TEST_SIZE, random_state=42)
         scaler = StandardScaler()
         scaler.fit(X_train)
-        X_train, X_test = scaler.transform(X_train), scaler.transform(X_test)
-        self.X_train, self.X_test = torch.tensor(X_train, dtype=torch.float32), torch.tensor(X_test, dtype=torch.float32)
+        self.X_train, self.X_test = scaler.transform(X_train), scaler.transform(X_test)

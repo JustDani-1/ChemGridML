@@ -1,11 +1,9 @@
 import matplotlib.pyplot as plt
-import seaborn as sns
 import pandas as pd
 import numpy as np
 import json
 import os
 from datetime import datetime
-from collections import defaultdict
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -220,11 +218,11 @@ class BenchmarkManager:
         print(f"Results loaded from: {filepath}")
     
     def plot_detailed_comparison(self, figsize=(16, 10)):
-        """Create detailed comparison plots"""
+        """Create detailed comparison plots grouped by model with fingerprint performance"""
         if not self.results:
             print("No results to plot yet.")
             return
-            
+        
         df = self.to_dataframe()
         
         # Determine number of subplots needed
@@ -239,84 +237,210 @@ class BenchmarkManager:
             axes = axes.flatten()
         else:
             axes = axes.flatten()
-            
-        fig.suptitle(f'Performance by Dataset and Model\nRun: {self.run_timestamp}', 
-                     fontsize=16, fontweight='bold')
+        
+        fig.suptitle(f'Performance by Dataset and Model\nRun: {self.run_timestamp}',
+                    fontsize=16, fontweight='bold')
         
         datasets = sorted(df['dataset'].unique())
-
+        
+        # Define consistent colors for fingerprints across all datasets
+        all_fingerprints = sorted(df['fingerprint'].unique())
+        fingerprint_colors = plt.cm.Set2(np.linspace(0, 1, len(all_fingerprints)))
+        fingerprint_color_map = {fp: fingerprint_colors[i] for i, fp in enumerate(all_fingerprints)}
         
         for idx, dataset in enumerate(datasets):
             if idx >= len(axes):
                 break
+                
             ax = axes[idx]
             dataset_df = df[df['dataset'] == dataset]
             metric_name = dataset_df['metric'].iloc[0]
             
-            # Create grouped bar plot
-            fingerprints = sorted(dataset_df['fingerprint'].unique())
+            # Get models and fingerprints for this dataset
             models = sorted(dataset_df['model'].unique())
-            x = np.arange(len(fingerprints))
-            width = 0.8 / len(models)
+            fingerprints = sorted(dataset_df['fingerprint'].unique())
             
-            # Define colors for fingerprints (consistent across all datasets)
-            all_fingerprints = sorted(df['fingerprint'].unique())  # Get all fingerprints across datasets
-            fingerprint_colors = plt.cm.Set3(np.linspace(0, 1, len(all_fingerprints)))
-            fingerprint_color_map = {fp: fingerprint_colors[i] for i, fp in enumerate(all_fingerprints)}
+            # Create positions for grouped bars
+            n_fingerprints = len(fingerprints)
+            n_models = len(models)
             
-            for i, model in enumerate(models):
-                for j, fp in enumerate(fingerprints):
-                    subset = dataset_df[(dataset_df['fingerprint'] == fp) &
+            # Width calculations
+            group_width = 0.8
+            bar_width = group_width / n_fingerprints
+            
+            # Calculate model averages
+            model_averages = {}
+            for model in models:
+                model_data = dataset_df[dataset_df['model'] == model]
+                model_averages[model] = model_data['score'].mean()
+            
+            # Position models on x-axis
+            model_positions = np.arange(n_models)
+            
+            # Create bars for each fingerprint within each model group
+            for fp_idx, fingerprint in enumerate(fingerprints):
+                fp_scores = []
+                fp_positions = []
+                
+                for model_idx, model in enumerate(models):
+                    subset = dataset_df[(dataset_df['fingerprint'] == fingerprint) &
                                     (dataset_df['model'] == model)]
+                    
                     if len(subset) > 0:
-                        ax.bar(x[j] + i * width, subset['score'].iloc[0],
-                            width, label=f'{model}' if j == 0 else "", 
-                            color=fingerprint_color_map[fp], alpha=1)
+                        score = subset['score'].iloc[0]
+                        fp_scores.append(score)
+                        # Calculate position within model group
+                        pos = model_positions[model_idx] + (fp_idx - (n_fingerprints-1)/2) * bar_width
+                        fp_positions.append(pos)
+                    else:
+                        fp_scores.append(0)  # or np.nan if you prefer
+                        pos = model_positions[model_idx] + (fp_idx - (n_fingerprints-1)/2) * bar_width
+                        fp_positions.append(pos)
+                
+                # Plot bars for this fingerprint across all models
+                ax.bar(fp_positions, fp_scores, bar_width * 0.9, 
+                    label=fingerprint, color=fingerprint_color_map[fingerprint], 
+                    alpha=0.8, edgecolor='white', linewidth=0.5)
             
-            ax.set_xlabel('Fingerprint')
+            # Add model average lines/markers
+            for model_idx, model in enumerate(models):
+                avg_score = model_averages[model]
+                # Draw a horizontal line across the model group showing average
+                left_edge = model_positions[model_idx] - group_width/2
+                right_edge = model_positions[model_idx] + group_width/2
+                ax.hlines(avg_score, left_edge, right_edge, 
+                        colors='red', linestyles='--', linewidth=2, alpha=0.7)
+                
+                # Add average value as text
+                ax.text(model_positions[model_idx], avg_score + 0.02 * ax.get_ylim()[1], 
+                    f'{avg_score:.3f}', ha='center', va='bottom', 
+                    fontweight='bold', fontsize=8, color='red')
+            
+            # Customize the plot
+            ax.set_xlabel('Model')
             ax.set_ylabel(metric_name)
             ax.set_title(f'{dataset}')
-            ax.set_xticks(x + width * (len(models) - 1) / 2)
-            ax.set_xticklabels(fingerprints, rotation=45, ha='right', fontsize=8)
+            ax.set_xticks(model_positions)
+            ax.set_xticklabels(models, rotation=45, ha='right')
+            
+            # Add vertical lines to separate model groups
+            for i in range(1, len(models)):
+                ax.axvline(x=model_positions[i] - 0.5, color='gray', 
+                        linestyle=':', alpha=0.5, linewidth=1)
             
             # Only show legend on first subplot to avoid redundancy
             if idx == 0:
-                ax.legend(fontsize=8)
+                # Create custom legend with fingerprints and model average
+                legend_elements = [plt.Rectangle((0,0),1,1, facecolor=fingerprint_color_map[fp], 
+                                            alpha=0.8, label=fp) for fp in fingerprints]
+                legend_elements.append(plt.Line2D([0], [0], color='red', linestyle='--', 
+                                                linewidth=2, label='Model Average'))
+                ax.legend(handles=legend_elements, fontsize=8, loc='upper right')
+            
             ax.grid(axis='y', alpha=0.3)
-
+            
+            # Set y-axis to start from 0 for better comparison
+            ax.set_ylim(bottom=0)
+        
         # Hide unused subplots
         for idx in range(len(datasets), len(axes)):
             axes[idx].set_visible(False)
-
+        
         plt.tight_layout()
-
+        
         # Save plot
         plot_path = os.path.join(self.save_dir, f'detailed_comparison_{self.run_timestamp}.png')
         plt.savefig(plot_path, dpi=300, bbox_inches='tight')
         plt.show()
-        print(f"Detailed comparison saved to: {plot_path}")
+
+
+    def plot_model_summary(self, figsize=(14, 8)):
+        """Create a summary plot showing overall model performance across all datasets"""
+        if not self.results:
+            print("No results to plot yet.")
+            return
+        
+        df = self.to_dataframe()
+        
+        # Calculate overall model averages across all datasets and fingerprints
+        model_summary = df.groupby('model').agg({
+            'score': ['mean', 'std', 'count']
+        }).round(4)
+        model_summary.columns = ['mean_score', 'std_score', 'count']
+        model_summary = model_summary.sort_values('mean_score', ascending=False)
+        
+        # Create the summary plot
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=figsize)
+        fig.suptitle(f'Model Performance Summary\nRun: {self.run_timestamp}', 
+                    fontsize=16, fontweight='bold')
+        
+        # Plot 1: Overall model averages with error bars
+        models = model_summary.index
+        means = model_summary['mean_score']
+        stds = model_summary['std_score']
+        
+        bars = ax1.bar(range(len(models)), means, yerr=stds, capsize=5, 
+                    alpha=0.7, color=plt.cm.Set1(np.linspace(0, 1, len(models))))
+        ax1.set_xlabel('Model')
+        ax1.set_ylabel('Average Score')
+        ax1.set_title('Overall Model Performance\n(with standard deviation)')
+        ax1.set_xticks(range(len(models)))
+        ax1.set_xticklabels(models, rotation=45, ha='right')
+        ax1.grid(axis='y', alpha=0.3)
+        
+        # Add value labels on bars
+        for i, (mean, std) in enumerate(zip(means, stds)):
+            ax1.text(i, mean + std + 0.01 * ax1.get_ylim()[1], f'{mean:.3f}', 
+                    ha='center', va='bottom', fontweight='bold')
+        
+        # Plot 2: Detailed breakdown by model and fingerprint
+        model_fp_pivot = df.pivot_table(values='score', index='model', 
+                                        columns='fingerprint', aggfunc='mean')
+        
+        # Create heatmap
+        im = ax2.imshow(model_fp_pivot.values, cmap='RdYlGn', aspect='auto')
+        
+        # Set ticks and labels
+        ax2.set_xticks(range(len(model_fp_pivot.columns)))
+        ax2.set_yticks(range(len(model_fp_pivot.index)))
+        ax2.set_xticklabels(model_fp_pivot.columns, rotation=45, ha='right')
+        ax2.set_yticklabels(model_fp_pivot.index)
+        ax2.set_xlabel('Fingerprint')
+        ax2.set_ylabel('Model')
+        ax2.set_title('Performance Heatmap\n(Average across datasets)')
+        
+        # Add colorbar
+        cbar = plt.colorbar(im, ax=ax2)
+        cbar.set_label('Average Score')
+        
+        # Add text annotations
+        for i in range(len(model_fp_pivot.index)):
+            for j in range(len(model_fp_pivot.columns)):
+                value = model_fp_pivot.iloc[i, j]
+                if not np.isnan(value):
+                    ax2.text(j, i, f'{value:.3f}', ha='center', va='center', 
+                            color='white' if value < model_fp_pivot.values.mean() else 'black',
+                            fontweight='bold', fontsize=8)
+        
+        plt.tight_layout()
+        
+        # Save plot
+        plot_path = os.path.join(self.save_dir, f'model_summary_{self.run_timestamp}.png')
+        plt.savefig(plot_path, dpi=300, bbox_inches='tight')
+        plt.show()
+        
+        return model_summary
     
     def analyze_and_visualize(self):
         """Run complete analysis and visualization suite"""
-        print("Generating comprehensive benchmark analysis...")
-        print("="*50)
         
         # Generate summary
         self.generate_report()
-        
-        print("\n" + "="*50)
-        print("GENERATING VISUALIZATIONS...")
-        print("="*50)
         
         # Create visualizations
         self.plot_detailed_comparison()
         
         # Save results
         self.save_results()
-        
-        print("\n" + "="*50)
-        print("ANALYSIS COMPLETE!")
-        print("="*50)
-        print(f"All outputs saved to: {self.save_dir}")
         
         return self.get_summary_stats()

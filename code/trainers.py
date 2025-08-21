@@ -4,6 +4,21 @@ from sklearn.metrics import mean_squared_error, roc_auc_score
 import env
 import numpy as np
 
+def rrmse(targets, predictions):
+    rmse = np.sqrt(mean_squared_error(targets, predictions))
+    mean_target = np.mean(targets)
+    
+    # Edge case where mean is zero
+    if abs(mean_target) < 1e-10:
+        # If targets are near zero, use standard deviation as denominator
+        std_target = np.std(targets)
+        if std_target < 1e-10:
+            return 0.0  # Perfect prediction case
+        rrmse = rmse / std_target
+    else:
+        rrmse = rmse / abs(mean_target)
+    
+    return rrmse
 
 class BaseTrainer(ABC):
     
@@ -122,20 +137,7 @@ class RegressionTrainer(BaseTrainer):
         predictions = np.array(predictions)
         targets = np.array(targets)
         
-        rmse = np.sqrt(mean_squared_error(targets, predictions))
-        mean_target = np.mean(targets)
-        
-        # Edge case where mean is zero
-        if abs(mean_target) < 1e-10:
-            # If targets are near zero, use standard deviation as denominator
-            std_target = np.std(targets)
-            if std_target < 1e-10:
-                return 0.0  # Perfect prediction case
-            rrmse = rmse / std_target
-        else:
-            rrmse = rmse / abs(mean_target)
-        
-        return {'RRMSE': rrmse}
+        return {'RRMSE': rrmse(targets, predictions)}
 
 class ClassificationTrainer(BaseTrainer):
     def __init__(self):

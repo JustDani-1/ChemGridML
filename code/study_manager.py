@@ -1,6 +1,7 @@
 import datasets, env, models, trainers
-from sklearn.model_selection import KFold
-import torch, optuna, os, time
+from sklearn.model_selection import KFold, cross_val_score
+from sklearn.metrics import roc_auc_score
+import torch, optuna, os
 from torch.utils.data import DataLoader, TensorDataset
 
 class StudyManager:
@@ -8,6 +9,8 @@ class StudyManager:
         self.save_dir = save_dir
         
     def kfold_cv(self, X, Y, model_class, hyperparams, trainer: trainers.BaseTrainer):   
+        X = torch.tensor(X, dtype=torch.float32)
+        Y = torch.tensor(Y, dtype=torch.float32).unsqueeze(1)
         kfold = KFold(env.N_FOLDS, shuffle=True, random_state=42)
         fold_scores = []
         
@@ -41,13 +44,13 @@ class StudyManager:
     
     def final_model_score(self, data: datasets.TDC_Dataset, model_class, hyperparams, trainer: trainers.BaseTrainer):
         train_loader = DataLoader(
-            TensorDataset(data.X_train, data.Y_train), 
+            TensorDataset(torch.tensor(data.X_train, dtype=torch.float32), torch.tensor(data.Y_train, dtype=torch.float32).unsqueeze(1)), 
             batch_size=hyperparams['batch_size'], 
             shuffle=True
         )
 
         test_loader = DataLoader(
-            TensorDataset(data.X_test, data.Y_test), 
+            TensorDataset(torch.tensor(data.X_test, dtype=torch.float32), torch.tensor(data.Y_test, dtype=torch.float32).unsqueeze(1)), 
             batch_size=hyperparams['batch_size'], 
             shuffle=False
         )
@@ -81,20 +84,41 @@ class StudyManager:
         
         # Get components
         model_class = models.ModelRegistry.get_model(model_name)
+        framework = models.ModelRegistry.get_framework(model_name)
         task_type = trainers.get_task_type(data.Y_test)
-        trainer = trainers.get_trainer(task_type)
         
         def objective(trial):
             # Get all hyperparameters from model class
             hyperparams = model_class.get_hyperparameter_space(trial)
+
+            if framework == 'pytorch':
+                trainer = trainers.get_trainer(task_type)
+                return self.kfold_cv(data.X_train, data.Y_train, model_class, hyperparams, trainer)
+            elif framework == 'sklearn':
+                sklearn = model_class(task_type, **hyperparams)
+                cv_scores = cross_val_score(
+                    sklearn.model, data.X_train, data.Y_train, 
+                    cv=env.N_FOLDS, 
+                    scoring='neg_mean_squared_error'
+                )
+                return -cv_scores.mean()
             
-            # Run k-fold CV
-            return self.kfold_cv(data.X_train, data.Y_train, model_class, hyperparams, trainer)
+            
         
         study.optimize(objective, n_trials=env.N_TRIALS)
 
         best_params = study.best_params
 
-        score = self.final_model_score(data, model_class, best_params, trainer)
+        if framework == 'pytorch':
+            trainer = trainers.get_trainer(task_type)
+            score = self.final_model_score(data, model_class, best_params, trainer)
+        elif framework == 'sklearn':
+            sklearn = model_class(task_type, **best_params)
+            sklearn.model.fit(data.X_train, data.Y_train)
+            predictions = sklearn.model.predict(data.X_test)
+            if task_type == 'regression':
+                score = {'RRMSE': trainers.rrmse(predictions, data.Y_test)}
+            elif task_type == 'classification':
+                score = {'AUROC': roc_auc_score(data.Y_test, predictions)}
         
         return study, score
