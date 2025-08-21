@@ -24,10 +24,11 @@ cp -r /home/ucnwdma/Scratch/UCL_internship/models/ $TMPDIR/
 
 cd $TMPDIR
 mkdir output
+cd ./code
 
 conda activate internship
 
-python ./code/main.py
+python ./main.py
 
 # Preferably, tar-up (archive) all output files onto the shared scratch area
 tar -zcvf 

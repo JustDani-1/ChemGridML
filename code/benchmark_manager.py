@@ -8,7 +8,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 class BenchmarkManager:
-    def __init__(self, save_dir="results"):
+    def __init__(self, save_dir="../output/results"):
         self.results = {}
         self.save_dir = save_dir
         os.makedirs(save_dir, exist_ok=True)

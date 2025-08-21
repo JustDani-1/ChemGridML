@@ -7,7 +7,7 @@ pio.renderers.default = "browser"
 
 study = optuna.load_study(
     study_name="ECFP_FNN_BBB_Martins",
-    storage="sqlite:///studies/fp_study_02.db"
+    storage="sqlite://../output/studies/fp_study_02.db"
 )
 
 print(f"Best params: {study.best_params}")
