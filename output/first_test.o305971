@@ -1,0 +1,208 @@
+Starting benchmark with 48 total combinations...
+
+[1/48] Running: ECFP + FNN + Caco2_Wang
+Success: RRMSE = 0.1704
+
+[2/48] Running: ECFP + FNN + BBB_Martins
+Success: AUROC = 0.8653
+
+[3/48] Running: ECFP + RF + Caco2_Wang
+Success: RRMSE = 0.1012
+
+[4/48] Running: ECFP + RF + BBB_Martins
+Success: AUROC = 0.6940
+
+[5/48] Running: ECFP + XGBoost + Caco2_Wang
+Success: RRMSE = 0.0969
+
+[6/48] Running: ECFP + XGBoost + BBB_Martins
+Success: AUROC = 0.7488
+
+[7/48] Running: ECFP + SVM + Caco2_Wang
+Success: RRMSE = 0.1123
+
+[8/48] Running: ECFP + SVM + BBB_Martins
+Success: AUROC = 0.7569
+
+[9/48] Running: ECFP + ElasticNet + Caco2_Wang
+Success: RRMSE = 0.1169
+
+[10/48] Running: ECFP + ElasticNet + BBB_Martins
+Success: AUROC = 0.7385
+
+[11/48] Running: ECFP + KNN + Caco2_Wang
+Success: RRMSE = 0.1076
+
+[12/48] Running: ECFP + KNN + BBB_Martins
+Success: AUROC = 0.6908
+
+[13/48] Running: AtomPair + FNN + Caco2_Wang
+Success: RRMSE = 0.1467
+
+[14/48] Running: AtomPair + FNN + BBB_Martins
+Success: AUROC = 0.8655
+
+[15/48] Running: AtomPair + RF + Caco2_Wang
+Success: RRMSE = 0.1086
+
+[16/48] Running: AtomPair + RF + BBB_Martins
+Success: AUROC = 0.6889
+
+[17/48] Running: AtomPair + XGBoost + Caco2_Wang
+Success: RRMSE = 0.1035
+
+[18/48] Running: AtomPair + XGBoost + BBB_Martins
+Success: AUROC = 0.7261
+
+[19/48] Running: AtomPair + SVM + Caco2_Wang
+Success: RRMSE = 0.1022
+
+[20/48] Running: AtomPair + SVM + BBB_Martins
+Success: AUROC = 0.6148
+
+[21/48] Running: AtomPair + ElasticNet + Caco2_Wang
+Success: RRMSE = 0.1175
+
+[22/48] Running: AtomPair + ElasticNet + BBB_Martins
+Success: AUROC = 0.6998
+
+[23/48] Running: AtomPair + KNN + Caco2_Wang
+Success: RRMSE = 0.1298
+
+[24/48] Running: AtomPair + KNN + BBB_Martins
+Success: AUROC = 0.7647
+
+[25/48] Running: TOPOTOR + FNN + Caco2_Wang
+Success: RRMSE = 0.1581
+
+[26/48] Running: TOPOTOR + FNN + BBB_Martins
+Success: AUROC = 0.8023
+
+[27/48] Running: TOPOTOR + RF + Caco2_Wang
+Success: RRMSE = 0.1136
+
+[28/48] Running: TOPOTOR + RF + BBB_Martins
+Success: AUROC = 0.6584
+
+[29/48] Running: TOPOTOR + XGBoost + Caco2_Wang
+Success: RRMSE = 0.1126
+
+[30/48] Running: TOPOTOR + XGBoost + BBB_Martins
+Success: AUROC = 0.7036
+
+[31/48] Running: TOPOTOR + SVM + Caco2_Wang
+Success: RRMSE = 0.1111
+
+[32/48] Running: TOPOTOR + SVM + BBB_Martins
+Success: AUROC = 0.4967
+
+[33/48] Running: TOPOTOR + ElasticNet + Caco2_Wang
+Success: RRMSE = 0.1305
+
+[34/48] Running: TOPOTOR + ElasticNet + BBB_Martins
+Success: AUROC = 0.6919
+
+[35/48] Running: TOPOTOR + KNN + Caco2_Wang
+Success: RRMSE = 0.1206
+
+[36/48] Running: TOPOTOR + KNN + BBB_Martins
+Success: AUROC = 0.6970
+
+[37/48] Running: MOL2VEC + FNN + Caco2_Wang
+Success: RRMSE = 0.1585
+
+[38/48] Running: MOL2VEC + FNN + BBB_Martins
+Success: AUROC = 0.9012
+
+[39/48] Running: MOL2VEC + RF + Caco2_Wang
+Success: RRMSE = 0.0889
+
+[40/48] Running: MOL2VEC + RF + BBB_Martins
+Success: AUROC = 0.7343
+
+[41/48] Running: MOL2VEC + XGBoost + Caco2_Wang
+Success: RRMSE = 0.0838
+
+[42/48] Running: MOL2VEC + XGBoost + BBB_Martins
+Success: AUROC = 0.7585
+
+[43/48] Running: MOL2VEC + SVM + Caco2_Wang
+Success: RRMSE = 0.0844
+
+[44/48] Running: MOL2VEC + SVM + BBB_Martins
+Success: AUROC = 0.7502
+
+[45/48] Running: MOL2VEC + ElasticNet + Caco2_Wang
+Success: RRMSE = 0.0799
+
+[46/48] Running: MOL2VEC + ElasticNet + BBB_Martins
+Success: AUROC = 0.7246
+
+[47/48] Running: MOL2VEC + KNN + Caco2_Wang
+Success: RRMSE = 0.1081
+
+[48/48] Running: MOL2VEC + KNN + BBB_Martins
+Success: AUROC = 0.7617
+
+============================================================
+BENCHMARKING COMPLETE - GENERATING ANALYSIS
+============================================================
+============================================================
+MOLECULAR FINGERPRINT BENCHMARKING REPORT
+============================================================
+Generated: 2025-08-21 21:15:07
+Run ID: 20250821_210139
+
+SUMMARY STATISTICS:
+------------------------------
+Total Experiments: 48
+Failed Experiments: 0
+Success Rate: 100.0%
+Unique Fingerprints: 4
+Unique Models: 6
+Unique Datasets: 2
+Metrics Used: ['RRMSE', 'AUROC']
+
+TOP 5 COMBINATIONS FOR RRMSE:
+------------------------------
+1. MOL2VEC + ElasticNet + Caco2_Wang: 0.0799
+2. MOL2VEC + XGBoost + Caco2_Wang: 0.0838
+3. MOL2VEC + SVM + Caco2_Wang: 0.0844
+4. MOL2VEC + RF + Caco2_Wang: 0.0889
+5. ECFP + XGBoost + Caco2_Wang: 0.0969
+
+TOP 5 COMBINATIONS FOR AUROC:
+------------------------------
+1. MOL2VEC + FNN + BBB_Martins: 0.9012
+2. AtomPair + FNN + BBB_Martins: 0.8655
+3. ECFP + FNN + BBB_Martins: 0.8653
+4. TOPOTOR + FNN + BBB_Martins: 0.8023
+5. AtomPair + KNN + BBB_Martins: 0.7647
+
+COMPONENT ANALYSIS:
+------------------------------
+Fingerprint Performance (average ± std):
+  AtomPair: 0.4223 ± 0.3231 (n=12)
+  ECFP: 0.4333 ± 0.3330 (n=12)
+  MOL2VEC: 0.4362 ± 0.3538 (n=12)
+  TOPOTOR: 0.3997 ± 0.2955 (n=12)
+
+Model Performance (average ± std):
+  ElasticNet: 0.4124 ± 0.3227 (n=8)
+  FNN: 0.5085 ± 0.3752 (n=8)
+  KNN: 0.4225 ± 0.3283 (n=8)
+  RF: 0.3985 ± 0.3165 (n=8)
+  SVM: 0.3786 ± 0.3062 (n=8)
+  XGBoost: 0.4167 ± 0.3399 (n=8)
+
+Dataset Difficulty (average ± std):
+  BBB_Martins: 0.7306 ± 0.0827 (n=24)
+  Caco2_Wang: 0.1152 ± 0.0239 (n=24)
+
+Full report saved to: ../output/results/benchmark_report_20250821_210139.txt
+cpu
+/tmpdir/job/305971.undefined/output/
+/tmpdir/job/305971.undefined/output/results/
+/tmpdir/job/305971.undefined/output/results/benchmark_results_20250821_210139.json
+/tmpdir/job/305971.undefined/output/results/detailed_comparison_20250821_210139.png
+/tmpdir/job/305971.undefined/output/results/benchmark_report_20250821_210139.txt
