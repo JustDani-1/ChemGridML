@@ -45,5 +45,6 @@ def main():
 
 if __name__ == "__main__":
     results, stats = main()
+    print(env.DEVICE)
 
         
