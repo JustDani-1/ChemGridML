@@ -3,7 +3,7 @@
 # Batch script to run a serial job under SGE.
 
 # Request a number of GPU cards, in this case 2 (the maximum)
-#$ -l gpu=1
+# #$ -l gpu=1
 
 # Request ten minutes of wallclock time (format hours:minutes:seconds).
 #$ -l h_rt=0:20:0
@@ -33,7 +33,11 @@ conda activate internship
 
 python ./main.py
 
+mkdir $HOME/Scratch/UCL_internship/output/$JOB_ID
+
+mv $TMPDIR/output $HOME/Scratch/UCL_internship/output/$JOB_ID/
+
 # Preferably, tar-up (archive) all output files onto the shared scratch area
-tar -zcvf $HOME/Scratch/UCL_internship/output/files_from_job_$JOB_ID.tar.gz $TMPDIR/output/
+# tar -zcvf $HOME/Scratch/UCL_internship/output/files_from_job_$JOB_ID.tar.gz $TMPDIR/output/
 
 # Make sure you have given enough time for the copy to complete!

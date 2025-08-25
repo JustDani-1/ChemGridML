@@ -7,7 +7,41 @@
 - function to generate benchmark just from the study
 
 IDEAS:
-- test performance on data from a different source to really compare the generalization (Kamuntavičius et al.)
+(Kamuntavičius et al.)
+----------------------
+- test performance on data from a different source to really compare the generalization 
+(Deng et al.)
+-------------
+- test predicting performance on simple computable descriptors like MolWT or N_Atoms
+- inter-scaffold and intra-scaffold generalization:
+    - inter: compound bias, move molecules from the same scaffold into the same fold
+    - intra: activity cliff, very similar mols from the same scaffold have significant property value difference
+- ask Claude or research; activity cliffs:
+    - can we somehow include the target/task into the model?
+    - could help with activity cliffs because the model can see what molecule/target the task is for
+- cross-validation on best hyperparams, which leads basically to e.g 10 AUROC value
+    - perform t-test to determine p value for hypothesis that models have the same mean performance
+    - if p < 0.05, the hypo is rejected and we can say with statistical certainty than one model is better
+- ensembling techniques have not been evaluated in this study
+- aspect of explainability of models not covered
+- they use 80:10:10 split, and 30 (0..29) seeds for statistical stability
+
+- CV: 80:10:10 
+    - use 80% to train, 10% val to assess for hyperparam optim
+    - after hyperparam optim, the final performance is measured on 10% test
+    - repeat 30 times with different seed for 30 optimal hyperparams and 30 metric scores
+
+Mine:
+-----
+- let the study just output the raw best hyperparams or predictions
+- then, you can run seperate eval jobs to compute different metrics
+- STRATEGY:
+    - just go through with your TDC model expirement
+    - try to incorporate learnable and pre-trained approaches for the first big test
+    - also use 80:10:10 with different seeds
+    - somehow save the raw results, then compute metrics and plots locally
+    - after that go back into refining the problem or just assess the quality of your results
+
 
 
 

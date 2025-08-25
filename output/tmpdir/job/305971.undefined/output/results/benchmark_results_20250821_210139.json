@@ -1,0 +1,602 @@
+{
+  "ECFP": {
+    "FNN": {
+      "Caco2_Wang": {
+        "score": 0.1704254909289811,
+        "metric": "RRMSE",
+        "params": {
+          "hidden_sizes": [
+            32,
+            16
+          ],
+          "dropout_rate": 0.1,
+          "activation": "relu",
+          "epochs": 10,
+          "lr": 0.007254777464786702,
+          "batch_size": 64
+        },
+        "timestamp": "2025-08-21T21:01:47.354922"
+      },
+      "BBB_Martins": {
+        "score": 0.8652792463712391,
+        "metric": "AUROC",
+        "params": {
+          "hidden_sizes": [
+            32,
+            16
+          ],
+          "dropout_rate": 0.1,
+          "activation": "tanh",
+          "epochs": 10,
+          "lr": 0.0054105774997639374,
+          "batch_size": 64
+        },
+        "timestamp": "2025-08-21T21:01:57.992171"
+      }
+    },
+    "RF": {
+      "Caco2_Wang": {
+        "score": 0.10118669126745444,
+        "metric": "RRMSE",
+        "params": {
+          "n_estimators": 200,
+          "max_depth": null,
+          "min_samples_split": 10,
+          "min_samples_leaf": 1
+        },
+        "timestamp": "2025-08-21T21:02:13.621440"
+      },
+      "BBB_Martins": {
+        "score": 0.6939825050466212,
+        "metric": "AUROC",
+        "params": {
+          "n_estimators": 100,
+          "max_depth": 20,
+          "min_samples_split": 5,
+          "min_samples_leaf": 1
+        },
+        "timestamp": "2025-08-21T21:02:20.535234"
+      }
+    },
+    "XGBoost": {
+      "Caco2_Wang": {
+        "score": 0.09686355847539199,
+        "metric": "RRMSE",
+        "params": {
+          "n_estimators": 300,
+          "max_depth": 5,
+          "learning_rate": 0.13819627195882273,
+          "subsample": 0.7438457296448212,
+          "colsample_bytree": 0.8481830554544392
+        },
+        "timestamp": "2025-08-21T21:02:24.663015"
+      },
+      "BBB_Martins": {
+        "score": 0.7488384760806178,
+        "metric": "AUROC",
+        "params": {
+          "n_estimators": 200,
+          "max_depth": 7,
+          "learning_rate": 0.14808655371373144,
+          "subsample": 0.9952867779926851,
+          "colsample_bytree": 0.9845651307036991
+        },
+        "timestamp": "2025-08-21T21:02:28.973567"
+      }
+    },
+    "SVM": {
+      "Caco2_Wang": {
+        "score": 0.11230318347923862,
+        "metric": "RRMSE",
+        "params": {
+          "C": 12.901208253854023,
+          "gamma": "scale",
+          "kernel": "poly"
+        },
+        "timestamp": "2025-08-21T21:02:32.429826"
+      },
+      "BBB_Martins": {
+        "score": 0.7568970489281938,
+        "metric": "AUROC",
+        "params": {
+          "C": 31.549233850498567,
+          "gamma": "scale",
+          "kernel": "rbf"
+        },
+        "timestamp": "2025-08-21T21:02:48.933296"
+      }
+    },
+    "ElasticNet": {
+      "Caco2_Wang": {
+        "score": 0.11688168362471359,
+        "metric": "RRMSE",
+        "params": {
+          "alpha": 0.022500919005582255,
+          "l1_ratio": 0.7621576820158552
+        },
+        "timestamp": "2025-08-21T21:02:49.680379"
+      },
+      "BBB_Martins": {
+        "score": 0.7384568553942773,
+        "metric": "AUROC",
+        "params": {
+          "alpha": 0.27809162082545713,
+          "l1_ratio": 0.5011459477063417
+        },
+        "timestamp": "2025-08-21T21:03:44.040773"
+      }
+    },
+    "KNN": {
+      "Caco2_Wang": {
+        "score": 0.10756584138050151,
+        "metric": "RRMSE",
+        "params": {
+          "n_neighbors": 3,
+          "weights": "distance",
+          "metric": "manhattan"
+        },
+        "timestamp": "2025-08-21T21:03:44.946519"
+      },
+      "BBB_Martins": {
+        "score": 0.6907783011310841,
+        "metric": "AUROC",
+        "params": {
+          "n_neighbors": 7,
+          "weights": "uniform",
+          "metric": "manhattan"
+        },
+        "timestamp": "2025-08-21T21:03:48.098371"
+      }
+    }
+  },
+  "AtomPair": {
+    "FNN": {
+      "Caco2_Wang": {
+        "score": 0.14666409176865683,
+        "metric": "RRMSE",
+        "params": {
+          "hidden_sizes": [
+            32,
+            16
+          ],
+          "dropout_rate": 0.0,
+          "activation": "tanh",
+          "epochs": 15,
+          "lr": 0.006247395414731599,
+          "batch_size": 16
+        },
+        "timestamp": "2025-08-21T21:03:54.548182"
+      },
+      "BBB_Martins": {
+        "score": 0.8654554775865936,
+        "metric": "AUROC",
+        "params": {
+          "hidden_sizes": [
+            32,
+            16,
+            8
+          ],
+          "dropout_rate": 0.0,
+          "activation": "relu",
+          "epochs": 15,
+          "lr": 0.0006003319898280381,
+          "batch_size": 64
+        },
+        "timestamp": "2025-08-21T21:04:02.950787"
+      }
+    },
+    "RF": {
+      "Caco2_Wang": {
+        "score": 0.10864988158535278,
+        "metric": "RRMSE",
+        "params": {
+          "n_estimators": 300,
+          "max_depth": 15,
+          "min_samples_split": 10,
+          "min_samples_leaf": 1
+        },
+        "timestamp": "2025-08-21T21:04:27.021301"
+      },
+      "BBB_Martins": {
+        "score": 0.6889358838796501,
+        "metric": "AUROC",
+        "params": {
+          "n_estimators": 200,
+          "max_depth": 10,
+          "min_samples_split": 2,
+          "min_samples_leaf": 2
+        },
+        "timestamp": "2025-08-21T21:04:31.984631"
+      }
+    },
+    "XGBoost": {
+      "Caco2_Wang": {
+        "score": 0.10347475062982181,
+        "metric": "RRMSE",
+        "params": {
+          "n_estimators": 100,
+          "max_depth": 7,
+          "learning_rate": 0.07471427967321484,
+          "subsample": 0.9457127832775831,
+          "colsample_bytree": 0.6227927691969721
+        },
+        "timestamp": "2025-08-21T21:04:34.630765"
+      },
+      "BBB_Martins": {
+        "score": 0.7261206703194591,
+        "metric": "AUROC",
+        "params": {
+          "n_estimators": 50,
+          "max_depth": 6,
+          "learning_rate": 0.06478153243665309,
+          "subsample": 0.6596387998138996,
+          "colsample_bytree": 0.9117862031697466
+        },
+        "timestamp": "2025-08-21T21:04:37.745082"
+      }
+    },
+    "SVM": {
+      "Caco2_Wang": {
+        "score": 0.10222422416111035,
+        "metric": "RRMSE",
+        "params": {
+          "C": 4.284542330579748,
+          "gamma": 1,
+          "kernel": "poly"
+        },
+        "timestamp": "2025-08-21T21:04:39.234667"
+      },
+      "BBB_Martins": {
+        "score": 0.6147585632349643,
+        "metric": "AUROC",
+        "params": {
+          "C": 0.4799073627392861,
+          "gamma": 0.001,
+          "kernel": "sigmoid"
+        },
+        "timestamp": "2025-08-21T21:04:52.388047"
+      }
+    },
+    "ElasticNet": {
+      "Caco2_Wang": {
+        "score": 0.11746721993552482,
+        "metric": "RRMSE",
+        "params": {
+          "alpha": 0.014450862914186327,
+          "l1_ratio": 0.8751829449942534
+        },
+        "timestamp": "2025-08-21T21:04:53.261150"
+      },
+      "BBB_Martins": {
+        "score": 0.6998141561728989,
+        "metric": "AUROC",
+        "params": {
+          "alpha": 0.3322457463037593,
+          "l1_ratio": 0.1665457626153426
+        },
+        "timestamp": "2025-08-21T21:05:27.430877"
+      }
+    },
+    "KNN": {
+      "Caco2_Wang": {
+        "score": 0.12978295612133697,
+        "metric": "RRMSE",
+        "params": {
+          "n_neighbors": 11,
+          "weights": "distance",
+          "metric": "chebyshev"
+        },
+        "timestamp": "2025-08-21T21:05:28.575944"
+      },
+      "BBB_Martins": {
+        "score": 0.7646672434233714,
+        "metric": "AUROC",
+        "params": {
+          "n_neighbors": 3,
+          "weights": "distance",
+          "metric": "minkowski"
+        },
+        "timestamp": "2025-08-21T21:05:31.135647"
+      }
+    }
+  },
+  "TOPOTOR": {
+    "FNN": {
+      "Caco2_Wang": {
+        "score": 0.15810263681510026,
+        "metric": "RRMSE",
+        "params": {
+          "hidden_sizes": [
+            32,
+            16
+          ],
+          "dropout_rate": 0.0,
+          "activation": "relu",
+          "epochs": 10,
+          "lr": 0.007722376904297521,
+          "batch_size": 32
+        },
+        "timestamp": "2025-08-21T21:05:37.293394"
+      },
+      "BBB_Martins": {
+        "score": 0.8022685763722003,
+        "metric": "AUROC",
+        "params": {
+          "hidden_sizes": [
+            32
+          ],
+          "dropout_rate": 0.5,
+          "activation": "relu",
+          "epochs": 15,
+          "lr": 0.0002743675749060457,
+          "batch_size": 64
+        },
+        "timestamp": "2025-08-21T21:05:46.596532"
+      }
+    },
+    "RF": {
+      "Caco2_Wang": {
+        "score": 0.11363895050818303,
+        "metric": "RRMSE",
+        "params": {
+          "n_estimators": 100,
+          "max_depth": 15,
+          "min_samples_split": 2,
+          "min_samples_leaf": 2
+        },
+        "timestamp": "2025-08-21T21:05:57.250091"
+      },
+      "BBB_Martins": {
+        "score": 0.6583517575058477,
+        "metric": "AUROC",
+        "params": {
+          "n_estimators": 100,
+          "max_depth": 15,
+          "min_samples_split": 2,
+          "min_samples_leaf": 2
+        },
+        "timestamp": "2025-08-21T21:06:03.534223"
+      }
+    },
+    "XGBoost": {
+      "Caco2_Wang": {
+        "score": 0.11257637970925238,
+        "metric": "RRMSE",
+        "params": {
+          "n_estimators": 100,
+          "max_depth": 4,
+          "learning_rate": 0.14969455567062656,
+          "subsample": 0.732233867978711,
+          "colsample_bytree": 0.8945510881533882
+        },
+        "timestamp": "2025-08-21T21:06:05.354864"
+      },
+      "BBB_Martins": {
+        "score": 0.7035951167932327,
+        "metric": "AUROC",
+        "params": {
+          "n_estimators": 300,
+          "max_depth": 8,
+          "learning_rate": 0.019431053842252164,
+          "subsample": 0.6996213341637709,
+          "colsample_bytree": 0.8184383126586516
+        },
+        "timestamp": "2025-08-21T21:06:10.591074"
+      }
+    },
+    "SVM": {
+      "Caco2_Wang": {
+        "score": 0.11106418838378401,
+        "metric": "RRMSE",
+        "params": {
+          "C": 1.767620780491839,
+          "gamma": "scale",
+          "kernel": "rbf"
+        },
+        "timestamp": "2025-08-21T21:06:12.115824"
+      },
+      "BBB_Martins": {
+        "score": 0.4966996699669967,
+        "metric": "AUROC",
+        "params": {
+          "C": 3.675943403107135,
+          "gamma": 1,
+          "kernel": "rbf"
+        },
+        "timestamp": "2025-08-21T21:06:30.855379"
+      }
+    },
+    "ElasticNet": {
+      "Caco2_Wang": {
+        "score": 0.13054922700898197,
+        "metric": "RRMSE",
+        "params": {
+          "alpha": 0.00676287485991722,
+          "l1_ratio": 0.17449717183750302
+        },
+        "timestamp": "2025-08-21T21:06:31.774200"
+      },
+      "BBB_Martins": {
+        "score": 0.6919478355602551,
+        "metric": "AUROC",
+        "params": {
+          "alpha": 0.06157510237586625,
+          "l1_ratio": 0.29466007888020074
+        },
+        "timestamp": "2025-08-21T21:07:31.121653"
+      }
+    },
+    "KNN": {
+      "Caco2_Wang": {
+        "score": 0.12059463210575767,
+        "metric": "RRMSE",
+        "params": {
+          "n_neighbors": 5,
+          "weights": "distance",
+          "metric": "minkowski"
+        },
+        "timestamp": "2025-08-21T21:07:32.051979"
+      },
+      "BBB_Martins": {
+        "score": 0.6969944567272262,
+        "metric": "AUROC",
+        "params": {
+          "n_neighbors": 7,
+          "weights": "uniform",
+          "metric": "manhattan"
+        },
+        "timestamp": "2025-08-21T21:07:34.839050"
+      }
+    }
+  },
+  "MOL2VEC": {
+    "FNN": {
+      "Caco2_Wang": {
+        "score": 0.1585217198044419,
+        "metric": "RRMSE",
+        "params": {
+          "hidden_sizes": [
+            32,
+            16,
+            8
+          ],
+          "dropout_rate": 0.4,
+          "activation": "tanh",
+          "epochs": 15,
+          "lr": 0.004064490422139922,
+          "batch_size": 32
+        },
+        "timestamp": "2025-08-21T21:07:42.317265"
+      },
+      "BBB_Martins": {
+        "score": 0.9011663302252555,
+        "metric": "AUROC",
+        "params": {
+          "hidden_sizes": [
+            32
+          ],
+          "dropout_rate": 0.25,
+          "activation": "relu",
+          "epochs": 15,
+          "lr": 0.00043577800163194556,
+          "batch_size": 16
+        },
+        "timestamp": "2025-08-21T21:07:58.746839"
+      }
+    },
+    "RF": {
+      "Caco2_Wang": {
+        "score": 0.0889266466802075,
+        "metric": "RRMSE",
+        "params": {
+          "n_estimators": 50,
+          "max_depth": 10,
+          "min_samples_split": 2,
+          "min_samples_leaf": 1
+        },
+        "timestamp": "2025-08-21T21:10:31.463987"
+      },
+      "BBB_Martins": {
+        "score": 0.7342753692845012,
+        "metric": "AUROC",
+        "params": {
+          "n_estimators": 100,
+          "max_depth": null,
+          "min_samples_split": 2,
+          "min_samples_leaf": 1
+        },
+        "timestamp": "2025-08-21T21:11:04.009571"
+      }
+    },
+    "XGBoost": {
+      "Caco2_Wang": {
+        "score": 0.08382970886454551,
+        "metric": "RRMSE",
+        "params": {
+          "n_estimators": 300,
+          "max_depth": 6,
+          "learning_rate": 0.01968287565870493,
+          "subsample": 0.8897585003228332,
+          "colsample_bytree": 0.9442196559870518
+        },
+        "timestamp": "2025-08-21T21:13:10.047982"
+      },
+      "BBB_Martins": {
+        "score": 0.7585472139446954,
+        "metric": "AUROC",
+        "params": {
+          "n_estimators": 100,
+          "max_depth": 4,
+          "learning_rate": 0.22763510821825975,
+          "subsample": 0.9493292488617132,
+          "colsample_bytree": 0.7586301815278935
+        },
+        "timestamp": "2025-08-21T21:13:36.932830"
+      }
+    },
+    "SVM": {
+      "Caco2_Wang": {
+        "score": 0.08441818328484763,
+        "metric": "RRMSE",
+        "params": {
+          "C": 18.9140941542936,
+          "gamma": 0.01,
+          "kernel": "rbf"
+        },
+        "timestamp": "2025-08-21T21:13:39.090487"
+      },
+      "BBB_Martins": {
+        "score": 0.7502002627447211,
+        "metric": "AUROC",
+        "params": {
+          "C": 8.279925697928723,
+          "gamma": 1,
+          "kernel": "poly"
+        },
+        "timestamp": "2025-08-21T21:13:48.036069"
+      }
+    },
+    "ElasticNet": {
+      "Caco2_Wang": {
+        "score": 0.07988473650176475,
+        "metric": "RRMSE",
+        "params": {
+          "alpha": 0.0052318584364866505,
+          "l1_ratio": 0.7824839549169594
+        },
+        "timestamp": "2025-08-21T21:13:49.496754"
+      },
+      "BBB_Martins": {
+        "score": 0.7245666314204237,
+        "metric": "AUROC",
+        "params": {
+          "alpha": 4.286613527667315,
+          "l1_ratio": 0.6902987418254726
+        },
+        "timestamp": "2025-08-21T21:15:02.210124"
+      }
+    },
+    "KNN": {
+      "Caco2_Wang": {
+        "score": 0.10810482688300742,
+        "metric": "RRMSE",
+        "params": {
+          "n_neighbors": 11,
+          "weights": "distance",
+          "metric": "chebyshev"
+        },
+        "timestamp": "2025-08-21T21:15:03.905299"
+      },
+      "BBB_Martins": {
+        "score": 0.7616552917427665,
+        "metric": "AUROC",
+        "params": {
+          "n_neighbors": 5,
+          "weights": "distance",
+          "metric": "manhattan"
+        },
+        "timestamp": "2025-08-21T21:15:07.698645"
+      }
+    }
+  }
+}
