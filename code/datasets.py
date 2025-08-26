@@ -1,9 +1,6 @@
 from tdc.single_pred import ADME
 from rdkit import Chem
-import torch
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
-import fingerprints, env
+import fingerprints
 import numpy as np
 
 class TDC_Dataset():
@@ -17,11 +14,7 @@ class TDC_Dataset():
         mols = [Chem.MolFromSmiles(x) for x in smiles]
 
         #Labels
-        labels = np.array(labels)
+        self.Y = np.array(labels)
 
         # Features
-        fps = fingerprints.getFP(mols, fingerprint)
-        X_train, X_test, self.Y_train, self.Y_test = train_test_split(fps, labels, test_size=env.TEST_SIZE, random_state=42)
-        scaler = StandardScaler()
-        scaler.fit(X_train)
-        self.X_train, self.X_test = scaler.transform(X_train), scaler.transform(X_test)
+        self.X = fingerprints.getFP(mols, fingerprint)

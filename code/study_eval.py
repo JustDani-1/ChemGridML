@@ -6,8 +6,8 @@ import plotly.io as pio
 pio.renderers.default = "browser"
 
 study = optuna.load_study(
-    study_name="ECFP_FNN_BBB_Martins",
-    storage="sqlite://../output/studies/fp_study_02.db"
+    study_name="ECFP_XGBoost_BBB_Martins",
+    storage="sqlite:///./studies/1756114560/ECFP_XGBoost_BBB_Martins.db"
 )
 
 print(f"Best params: {study.best_params}")

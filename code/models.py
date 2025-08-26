@@ -51,9 +51,15 @@ class FNN(BaseModel, torch.nn.Module):
     def __init__(self, **kwargs):
         super().__init__()
         self.input_size = kwargs.get('input_size', env.DEFAULT_FP_SIZE)
+        self.task_type = kwargs.get('task_type', env.DEFAULT_FP_SIZE)
         self.hidden_sizes = kwargs.get('hidden_sizes', [128, 64])
         self.dropout_rate = kwargs.get('dropout_rate', 0.3)
         self.activation = kwargs.get('activation', 'relu')
+
+        if self.task_type == 'regression':
+            self.loss_fn = torch.nn.MSELoss()
+        else:
+            self.loss_fn = torch.nn.BCEWithLogitsLoss()
         
         layers = []
         prev_size = self.input_size

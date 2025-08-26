@@ -27,11 +27,10 @@ cp -r /home/ucnwdma/Scratch/UCL_internship/models/ $TMPDIR/
 
 cd $TMPDIR
 mkdir output
-cd ./code
 
 conda activate internship
 
-python ./main.py
+python ./code/main.py
 
 mkdir $HOME/Scratch/UCL_internship/output/$JOB_ID
 

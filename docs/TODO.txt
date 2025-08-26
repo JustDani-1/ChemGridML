@@ -41,6 +41,21 @@ Mine:
     - also use 80:10:10 with different seeds
     - somehow save the raw results, then compute metrics and plots locally
     - after that go back into refining the problem or just assess the quality of your results
+- TRAINING STRATEGY:
+    - two phases: hyperparam optim, then final evaluation phase
+    - perform optuna study with CV on 85:15 train-val split
+    -> optain "optimal" hyperparams
+    - use k=10 different seeds to generate 85:15 train-test splits (random or scaffold)
+    -> optain k final performance predictions from with metrics can be calculated
+
+
+
+TODAYS GOAL:
+- write a myriad job that runs a job 
+- use Scaler always in the right manner (just on train)
+- sklearn also uses custom KFold, returns raw prediction for when each data point was in validation set
+- then apply problem-specific loss to it
+
 
 
 
