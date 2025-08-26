@@ -1,16 +1,23 @@
 import env
 import time
 import os
+import signal
+import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from threading import Lock
+from threading import Lock, Event
 from study_manager import StudyManager
 
-# Thread-safe printing
+# Thread-safe printing and shutdown event
 print_lock = Lock()
+shutdown_event = Event()
 
 def safe_print(message):
     with print_lock:
         print(message)
+
+def signal_handler(signum, frame):
+    """Handle Ctrl+C gracefully"""
+    shutdown_event.set()
 
 def run_single_study(args):
     """
@@ -24,6 +31,10 @@ def run_single_study(args):
     """
     fingerprint, model_name, dataset_name = args
     
+    # Check if shutdown was requested before starting
+    if shutdown_event.is_set():
+        return False
+    
     try:
         # Use shared database for all studies
         manager = StudyManager(f"./studies/{env.TIMESTAMP}/studies.db", f"./studies/{env.TIMESTAMP}/predictions.db")
@@ -32,11 +43,14 @@ def run_single_study(args):
         
         return True
         
+    except KeyboardInterrupt:
+        return False
     except Exception as e:
         safe_print(f"Failed on {fingerprint}_{model_name}_{dataset_name}: {e}")
         return False
     
 def get_num_threads():
+    return 1
     """
     Get the number of threads to use based on cluster allocation
     """
@@ -51,6 +65,9 @@ def get_num_threads():
     return os.cpu_count() or 1
 
 def main():
+    # Set up signal handler for graceful shutdown
+    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGTERM, signal_handler)
     
     # Generate all combinations
     combinations = []
@@ -63,20 +80,33 @@ def main():
     total_combinations = len(env.FINGERPRINTS) * len(env.MODELS) * len(env.DATASETS)
     
     # Use ThreadPoolExecutor to parallelize the work
-    with ThreadPoolExecutor(max_workers=num_threads) as executor:
-
-        future_to_combination = {
-            executor.submit(run_single_study, combo): combo 
-            for combo in combinations
-        }
-        
-        # Process completed jobs as they finish
-        successful_combinations = 0
-        for future in as_completed(future_to_combination):
-            success = future.result()
+    try:
+        with ThreadPoolExecutor(max_workers=num_threads) as executor:
+            # Submit all jobs
+            future_to_combination = {
+                executor.submit(run_single_study, combo): combo 
+                for combo in combinations
+            }
             
-            if success:
-                successful_combinations += 1
+            # Process completed jobs as they finish
+            successful_combinations = 0
+            
+            for future in as_completed(future_to_combination):
+                if shutdown_event.is_set():
+                    # Cancel remaining futures
+                    for f in future_to_combination:
+                        if not f.done():
+                            f.cancel()
+                    break
+                
+                success = future.result()
+                    
+                if success:
+                    successful_combinations += 1
+                    safe_print(f"Successful: {successful_combinations}/{total_combinations}")
+    
+    except KeyboardInterrupt:
+        sys.exit(1)
     
     # Final database stats and summary
     print(f"\n" + "="*80)
@@ -84,41 +114,8 @@ def main():
     print(f"="*80)
     print(f"Total combinations: {total_combinations}")
     print(f"Successfully completed: {successful_combinations}")
-    print(f"Failed: {total_combinations-successful_combinations}")
+    print(f"Failed/Cancelled: {total_combinations-successful_combinations}")
     print(f"Threads used: {num_threads}")
-
-def generate_summary_report(results):
-    """Generate a summary report of all completed studies"""
-    print(f"\n" + "="*80)
-    print(f"RESULTS SUMMARY")
-    print(f"="*80)
-    
-    # Try to create a simple summary table
-    try:
-        manager = StudyManager(f"./studies/predictions.db")
-        summary_df = manager.db.get_test_scores_summary()
-        
-        if not summary_df.empty:
-            print(f"\nTest Score Summary (across all seeds):")
-            print(f"{'Combination':<40} {'Metric':<12} {'Mean±Std':<15} {'Min':<8} {'Max':<8}")
-            print("-" * 85)
-            
-            for _, row in summary_df.iterrows():
-                combo = f"{row['fingerprint']}_{row['model_name']}_{row['dataset_name']}"
-                metric = row['metric_name']
-                mean_std = f"{row['mean_score']:.4f}±{row['std_score']:.4f}"
-                min_val = f"{row['min_score']:.4f}"
-                max_val = f"{row['max_score']:.4f}"
-                
-                print(f"{combo:<40} {metric:<12} {mean_std:<15} {min_val:<8} {max_val:<8}")
-        
-        print(f"\nDetailed results and predictions are stored in the database:")
-        print(f"  - Database location: ./studies/predictions.db")
-        print(f"  - Use manager.db.get_predictions_dataframe() to access raw predictions")
-        print(f"  - Use manager.db.get_test_scores_summary() for metric summaries")
-        
-    except Exception as e:
-        print(f"Could not generate summary report: {e}")
 
 if __name__ == "__main__":
     start_time = time.time()

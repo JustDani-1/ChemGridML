@@ -1,229 +1,160 @@
-import matplotlib.pyplot as plt
-import pandas as pd
+import sqlite3
 import numpy as np
-import json
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.metrics import roc_auc_score, mean_squared_error
+from typing import Dict, List, Tuple, Optional
 import os
 from datetime import datetime
-import warnings
-warnings.filterwarnings('ignore')
 
 class BenchmarkManager:
-    def __init__(self, save_dir="./output/results"):
-        self.results = {}
+    """Analyzer for molecular property prediction results with multiple train-test splits"""
+    
+    def __init__(self, db_manager, save_dir: str = "analysis_results"):
+        self.db_manager = db_manager
         self.save_dir = save_dir
+        self.run_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        
+        # Create save directory if it doesn't exist
         os.makedirs(save_dir, exist_ok=True)
         
-        # Track metadata
-        self.run_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        self.total_experiments = 0
-        self.failed_experiments = 0
+        # Store computed results
+        self.results = {}
+    
+    def is_classification_dataset(self, dataset_name: str) -> bool:
+        """Determine if dataset is classification by checking if all targets are 0 or 1"""
+        with self.db_manager._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute('''
+                SELECT DISTINCT target_value FROM dataset_targets 
+                WHERE dataset_name = ?
+            ''', (dataset_name,))
+            
+            unique_targets = [row[0] for row in cursor.fetchall()]
+            
+            # Check if all values are either 0 or 1
+            return all(target in [0.0, 1.0] for target in unique_targets)
+    
+    def compute_auroc(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
+        """Compute AUROC score for binary classification"""
+        try:
+            return roc_auc_score(y_true, y_pred)
+        except ValueError as e:
+            print(f"Warning: Could not compute AUROC - {e}")
+            return np.nan
+    
+    def compute_rmse(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
+        """Compute Root Mean Square Error for regression"""
+        return np.sqrt(mean_squared_error(y_true, y_pred))
+    
+    def get_test_predictions(self, dataset_name: str) -> pd.DataFrame:
+        """Get all test predictions for a dataset"""
+        df = self.db_manager.get_predictions_dataframe(dataset_name)
+        return df[df['split_type'] == 'random']
+    
+    def compute_metrics_for_dataset(self, dataset_name: str) -> Dict:
+        """Compute metrics for all fingerprint/model/seed combinations in a dataset"""
+        print(f"Processing dataset: {dataset_name}")
         
-    def add_result(self, fingerprint, model, dataset, best_score, best_params):
-        """Add a single experimental result"""
-        if fingerprint not in self.results:
-            self.results[fingerprint] = {}
-        if model not in self.results[fingerprint]:
-            self.results[fingerprint][model] = {}
-            
-        # Extract metric name and value
-        if isinstance(best_score, dict):
-            metric_name = list(best_score.keys())[0]
-            score_value = best_score[metric_name]
-        else:
-            # Fallback if score is just a number
-            metric_name = "Unknown"
-            score_value = best_score
-            
-        self.results[fingerprint][model][dataset] = {
-            'score': score_value,
+        # Get test predictions
+        test_df = self.get_test_predictions(dataset_name)
+        
+        if test_df.empty:
+            print(f"No test predictions found for dataset {dataset_name}")
+            return {}
+        
+        # Determine if classification or regression
+        is_classification = self.is_classification_dataset(dataset_name)
+        metric_name = "AUROC" if is_classification else "RMSE"
+        
+        print(f"Dataset {dataset_name} identified as {'classification' if is_classification else 'regression'}")
+        
+        results = {
+            'dataset': dataset_name,
             'metric': metric_name,
-            'params': best_params,
-            'timestamp': datetime.now().isoformat()
+            'is_classification': is_classification,
+            'scores': []
         }
         
-        self.total_experiments += 1
+        # Group by fingerprint, model, and seed
+        groups = test_df.groupby(['fingerprint', 'model_name', 'seed'])
         
-    def add_failed_result(self, fingerprint, model, dataset, error_msg):
-        """Track failed experiments for analysis"""
-        self.failed_experiments += 1
-        # Could extend this to store failure reasons for debugging
-        
-    def to_dataframe(self):
-        """Convert results to pandas DataFrame for easier analysis"""
-        rows = []
-        for fp in self.results:
-            for model in self.results[fp]:
-                for dataset in self.results[fp][model]:
-                    result = self.results[fp][model][dataset]
-                    rows.append({
-                        'fingerprint': fp,
-                        'model': model,
-                        'dataset': dataset,
-                        'score': result['score'],
-                        'metric': result['metric'],
-                        'timestamp': result['timestamp']
-                    })
-        return pd.DataFrame(rows)
-    
-    def get_summary_stats(self):
-        """Generate summary statistics"""
-        if not self.results:
-            return "No results available yet."
+        for (fingerprint, model, seed), group in groups:
+            y_true = group['target_value'].values
+            y_pred = group['prediction'].values
             
-        df = self.to_dataframe()
-        
-        stats = {
-            'total_experiments': len(df),
-            'failed_experiments': self.failed_experiments,
-            'success_rate': len(df) / (len(df) + self.failed_experiments) * 100 if (len(df) + self.failed_experiments) > 0 else 0,
-            'unique_fingerprints': df['fingerprint'].nunique(),
-            'unique_models': df['model'].nunique(),
-            'unique_datasets': df['dataset'].nunique(),
-            'metrics_used': df['metric'].unique().tolist()
-        }
-        
-        return stats
-    
-    def get_best_combinations(self, top_n=5):
-        """Find best performing combinations"""
-        if not self.results:
-            return "No results available."
-            
-        df = self.to_dataframe()
-        
-        best_combinations = {}
-        
-        for metric in df['metric'].unique():
-            metric_df = df[df['metric'] == metric]
-            
-            # Sort based on metric type (AUROC higher is better, RRMSE lower is better)
-            ascending = True if metric == 'RRMSE' else False
-            sorted_df = metric_df.sort_values('score', ascending=ascending)
-            
-            best_combinations[metric] = sorted_df.head(top_n)[
-                ['fingerprint', 'model', 'dataset', 'score']
-            ].to_dict('records')
-            
-        return best_combinations
-    
-    def generate_report(self):
-        """Generate comprehensive text report"""
-        if not self.results:
-            return "No results available for report generation."
-            
-        report_lines = []
-        report_lines.append("="*60)
-        report_lines.append("MOLECULAR FINGERPRINT BENCHMARKING REPORT")
-        report_lines.append("="*60)
-        report_lines.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        report_lines.append(f"Run ID: {self.run_timestamp}")
-        report_lines.append("")
-        
-        # Summary statistics
-        stats = self.get_summary_stats()
-        report_lines.append("SUMMARY STATISTICS:")
-        report_lines.append("-" * 30)
-        for key, value in stats.items():
-            if key == 'success_rate':
-                report_lines.append(f"{key.replace('_', ' ').title()}: {value:.1f}%")
+            if is_classification:
+                score = self.compute_auroc(y_true, y_pred)
             else:
-                report_lines.append(f"{key.replace('_', ' ').title()}: {value}")
-        report_lines.append("")
-        
-        # Best combinations
-        best_combos = self.get_best_combinations()
-        for metric, combos in best_combos.items():
-            report_lines.append(f"TOP 5 COMBINATIONS FOR {metric}:")
-            report_lines.append("-" * 30)
-            for i, combo in enumerate(combos, 1):
-                report_lines.append(
-                    f"{i}. {combo['fingerprint']} + {combo['model']} + {combo['dataset']}: "
-                    f"{combo['score']:.4f}"
-                )
-            report_lines.append("")
-        
-        # Performance analysis by component
-        df = self.to_dataframe()
-        
-        report_lines.append("COMPONENT ANALYSIS:")
-        report_lines.append("-" * 30)
-        
-        # Fingerprint rankings
-        fp_performance = df.groupby('fingerprint')['score'].agg(['mean', 'std', 'count'])
-        report_lines.append("Fingerprint Performance (average ± std):")
-        for fp in fp_performance.index:
-            mean_score = fp_performance.loc[fp, 'mean']
-            std_score = fp_performance.loc[fp, 'std']
-            count = fp_performance.loc[fp, 'count']
-            report_lines.append(f"  {fp}: {mean_score:.4f} ± {std_score:.4f} (n={count})")
-        report_lines.append("")
-        
-        # Model rankings
-        model_performance = df.groupby('model')['score'].agg(['mean', 'std', 'count'])
-        report_lines.append("Model Performance (average ± std):")
-        for model in model_performance.index:
-            mean_score = model_performance.loc[model, 'mean']
-            std_score = model_performance.loc[model, 'std']
-            count = model_performance.loc[model, 'count']
-            report_lines.append(f"  {model}: {mean_score:.4f} ± {std_score:.4f} (n={count})")
-        report_lines.append("")
-        
-        # Dataset difficulty analysis
-        dataset_performance = df.groupby('dataset')['score'].agg(['mean', 'std', 'count'])
-        report_lines.append("Dataset Difficulty (average ± std):")
-        for dataset in dataset_performance.index:
-            mean_score = dataset_performance.loc[dataset, 'mean']
-            std_score = dataset_performance.loc[dataset, 'std']
-            count = dataset_performance.loc[dataset, 'count']
-            report_lines.append(f"  {dataset}: {mean_score:.4f} ± {std_score:.4f} (n={count})")
-        
-        report_text = "\n".join(report_lines)
-        
-        # Save report
-        report_path = os.path.join(self.save_dir, f'benchmark_report_{self.run_timestamp}.txt')
-        with open(report_path, 'w') as f:
-            f.write(report_text)
+                score = self.compute_rmse(y_true, y_pred)
             
-        print(report_text)
-        print(f"\nFull report saved to: {report_path}")
+            results['scores'].append({
+                'fingerprint': fingerprint,
+                'model': model,
+                'seed': seed,
+                'score': score,
+                'n_samples': len(y_true)
+            })
         
-        return report_text
+        print(f"Computed {len(results['scores'])} metric scores for {dataset_name}")
+        return results
     
-    def save_results(self):
-        """Save results to JSON for future analysis"""
-        results_path = os.path.join(self.save_dir, f'benchmark_results_{self.run_timestamp}.json')
+    def analyze_all_datasets(self) -> Dict:
+        """Analyze all datasets in the database"""
+        # Get all unique datasets
+        with self.db_manager._get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute('SELECT DISTINCT dataset_name FROM dataset_targets')
+            datasets = [row[0] for row in cursor.fetchall()]
         
-        # Prepare serializable data
-        serializable_results = {}
-        for fp in self.results:
-            serializable_results[fp] = {}
-            for model in self.results[fp]:
-                serializable_results[fp][model] = {}
-                for dataset in self.results[fp][model]:
-                    result = self.results[fp][model][dataset]
-                    serializable_results[fp][model][dataset] = {
-                        'score': result['score'],
-                        'metric': result['metric'],
-                        'params': result['params'],
-                        'timestamp': result['timestamp']
-                    }
+        print(f"Found {len(datasets)} datasets: {datasets}")
         
-        with open(results_path, 'w') as f:
-            json.dump(serializable_results, f, indent=2)
+        # Analyze each dataset
+        for dataset in datasets:
+            self.results[dataset] = self.compute_metrics_for_dataset(dataset)
         
-    def load_results(self, filepath):
-        """Load previously saved results"""
-        with open(filepath, 'r') as f:
-            self.results = json.load(f)
-        print(f"Results loaded from: {filepath}")
+        return self.results
+    
+    def get_summary_statistics(self) -> pd.DataFrame:
+        """Get summary statistics across all seeds for each fingerprint/model/dataset combination"""
+        summary_data = []
+        
+        for dataset_name, dataset_results in self.results.items():
+            if not dataset_results or not dataset_results['scores']:
+                continue
+                
+            # Convert to DataFrame for easier manipulation
+            scores_df = pd.DataFrame(dataset_results['scores'])
+            
+            # Group by fingerprint and model, compute statistics across seeds
+            group_stats = scores_df.groupby(['fingerprint', 'model'])['score'].agg([
+                'mean', 'std', 'min', 'max', 'count'
+            ]).reset_index()
+            
+            # Add dataset and metric information
+            group_stats['dataset'] = dataset_name
+            group_stats['metric'] = dataset_results['metric']
+            group_stats['is_classification'] = dataset_results['is_classification']
+            
+            summary_data.append(group_stats)
+        
+        if summary_data:
+            return pd.concat(summary_data, ignore_index=True)
+        else:
+            return pd.DataFrame()
     
     def plot_detailed_comparison(self, figsize=(16, 10)):
         """Create detailed comparison plots grouped by model with fingerprint performance"""
         if not self.results:
-            print("No results to plot yet.")
+            print("No results to plot yet. Please run analyze_all_datasets() first.")
             return
         
-        df = self.to_dataframe()
+        # Get summary statistics
+        df = self.get_summary_statistics()
+        
+        if df.empty:
+            print("No valid results to plot.")
+            return
         
         # Determine number of subplots needed
         n_datasets = df['dataset'].nunique()
@@ -238,7 +169,7 @@ class BenchmarkManager:
         else:
             axes = axes.flatten()
         
-        fig.suptitle(f'Performance by Dataset and Model\nRun: {self.run_timestamp}',
+        fig.suptitle(f'Performance by Dataset and Model (Mean ± Std across seeds)\nRun: {self.run_timestamp}',
                     fontsize=16, fontweight='bold')
         
         datasets = sorted(df['dataset'].unique())
@@ -251,10 +182,11 @@ class BenchmarkManager:
         for idx, dataset in enumerate(datasets):
             if idx >= len(axes):
                 break
-                
+            
             ax = axes[idx]
             dataset_df = df[df['dataset'] == dataset]
             metric_name = dataset_df['metric'].iloc[0]
+            is_classification = dataset_df['is_classification'].iloc[0]
             
             # Get models and fingerprints for this dataset
             models = sorted(dataset_df['model'].unique())
@@ -270,37 +202,42 @@ class BenchmarkManager:
             
             # Calculate model averages
             model_averages = {}
+            model_stds = {}
             for model in models:
                 model_data = dataset_df[dataset_df['model'] == model]
-                model_averages[model] = model_data['score'].mean()
+                model_averages[model] = model_data['mean'].mean()
+                model_stds[model] = model_data['mean'].std()
             
             # Position models on x-axis
             model_positions = np.arange(n_models)
             
             # Create bars for each fingerprint within each model group
             for fp_idx, fingerprint in enumerate(fingerprints):
-                fp_scores = []
+                fp_means = []
+                fp_stds = []
                 fp_positions = []
                 
                 for model_idx, model in enumerate(models):
-                    subset = dataset_df[(dataset_df['fingerprint'] == fingerprint) &
-                                    (dataset_df['model'] == model)]
-                    
+                    subset = dataset_df[(dataset_df['fingerprint'] == fingerprint) & 
+                                      (dataset_df['model'] == model)]
                     if len(subset) > 0:
-                        score = subset['score'].iloc[0]
-                        fp_scores.append(score)
-                        # Calculate position within model group
-                        pos = model_positions[model_idx] + (fp_idx - (n_fingerprints-1)/2) * bar_width
-                        fp_positions.append(pos)
+                        mean_score = subset['mean'].iloc[0]
+                        std_score = subset['std'].iloc[0]
+                        fp_means.append(mean_score)
+                        fp_stds.append(std_score if pd.notna(std_score) else 0)
                     else:
-                        fp_scores.append(0)  # or np.nan if you prefer
-                        pos = model_positions[model_idx] + (fp_idx - (n_fingerprints-1)/2) * bar_width
-                        fp_positions.append(pos)
+                        fp_means.append(0)
+                        fp_stds.append(0)
+                    
+                    # Calculate position within model group
+                    pos = model_positions[model_idx] + (fp_idx - (n_fingerprints-1)/2) * bar_width
+                    fp_positions.append(pos)
                 
-                # Plot bars for this fingerprint across all models
-                ax.bar(fp_positions, fp_scores, bar_width * 0.9, 
-                    label=fingerprint, color=fingerprint_color_map[fingerprint], 
-                    alpha=0.8, edgecolor='white', linewidth=0.5)
+                # Plot bars for this fingerprint across all models with error bars
+                ax.bar(fp_positions, fp_means, bar_width * 0.9,
+                      label=fingerprint, color=fingerprint_color_map[fingerprint],
+                      alpha=0.8, edgecolor='white', linewidth=0.5,
+                      yerr=fp_stds, capsize=3, error_kw={'alpha': 0.6})
             
             # Add model average lines/markers
             for model_idx, model in enumerate(models):
@@ -308,39 +245,43 @@ class BenchmarkManager:
                 # Draw a horizontal line across the model group showing average
                 left_edge = model_positions[model_idx] - group_width/2
                 right_edge = model_positions[model_idx] + group_width/2
-                ax.hlines(avg_score, left_edge, right_edge, 
-                        colors='red', linestyles='--', linewidth=2, alpha=0.7)
+                ax.hlines(avg_score, left_edge, right_edge,
+                         colors='red', linestyles='--', linewidth=2, alpha=0.7)
                 
                 # Add average value as text
-                ax.text(model_positions[model_idx], avg_score + 0.02 * ax.get_ylim()[1], 
-                    f'{avg_score:.3f}', ha='center', va='bottom', 
-                    fontweight='bold', fontsize=8, color='red')
+                y_offset = 0.05 * (ax.get_ylim()[1] - ax.get_ylim()[0])
+                ax.text(model_positions[model_idx], avg_score + y_offset,
+                       f'{avg_score:.3f}', ha='center', va='bottom',
+                       fontweight='bold', fontsize=8, color='red')
             
             # Customize the plot
             ax.set_xlabel('Model')
             ax.set_ylabel(metric_name)
-            ax.set_title(f'{dataset}')
+            ax.set_title(f'{dataset} ({metric_name})')
             ax.set_xticks(model_positions)
             ax.set_xticklabels(models, rotation=45, ha='right')
             
             # Add vertical lines to separate model groups
             for i in range(1, len(models)):
-                ax.axvline(x=model_positions[i] - 0.5, color='gray', 
-                        linestyle=':', alpha=0.5, linewidth=1)
+                ax.axvline(x=model_positions[i] - 0.5, color='gray',
+                          linestyle=':', alpha=0.5, linewidth=1)
             
             # Only show legend on first subplot to avoid redundancy
             if idx == 0:
                 # Create custom legend with fingerprints and model average
-                legend_elements = [plt.Rectangle((0,0),1,1, facecolor=fingerprint_color_map[fp], 
-                                            alpha=0.8, label=fp) for fp in fingerprints]
-                legend_elements.append(plt.Line2D([0], [0], color='red', linestyle='--', 
+                legend_elements = [plt.Rectangle((0,0),1,1, facecolor=fingerprint_color_map[fp],
+                                               alpha=0.8, label=fp) for fp in fingerprints]
+                legend_elements.append(plt.Line2D([0], [0], color='red', linestyle='--',
                                                 linewidth=2, label='Model Average'))
                 ax.legend(handles=legend_elements, fontsize=8, loc='upper right')
             
             ax.grid(axis='y', alpha=0.3)
             
-            # Set y-axis to start from 0 for better comparison
-            ax.set_ylim(bottom=0)
+            # Set y-axis limits appropriately
+            if is_classification:
+                ax.set_ylim(0, 1)  # AUROC is bounded between 0 and 1
+            else:
+                ax.set_ylim(bottom=0)  # RMSE starts from 0
         
         # Hide unused subplots
         for idx in range(len(datasets), len(axes)):
@@ -349,98 +290,76 @@ class BenchmarkManager:
         plt.tight_layout()
         
         # Save plot
-        plot_path = os.path.join(self.save_dir, f'detailed_comparison_{self.run_timestamp}.png')
+        plot_path = os.path.join(self.save_dir, f'detailed_comparison.png')
         plt.savefig(plot_path, dpi=300, bbox_inches='tight')
         plt.show()
-
-
-    def plot_model_summary(self, figsize=(14, 8)):
-        """Create a summary plot showing overall model performance across all datasets"""
+        print(f"Plot saved to: {plot_path}")
+    
+    def save_results(self, filename: Optional[str] = None):
+        """Save analysis results to CSV"""
+        if filename is None:
+            filename = f"analysis_results_{self.run_timestamp}.csv"
+        
+        df = self.get_summary_statistics()
+        filepath = os.path.join(self.save_dir, filename)
+        df.to_csv(filepath, index=False)
+        print(f"Results saved to: {filepath}")
+        return filepath
+    
+    def print_summary(self):
+        """Print a summary of the analysis results"""
         if not self.results:
-            print("No results to plot yet.")
+            print("No results available. Please run analyze_all_datasets() first.")
             return
         
-        df = self.to_dataframe()
+        print("\n" + "="*60)
+        print("ANALYSIS SUMMARY")
+        print("="*60)
         
-        # Calculate overall model averages across all datasets and fingerprints
-        model_summary = df.groupby('model').agg({
-            'score': ['mean', 'std', 'count']
-        }).round(4)
-        model_summary.columns = ['mean_score', 'std_score', 'count']
-        model_summary = model_summary.sort_values('mean_score', ascending=False)
+        df = self.get_summary_statistics()
         
-        # Create the summary plot
-        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=figsize)
-        fig.suptitle(f'Model Performance Summary\nRun: {self.run_timestamp}', 
-                    fontsize=16, fontweight='bold')
-        
-        # Plot 1: Overall model averages with error bars
-        models = model_summary.index
-        means = model_summary['mean_score']
-        stds = model_summary['std_score']
-        
-        bars = ax1.bar(range(len(models)), means, yerr=stds, capsize=5, 
-                    alpha=0.7, color=plt.cm.Set1(np.linspace(0, 1, len(models))))
-        ax1.set_xlabel('Model')
-        ax1.set_ylabel('Average Score')
-        ax1.set_title('Overall Model Performance\n(with standard deviation)')
-        ax1.set_xticks(range(len(models)))
-        ax1.set_xticklabels(models, rotation=45, ha='right')
-        ax1.grid(axis='y', alpha=0.3)
-        
-        # Add value labels on bars
-        for i, (mean, std) in enumerate(zip(means, stds)):
-            ax1.text(i, mean + std + 0.01 * ax1.get_ylim()[1], f'{mean:.3f}', 
-                    ha='center', va='bottom', fontweight='bold')
-        
-        # Plot 2: Detailed breakdown by model and fingerprint
-        model_fp_pivot = df.pivot_table(values='score', index='model', 
-                                        columns='fingerprint', aggfunc='mean')
-        
-        # Create heatmap
-        im = ax2.imshow(model_fp_pivot.values, cmap='RdYlGn', aspect='auto')
-        
-        # Set ticks and labels
-        ax2.set_xticks(range(len(model_fp_pivot.columns)))
-        ax2.set_yticks(range(len(model_fp_pivot.index)))
-        ax2.set_xticklabels(model_fp_pivot.columns, rotation=45, ha='right')
-        ax2.set_yticklabels(model_fp_pivot.index)
-        ax2.set_xlabel('Fingerprint')
-        ax2.set_ylabel('Model')
-        ax2.set_title('Performance Heatmap\n(Average across datasets)')
-        
-        # Add colorbar
-        cbar = plt.colorbar(im, ax=ax2)
-        cbar.set_label('Average Score')
-        
-        # Add text annotations
-        for i in range(len(model_fp_pivot.index)):
-            for j in range(len(model_fp_pivot.columns)):
-                value = model_fp_pivot.iloc[i, j]
-                if not np.isnan(value):
-                    ax2.text(j, i, f'{value:.3f}', ha='center', va='center', 
-                            color='white' if value < model_fp_pivot.values.mean() else 'black',
-                            fontweight='bold', fontsize=8)
-        
-        plt.tight_layout()
-        
-        # Save plot
-        plot_path = os.path.join(self.save_dir, f'model_summary_{self.run_timestamp}.png')
-        plt.savefig(plot_path, dpi=300, bbox_inches='tight')
-        plt.show()
-        
-        return model_summary
+        for dataset in sorted(self.results.keys()):
+            dataset_results = self.results[dataset]
+            if not dataset_results or not dataset_results['scores']:
+                continue
+                
+            dataset_df = df[df['dataset'] == dataset]
+            metric_name = dataset_results['metric']
+            
+            print(f"\nDataset: {dataset} ({metric_name})")
+            print("-" * 40)
+            
+            # Best performing combinations
+            if metric_name == "AUROC":
+                best_row = dataset_df.loc[dataset_df['mean'].idxmax()]
+                print(f"Best: {best_row['fingerprint']} + {best_row['model']} = {best_row['mean']:.4f} ± {best_row['std']:.4f}")
+            else:  # RMSE - lower is better
+                best_row = dataset_df.loc[dataset_df['mean'].idxmin()]
+                print(f"Best: {best_row['fingerprint']} + {best_row['model']} = {best_row['mean']:.4f} ± {best_row['std']:.4f}")
+            
+            print(f"Number of seeds: {best_row['count']}")
+            print(f"Total combinations tested: {len(dataset_df)}")
+
+# Example usage:
+def run_analysis(db_manager, save_dir="./analysis_results"):
+    """Run complete analysis pipeline"""
+    analyzer = BenchmarkManager(db_manager, save_dir)
     
-    def analyze_and_visualize(self):
-        """Run complete analysis and visualization suite"""
-        
-        # Generate summary
-        self.generate_report()
-        
-        # Create visualizations
-        self.plot_detailed_comparison()
-        
-        # Save results
-        self.save_results()
-        
-        return self.get_summary_stats()
+    # Analyze all datasets
+    analyzer.analyze_all_datasets()
+    
+    # Create visualization
+    analyzer.plot_detailed_comparison()
+    
+    # Save results
+    #analyzer.save_results()
+    
+    # Print summary
+    analyzer.print_summary()
+    
+    return analyzer
+
+from database_manager import DatabaseManager
+path = "./studies/1756218199/"
+db_manager = DatabaseManager(f"{path}predictions.db")
+analyzer = run_analysis(db_manager, path)

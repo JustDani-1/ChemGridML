@@ -1,28 +1,54 @@
-import datasets, env, models, trainers
+import datasets, env, models, util
 from database_manager import DatabaseManager
 from sklearn.model_selection import KFold, train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import roc_auc_score, mean_squared_error, r2_score
 import torch, optuna, os
+from optuna.storages import RDBStorage
+import sqlite3
 from torch.utils.data import DataLoader, TensorDataset
 import numpy as np
 from typing import Dict, Tuple, List
 import time, threading
+import hashlib
 
 class StudyManager:
-    # Class-level database manager singleton
     _db_lock = threading.Lock()
+    _optuna_lock = threading.Lock()
+    _optuna_init = False
     
-    def __init__(self, studies_path: str = 'studies/predictions.db', db_path: str = 'studies/predictions.db'):
+    def __init__(self, studies_path: str = './studies/studies.db', predictions_path: str = 'studies/predictions.db'):
         self.studies_path = studies_path
         # Ensure shared DatabaseManager singleton
         if DatabaseManager._instance is None:
             with StudyManager._db_lock:
                 if DatabaseManager._instance is None:
-                    os.makedirs(os.path.dirname(db_path), exist_ok=True)
-                    DatabaseManager(db_path)
+                    os.makedirs(os.path.dirname(predictions_path), exist_ok=True)
+                    DatabaseManager(predictions_path)
         self.db = DatabaseManager._instance
         
+    def _ensure_optuna_database(self, db_path: str):
+        """Ensure Optuna database exists and is properly initialized"""
+        with StudyManager._optuna_lock:
+            if StudyManager._optuna_init:
+                return
+            os.makedirs(os.path.dirname(db_path), exist_ok=True)
+            
+            # Initialize the database with proper tables if needed
+            conn = sqlite3.connect(db_path)
+            try:
+                # Check if studies table exists
+                cursor = conn.cursor()
+                cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='studies'")
+                if not cursor.fetchone():
+                    # Let Optuna create its tables by creating a temporary study
+                    temp_storage = RDBStorage(f"sqlite:///{self.studies_path}")
+                    temp_study = optuna.create_study(storage=temp_storage, study_name="temp_init")
+                    optuna.delete_study(study_name="temp_init", storage=temp_storage)
+                    StudyManager._optuna_init = True
+            finally:
+                conn.close()
+    
     def kfold_cv(self, X, Y, model_class, framework, task_type, hyperparams):   
         """Cross-validation on training data only"""
         kfold = KFold(env.N_FOLDS, shuffle=True, random_state=42)
@@ -61,7 +87,7 @@ class StudyManager:
                     lr=hyperparams['lr'],
                 )
                 
-                model = trainers.train_with_val(model, optimizer, train_loader, val_loader, hyperparams['epochs'])
+                model = util.train_with_val(model, optimizer, train_loader, val_loader, hyperparams['epochs'])
                 X_val = X_val.to(env.DEVICE)
                 predictions[val_idx] = model(X_val).cpu().numpy().flatten()
 
@@ -93,7 +119,7 @@ class StudyManager:
             model = model_class(input_size=X_train.shape[1], task_type=task_type, **hyperparams).to(env.DEVICE)
             optimizer = torch.optim.Adam(model.parameters(), lr=hyperparams['lr'])
             
-            model = trainers.train_without_val(model, optimizer, train_loader, hyperparams['epochs'])
+            model = util.train_without_val(model, optimizer, train_loader, hyperparams['epochs'])
             
             model.eval()
             with torch.no_grad():
@@ -107,25 +133,6 @@ class StudyManager:
         
         return test_predictions
     
-    def calculate_metrics(self, y_true, y_pred, task_type):
-        """Calculate various metrics based on task type"""
-        metrics = {}
-        
-        if task_type == 'regression':
-            metrics['RMSE'] = np.sqrt(mean_squared_error(y_true, y_pred))
-            metrics['RRMSE'] = trainers.rrmse(y_true, y_pred)
-            metrics['R2'] = r2_score(y_true, y_pred)
-            metrics['MAE'] = np.mean(np.abs(y_true - y_pred))
-        elif task_type == 'classification':
-            # For binary classification
-            if len(np.unique(y_true)) == 2:
-                metrics['AUROC'] = roc_auc_score(y_true, y_pred)
-                # Convert predictions to binary for accuracy
-                y_pred_binary = (y_pred > 0.5).astype(int)
-                metrics['Accuracy'] = np.mean(y_true == y_pred_binary)
-            
-        return metrics
-    
     def run_hyperparameter_optimization(self, fp_name: str, model_name: str, dataset_name: str) -> Dict:
         """Run hyperparameter optimization on entire dataset with cross-validation"""
         
@@ -136,17 +143,39 @@ class StudyManager:
         # Get components
         model_class = models.ModelRegistry.get_model(model_name)
         framework = models.ModelRegistry.get_framework(model_name)
-        task_type = trainers.get_task_type(data.Y)
+        task_type = util.get_task_type(data.Y)
         
-        # Create Optuna study
+        # Ensure Optuna database is properly initialized
+
+        self._ensure_optuna_database(self.studies_path)
+        
+        # Create Optuna study with thread-safe approach
         study_id = f"{fp_name}_{model_name}_{dataset_name}"
         
-        study = optuna.create_study(
-            study_name=study_id,
-            storage=f"sqlite:///{self.studies_path}",
-            direction="minimize",
-            load_if_exists=True
+        # Use RDBStorage with proper connection pooling
+        storage = RDBStorage(
+            f"sqlite:///{self.studies_path}",
+            heartbeat_interval=60,
+            grace_period=120,
+            failed_trial_callback=optuna.storages.RetryFailedTrialCallback(max_retry=5)
         )
+        
+        # Create study with thread-safe locking
+        with StudyManager._optuna_lock:
+            try:
+                study = optuna.create_study(
+                    study_name=study_id,
+                    storage=storage,
+                    direction="minimize",
+                    load_if_exists=True
+                )
+            except optuna.exceptions.DuplicatedStudyError:
+                print("already exists")
+                # Study already exists, load it
+                study = optuna.load_study(
+                    study_name=study_id,
+                    storage=storage
+                )
         
         def objective(trial):
             # Get hyperparameters
@@ -154,7 +183,7 @@ class StudyManager:
             
             # Perform cross-validation on training data only
             cv_predictions = self.kfold_cv(data.X, data.Y, model_class, framework, task_type, hyperparams)
-            return trainers.evaluate(data.Y, cv_predictions, task_type)
+            return util.evaluate(data.Y, cv_predictions, task_type)
             
         study.optimize(objective, n_trials=env.N_TRIALS)
         
@@ -171,7 +200,7 @@ class StudyManager:
         # Get components
         model_class = models.ModelRegistry.get_model(model_name)
         framework = models.ModelRegistry.get_framework(model_name)
-        task_type = trainers.get_task_type(data.Y)
+        task_type = util.get_task_type(data.Y)
         
         for seed in range(env.N_TESTS):
             
