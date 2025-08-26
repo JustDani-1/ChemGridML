@@ -360,6 +360,6 @@ def run_analysis(db_manager, save_dir="./analysis_results"):
     return analyzer
 
 from database_manager import DatabaseManager
-path = "./studies/1756218199/"
+path = "./studies/1756222293/"
 db_manager = DatabaseManager(f"{path}predictions.db")
 analyzer = run_analysis(db_manager, path)

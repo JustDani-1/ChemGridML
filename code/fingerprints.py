@@ -1,5 +1,6 @@
 from rdkit import Chem
 from rdkit.Chem import rdFingerprintGenerator
+from rdkit.Chem import MACCSkeys
 import numpy as np
 from gensim.models import word2vec
 from altered_mol2vec import mol2alt_sentence, sentences2vec
@@ -15,7 +16,7 @@ def ECFP(mols, radius=2, fpSize=env.DEFAULT_FP_SIZE):
     return np.stack([np.array(gen.GetFingerprint(x)) for x in mols])
 
 def MACCS(mols):
-    return np.stack([np.array(Chem.MACCSkeys.GenMACCSKeys(x)) for x in mols])
+    return np.stack([np.array(MACCSkeys.GenMACCSKeys(x)) for x in mols])
 
 def RDKitFP(mols, fpSize=env.DEFAULT_FP_SIZE):
     gen = rdFingerprintGenerator.GetRDKitFPGenerator(fpSize=fpSize)

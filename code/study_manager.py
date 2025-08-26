@@ -89,7 +89,7 @@ class StudyManager:
                 
                 model = util.train_with_val(model, optimizer, train_loader, val_loader, hyperparams['epochs'])
                 X_val = X_val.to(env.DEVICE)
-                predictions[val_idx] = model(X_val).cpu().numpy().flatten()
+                predictions[val_idx] = model(X_val).cpu().detach().numpy().flatten()
 
             elif framework == 'sklearn':
                 sklearn_model = model_class(task_type, **hyperparams)
@@ -124,7 +124,7 @@ class StudyManager:
             model.eval()
             with torch.no_grad():
                 X_test_tensor = X_test_tensor.to(env.DEVICE)
-                test_predictions = model(X_test_tensor).cpu().numpy().flatten()
+                test_predictions = model(X_test_tensor).cpu().detach().numpy().flatten()
                 
         elif framework == 'sklearn':
             sklearn_model = model_class(task_type, **hyperparams)

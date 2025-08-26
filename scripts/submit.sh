@@ -6,16 +6,19 @@
 # #$ -l gpu=1
 
 # Request ten minutes of wallclock time (format hours:minutes:seconds).
-#$ -l h_rt=0:20:0
+#$ -l h_rt=12:0:0
 
 # Request 1 gigabyte of RAM (must be an integer followed by M, G, or T)
-#$ -l mem=8G
+#$ -l mem=16G
 
 # Request 15 gigabyte of TMPDIR space (default is 10 GB - remove if cluster is diskless)
-#$ -l tmpfs=10G
+#$ -l tmpfs=15G
 
 # Set the name of the job.
 #$ -N first_test
+
+# Request cores.
+#$ -pe smp 36
 
 # Set the working directory to somewhere in your scratch space.  
 # This is a necessary step as compute nodes cannot write to $HOME.
@@ -26,7 +29,7 @@ cp -r /home/ucnwdma/Scratch/UCL_internship/code/ $TMPDIR/
 cp -r /home/ucnwdma/Scratch/UCL_internship/models/ $TMPDIR/
 
 cd $TMPDIR
-mkdir output
+mkdir studies
 
 conda activate internship
 
@@ -34,7 +37,7 @@ python ./code/main.py
 
 mkdir $HOME/Scratch/UCL_internship/output/$JOB_ID
 
-mv $TMPDIR/output $HOME/Scratch/UCL_internship/output/$JOB_ID/
+mv $TMPDIR/studies $HOME/Scratch/UCL_internship/output/$JOB_ID/
 
 # Preferably, tar-up (archive) all output files onto the shared scratch area
 # tar -zcvf $HOME/Scratch/UCL_internship/output/files_from_job_$JOB_ID.tar.gz $TMPDIR/output/
