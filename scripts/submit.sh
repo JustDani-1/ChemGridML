@@ -6,7 +6,7 @@
 # #$ -l gpu=1
 
 # Request ten minutes of wallclock time (format hours:minutes:seconds).
-#$ -l h_rt=2:0:0
+#$ -l h_rt=12:0:0
 
 # Request 1 gigabyte of RAM (must be an integer followed by M, G, or T)
 #$ -l mem=8G
@@ -18,7 +18,7 @@
 #$ -N smaller_job
 
 # Request cores.
-#$ -pe smp 10
+#$ -pe smp 15
 
 # Set the working directory to somewhere in your scratch space.  
 # This is a necessary step as compute nodes cannot write to $HOME.
