@@ -17,13 +17,8 @@ class StudyManager:
     
     def __init__(self, studies_path: str = './studies/', predictions_path: str = 'studies/predictions.db'):
         self.studies_path = studies_path
-        # Ensure shared DatabaseManager singleton
-        if DatabaseManager._instance is None:
-            with StudyManager._db_lock:
-                if DatabaseManager._instance is None:
-                    os.makedirs(os.path.dirname(predictions_path), exist_ok=True)
-                    DatabaseManager(predictions_path)
-        self.db = DatabaseManager._instance
+        os.makedirs(os.path.dirname(predictions_path), exist_ok=True)
+        self.db = DatabaseManager(predictions_path)
     
     def kfold_cv(self, X, Y, model_class, framework, task_type, hyperparams):   
         """Cross-validation on training data only"""
