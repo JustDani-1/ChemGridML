@@ -50,6 +50,7 @@ def run_single_study(args):
         return False
     
 def get_num_threads():
+    return 1
     """
     Get the number of threads to use based on cluster allocation
     """

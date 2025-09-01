@@ -14,7 +14,7 @@ DEVICE = 'cpu'
 #    DEVICE = 'cuda'
 
 # Study
-FINGERPRINTS = ['ECFP', 'AtomPair', 'MACCS', 'RDKitFP', 'TOPOTOR', 'MOL2VEC']
-MODELS = ['FNN', 'RF', 'XGBoost', 'SVM', 'ElasticNet', 'KNN']
-DATASETS = ['Caco2_Wang', 'BBB_Martins', 'PPBR_AZ', 'Lipophilicity_AstraZeneca']
+FINGERPRINTS = ['MOL2VEC']#['ECFP', 'AtomPair', 'MACCS', 'RDKitFP', 'TOPOTOR', 'MOL2VEC']
+MODELS = ['FNN']#['FNN', 'RF', 'XGBoost', 'SVM', 'ElasticNet', 'KNN']
+DATASETS = ['BBB_Martins']#['Caco2_Wang', 'BBB_Martins', 'PPBR_AZ', 'Lipophilicity_AstraZeneca']
 N_TRIALS = 75
