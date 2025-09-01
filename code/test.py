@@ -1,5 +1,5 @@
 import env, time, sys
-from study_manager import StudyManager
+
 
 
 # array job calculations
@@ -11,12 +11,4 @@ fingerprint = env.FINGERPRINTS[task_id % fps]
 model_name = env.MODELS[(task_id // fps) % models]
 dataset_name = env.DATASETS[(task_id // (fps * models)) % datasets]
 
-# run study
-start_time = time.time()
-
-manager = StudyManager(f"./studies/{env.TIMESTAMP}", f"./studies/{env.TIMESTAMP}/predictions.db") 
-manager.run_complete_study(fingerprint, model_name, dataset_name)
-
-end_time = time.time()
-
-print(f"\nTotal execution time: {end_time - start_time:.2f} seconds")
+print(fingerprint, model_name, dataset_name)

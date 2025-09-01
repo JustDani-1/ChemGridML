@@ -14,10 +14,8 @@ import hashlib
 
 class StudyManager:
     _db_lock = threading.Lock()
-    _optuna_lock = threading.Lock()
-    _optuna_init = False
     
-    def __init__(self, studies_path: str = './studies/studies.db', predictions_path: str = 'studies/predictions.db'):
+    def __init__(self, studies_path: str = './studies/', predictions_path: str = 'studies/predictions.db'):
         self.studies_path = studies_path
         # Ensure shared DatabaseManager singleton
         if DatabaseManager._instance is None:
@@ -26,28 +24,6 @@ class StudyManager:
                     os.makedirs(os.path.dirname(predictions_path), exist_ok=True)
                     DatabaseManager(predictions_path)
         self.db = DatabaseManager._instance
-        
-    def _ensure_optuna_database(self, db_path: str):
-        """Ensure Optuna database exists and is properly initialized"""
-        with StudyManager._optuna_lock:
-            if StudyManager._optuna_init:
-                return
-            os.makedirs(os.path.dirname(db_path), exist_ok=True)
-            
-            # Initialize the database with proper tables if needed
-            conn = sqlite3.connect(db_path)
-            try:
-                # Check if studies table exists
-                cursor = conn.cursor()
-                cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='studies'")
-                if not cursor.fetchone():
-                    # Let Optuna create its tables by creating a temporary study
-                    temp_storage = RDBStorage(f"sqlite:///{self.studies_path}")
-                    temp_study = optuna.create_study(storage=temp_storage, study_name="temp_init")
-                    optuna.delete_study(study_name="temp_init", storage=temp_storage)
-                    StudyManager._optuna_init = True
-            finally:
-                conn.close()
     
     def kfold_cv(self, X, Y, model_class, framework, task_type, hyperparams):   
         """Cross-validation on training data only"""
@@ -145,37 +121,15 @@ class StudyManager:
         framework = models.ModelRegistry.get_framework(model_name)
         task_type = util.get_task_type(data.Y)
         
-        # Ensure Optuna database is properly initialized
-
-        self._ensure_optuna_database(self.studies_path)
-        
-        # Create Optuna study with thread-safe approach
         study_id = f"{fp_name}_{model_name}_{dataset_name}"
-        
-        # Use RDBStorage with proper connection pooling
-        storage = RDBStorage(
-            f"sqlite:///{self.studies_path}",
-            heartbeat_interval=60,
-            grace_period=120,
-            failed_trial_callback=optuna.storages.RetryFailedTrialCallback(max_retry=5)
+
+        os.makedirs(self.studies_path, exist_ok=True)
+        study = optuna.create_study(
+            study_name=study_id,
+            storage=f"sqlite:///{self.studies_path}/{study_id}.db",
+            direction="minimize",
+            load_if_exists=True
         )
-        
-        # Create study with thread-safe locking
-        with StudyManager._optuna_lock:
-            try:
-                study = optuna.create_study(
-                    study_name=study_id,
-                    storage=storage,
-                    direction="minimize",
-                    load_if_exists=True
-                )
-            except optuna.exceptions.DuplicatedStudyError:
-                print("already exists")
-                # Study already exists, load it
-                study = optuna.load_study(
-                    study_name=study_id,
-                    storage=storage
-                )
         
         def objective(trial):
             # Get hyperparameters
