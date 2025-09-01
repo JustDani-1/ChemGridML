@@ -1,10 +1,7 @@
-import env, time, sys
+import env, sys
 
 
-
-# array job calculations
-env.TIMESTAMP = sys.argv[1]
-task_id = int(sys.argv[2])
+task_id = int(sys.argv[1])
 
 fps, models, datasets = len(env.FINGERPRINTS), len(env.MODELS), len(env.DATASETS)
 fingerprint = env.FINGERPRINTS[task_id % fps]

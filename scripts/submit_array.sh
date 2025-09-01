@@ -3,7 +3,7 @@
 # Batch script to run a serial array job under SGE.
 
 # Request ten minutes of wallclock time (format hours:minutes:seconds).
-#$ -l h_rt=2:30:0
+#$ -l h_rt=8:00:0
 
 # Request 1 gigabyte of RAM (must be an integer followed by M, G, or T)
 #$ -l mem=4G
