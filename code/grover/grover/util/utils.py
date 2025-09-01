@@ -185,12 +185,18 @@ def get_data(path: str,
 
     # Load data
     with open(path) as f:
-        reader = csv.reader(f)
+        first_line = f.readline()
+        print(first_line)
+        if '\t' in first_line:
+            delimiter = '\t'
+        else:
+            delimiter = ','
+        reader = csv.reader(f, delimiter)
         next(reader)  # skip header
 
         lines = []
         for line in reader:
-            smiles = line[0]
+            smiles = line[1] # TDC dataset layout is "Drug_ID - Drug - Y"
 
             if smiles in skip_smiles:
                 continue
