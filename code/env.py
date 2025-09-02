@@ -17,4 +17,4 @@ DEVICE = 'cpu'
 FINGERPRINTS = ['ECFP', 'AtomPair', 'MACCS', 'RDKitFP', 'TOPOTOR', 'MOL2VEC']
 MODELS = ['FNN', 'RF', 'XGBoost', 'SVM', 'ElasticNet', 'KNN']
 DATASETS = ['Caco2_Wang', 'PPBR_AZ', 'Lipophilicity_AstraZeneca', 'BBB_Martins', 'PAMPA_NCATS', 'Pgp_Broccatelli']
-N_TRIALS = 10
+N_TRIALS = 20
