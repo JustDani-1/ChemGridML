@@ -6,6 +6,7 @@ from sklearn.metrics import roc_auc_score, mean_squared_error
 from typing import Dict, List, Tuple, Optional
 import os
 from datetime import datetime
+from database_manager import DatabaseManager
 
 class BenchmarkManager:
     """Analyzer for molecular property prediction results with multiple train-test splits"""
@@ -359,7 +360,7 @@ def run_analysis(db_manager, save_dir="./analysis_results"):
     
     return analyzer
 
-from database_manager import DatabaseManager
-path = "./studies/369722/"
+
+path = "./studies/999998/"
 db_manager = DatabaseManager(f"{path}predictions.db")
 analyzer = run_analysis(db_manager, path)

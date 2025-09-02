@@ -9,7 +9,7 @@
 #$ -l mem=8G
 
 # Set up the job array. Upper bound specifies the number of jobs
-#$ -t 1-144
+#$ -t 1-216
 
 # Set the name of the job.
 #$ -N AllArray

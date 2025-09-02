@@ -97,23 +97,19 @@ class StudyManager:
         
         return test_predictions
     
-    def run_hyperparameter_optimization(self, fp_name: str, model_name: str, dataset_name: str) -> Dict:
+    def run_hyperparameter_optimization(self, X, Y, seed, fp_name: str, model_name: str, dataset_name: str) -> Dict:
         """Run hyperparameter optimization on entire dataset with cross-validation"""
-        
-        data = datasets.TDC_Dataset(dataset_name, fp_name)
-        
-        self.db.store_dataset_targets(dataset_name, data.Y)
         
         # Get components
         model_class = models.ModelRegistry.get_model(model_name)
         framework = models.ModelRegistry.get_framework(model_name)
-        task_type = util.get_task_type(data.Y)
+        task_type = util.get_task_type(Y)
         
         study_id = f"{fp_name}_{model_name}_{dataset_name}"
 
         os.makedirs(self.studies_path, exist_ok=True)
         study = optuna.create_study(
-            study_name=study_id,
+            study_name=f"{study_id}_{seed}",
             storage=f"sqlite:///{self.studies_path}/{study_id}.db",
             direction="minimize",
             load_if_exists=True
@@ -124,8 +120,8 @@ class StudyManager:
             hyperparams = model_class.get_hyperparameter_space(trial)
             
             # Perform cross-validation on training data only
-            cv_predictions = self.kfold_cv(data.X, data.Y, model_class, framework, task_type, hyperparams)
-            return util.evaluate(data.Y, cv_predictions, task_type)
+            cv_predictions = self.kfold_cv(X, Y, model_class, framework, task_type, hyperparams)
+            return util.evaluate(Y, cv_predictions, task_type)
             
         study.optimize(objective, n_trials=env.N_TRIALS)
         
@@ -133,17 +129,16 @@ class StudyManager:
         
         return best_params
     
-    def run_multiple_train_test_evaluations(self, fp_name: str, model_name: str, dataset_name: str, best_hyperparams: Dict):
-        """Run multiple train-test splits with different random seeds"""
-        
+    def run_nested_cv(self, fp_name, model_name, dataset_name):
         # Load data
         data = datasets.TDC_Dataset(dataset_name, fp_name)
-        
+        self.db.store_dataset_targets(dataset_name, data.Y)
+
         # Get components
         model_class = models.ModelRegistry.get_model(model_name)
         framework = models.ModelRegistry.get_framework(model_name)
         task_type = util.get_task_type(data.Y)
-        
+
         for seed in range(env.N_TESTS):
             
             # Split data with different seed
@@ -151,6 +146,8 @@ class StudyManager:
                 data.X, data.Y, np.arange(len(data.Y)), 
                 test_size=env.TEST_SIZE, random_state=seed,
             )
+
+            best_hyperparams = self.run_hyperparameter_optimization(X_train, Y_train, seed, fp_name, model_name, dataset_name)
             
             # Train model and get predictions
             test_predictions = self.train_and_predict(
@@ -158,11 +155,36 @@ class StudyManager:
             )
             
             self.db.store_predictions(dataset_name, fp_name, model_name, test_predictions, test_indices, seed, 'random')
+
+    
+    # def run_multiple_train_test_evaluations(self, fp_name: str, model_name: str, dataset_name: str, best_hyperparams: Dict):
+    #     """Run multiple train-test splits with different random seeds"""
+        
+    #     # Load data
+    #     data = datasets.TDC_Dataset(dataset_name, fp_name)
+        
+    #     # Get components
+    #     model_class = models.ModelRegistry.get_model(model_name)
+    #     framework = models.ModelRegistry.get_framework(model_name)
+    #     task_type = util.get_task_type(data.Y)
+        
+    #     for seed in range(env.N_TESTS):
+            
+    #         # Split data with different seed
+    #         X_train, X_test, Y_train, Y_test, train_indices, test_indices = train_test_split(
+    #             data.X, data.Y, np.arange(len(data.Y)), 
+    #             test_size=env.TEST_SIZE, random_state=seed,
+    #         )
+            
+    #         # Train model and get predictions
+    #         test_predictions = self.train_and_predict(
+    #             X_train, Y_train, X_test, model_class, framework, task_type, best_hyperparams
+    #         )
+            
+    #         self.db.store_predictions(dataset_name, fp_name, model_name, test_predictions, test_indices, seed, 'random')
         
     
-    def run_complete_study(self, fp_name: str, model_name: str, dataset_name: str) -> Dict:
-        """Run complete study: nested cross-validation"""
+    # def run_complete_study(self, fp_name: str, model_name: str, dataset_name: str) -> Dict:
+    #     """Run complete study: nested cross-validation"""
         
-        best_hyperparams = self.run_hyperparameter_optimization(fp_name, model_name, dataset_name)
-        
-        self.run_multiple_train_test_evaluations(fp_name, model_name, dataset_name, best_hyperparams)
+    #     self.run_multiple_train_test_evaluations(fp_name, model_name, dataset_name, best_hyperparams)

@@ -4,7 +4,7 @@ import torch, time
 TIMESTAMP = int(time.time())
 DEFAULT_FP_SIZE = 2048
 TEST_SIZE = 0.2
-N_TESTS = 15
+N_TESTS = 5
 N_FOLDS = 5
 PATIENCE = 15
 DEVICE = 'cpu'
@@ -16,5 +16,5 @@ DEVICE = 'cpu'
 # Study
 FINGERPRINTS = ['ECFP', 'AtomPair', 'MACCS', 'RDKitFP', 'TOPOTOR', 'MOL2VEC']
 MODELS = ['FNN', 'RF', 'XGBoost', 'SVM', 'ElasticNet', 'KNN']
-DATASETS = ['Caco2_Wang', 'BBB_Martins', 'PPBR_AZ', 'Lipophilicity_AstraZeneca']
-N_TRIALS = 50
+DATASETS = ['Caco2_Wang', 'PPBR_AZ', 'Lipophilicity_AstraZeneca', 'BBB_Martins', 'PAMPA_NCATS', 'Pgp_Broccatelli']
+N_TRIALS = 10

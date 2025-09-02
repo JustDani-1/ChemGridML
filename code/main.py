@@ -15,7 +15,7 @@ dataset_name = env.DATASETS[(task_id // (fps * models)) % datasets]
 start_time = time.time()
 
 manager = StudyManager(f"./studies/{env.TIMESTAMP}", f"./studies/{env.TIMESTAMP}/predictions.db") 
-manager.run_complete_study(fingerprint, model_name, dataset_name)
+manager.run_nested_cv(fingerprint, model_name, dataset_name)
 
 end_time = time.time()
 

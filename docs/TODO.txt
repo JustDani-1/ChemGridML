@@ -70,7 +70,12 @@ TODAYS GOAL:
 
 - 18 <-> ECFP SVM Caco2_Wang went through but is not in the benchmark
 
+FOR EACH COMBO
+old approach:
+N_TRIALS * N_FOLDS + N_TESTS = 50 * 5 + 15 = 265
 
+new approach(nested CV):
+N_TRIALS * N_FOLDS * N_TESTS = 10 * 5 * 5 = 250
 
 Presentation for Mark:
 - present the papers
