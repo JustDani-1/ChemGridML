@@ -2,19 +2,12 @@ import datasets, env, models, util
 from database_manager import DatabaseManager
 from sklearn.model_selection import KFold, train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import roc_auc_score, mean_squared_error, r2_score
 import torch, optuna, os
-from optuna.storages import RDBStorage
-import sqlite3
 from torch.utils.data import DataLoader, TensorDataset
 import numpy as np
-from typing import Dict, Tuple, List
-import time, threading
-import hashlib
+from typing import Dict
 
 class StudyManager:
-    _db_lock = threading.Lock()
-    
     def __init__(self, studies_path: str = './studies/', predictions_path: str = 'studies/predictions.db'):
         self.studies_path = studies_path
         os.makedirs(os.path.dirname(predictions_path), exist_ok=True)
@@ -168,7 +161,7 @@ class StudyManager:
         
     
     def run_complete_study(self, fp_name: str, model_name: str, dataset_name: str) -> Dict:
-        """Run complete study: hyperparameter optimization + multiple evaluations"""
+        """Run complete study: nested cross-validation"""
         
         best_hyperparams = self.run_hyperparameter_optimization(fp_name, model_name, dataset_name)
         
