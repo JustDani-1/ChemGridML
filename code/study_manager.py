@@ -1,7 +1,9 @@
+from time import sleep
 import datasets, env, models, util
 from database_manager import DatabaseManager
 from sklearn.model_selection import KFold, train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.feature_selection import VarianceThreshold
 import torch, optuna, os, sqlite3
 from torch.utils.data import DataLoader, TensorDataset
 import numpy as np
@@ -34,11 +36,18 @@ class StudyManager:
     def kfold_cv(self, X, Y, model_class, framework, task_type, hyperparams):
         kfold = KFold(env.N_FOLDS, shuffle=True, random_state=42)
         predictions = np.zeros_like(Y)
+
+        if framework == 'sklearn':
+            sklearn_model = model_class(task_type, **hyperparams)
         
         for fold, (train_idx, val_idx) in enumerate(kfold.split(X)):
             X_train, X_val = X[train_idx], X[val_idx]
             Y_train, Y_val = Y[train_idx], Y[val_idx]
             
+            threshold = VarianceThreshold(threshold=0.0)
+            threshold.fit(X_train)
+            X_train, X_val = threshold.transform(X_train), threshold.transform(X_val)
+
             scaler = StandardScaler()
             scaler.fit(X_train)
             X_train, X_val = scaler.transform(X_train), scaler.transform(X_val)
@@ -68,13 +77,17 @@ class StudyManager:
                 predictions[val_idx] = model(X_val).cpu().detach().numpy().flatten()
                 
             elif framework == 'sklearn':
-                sklearn_model = model_class(task_type, **hyperparams)
+                sleep(0.001)
                 sklearn_model.model.fit(X_train, Y_train)
                 predictions[val_idx] = sklearn_model.model.predict(X_val).flatten()
         
         return predictions
 
     def train_and_predict(self, X_train, Y_train, X_test, model_class, framework, task_type, hyperparams):
+        threshold = VarianceThreshold(threshold=0.0)
+        threshold.fit(X_train)
+        X_train, X_test = threshold.transform(X_train), threshold.transform(X_test)
+
         scaler = StandardScaler()
         scaler.fit(X_train)
         X_train_scaled = scaler.transform(X_train)
