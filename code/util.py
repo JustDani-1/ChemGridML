@@ -1,6 +1,5 @@
 import torch
-from abc import ABC, abstractmethod
-from sklearn.metrics import mean_squared_error, roc_auc_score
+from sklearn.metrics import mean_squared_error
 import env
 import numpy as np
 

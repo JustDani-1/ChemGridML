@@ -70,6 +70,8 @@ TODAYS GOAL:
 
 - 18 <-> ECFP SVM Caco2_Wang went through but is not in the benchmark
 
+SVM doesnt terminate: MOL2VEC SVM Caco2_Wang => need to log inside the optuna trials to see wether progress is made
+
 FOR EACH COMBO
 old approach:
 N_TRIALS * N_FOLDS + N_TESTS = 50 * 5 + 15 = 265
@@ -95,6 +97,8 @@ Follow-up:
 - try to use curated datasets at first and then maybe try to use ChEMBL-extracted datasets, compare performance
     - compare performances over small, medium and large datasets
 - features -> models -> datasets
+
+
 
 
 Methods:
