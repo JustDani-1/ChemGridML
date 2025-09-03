@@ -2,7 +2,7 @@ import torch, time
 
 # Environment
 TIMESTAMP = int(time.time())
-DEFAULT_FP_SIZE = 2048
+DEFAULT_FP_SIZE = 1024
 TEST_SIZE = 0.2
 N_TESTS = 10
 N_FOLDS = 5

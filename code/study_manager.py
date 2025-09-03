@@ -2,7 +2,7 @@ from time import sleep
 import datasets, env, models, util
 from database_manager import DatabaseManager
 from sklearn.model_selection import KFold, train_test_split
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, RobustScaler
 from sklearn.feature_selection import VarianceThreshold
 import torch, optuna, os, sqlite3
 from torch.utils.data import DataLoader, TensorDataset
@@ -33,7 +33,7 @@ class StudyManager:
         
         self.storage_url = f"sqlite:///{storage_path}?check_same_thread=false"
 
-    def kfold_cv(self, X, Y, model_class, framework, task_type, hyperparams):
+    def kfold_cv(self, X, Y, model_name, model_class, framework, task_type, hyperparams):
         kfold = KFold(env.N_FOLDS, shuffle=True, random_state=42)
         predictions = np.zeros_like(Y)
 
@@ -48,7 +48,13 @@ class StudyManager:
             threshold.fit(X_train)
             X_train, X_val = threshold.transform(X_train), threshold.transform(X_val)
 
-            scaler = StandardScaler()
+            # only scale non-binary features
+            #if X_train[0, 0] != 0 and X_train[0,0] != 1:
+
+            if model_name == 'SVM':
+                scaler = RobustScaler()
+            else:
+                scaler = StandardScaler()
             scaler.fit(X_train)
             X_train, X_val = scaler.transform(X_train), scaler.transform(X_val)
             
@@ -83,20 +89,25 @@ class StudyManager:
         
         return predictions
 
-    def train_and_predict(self, X_train, Y_train, X_test, model_class, framework, task_type, hyperparams):
+    def train_and_predict(self, X_train, Y_train, X_test, model_name, model_class, framework, task_type, hyperparams):
         threshold = VarianceThreshold(threshold=0.0)
         threshold.fit(X_train)
         X_train, X_test = threshold.transform(X_train), threshold.transform(X_test)
 
-        scaler = StandardScaler()
+        # only scale non-binary features
+        #if X_train[0, 0] != 0 and X_train[0,0] != 1:
+            #print("non binary")
+        if model_name == 'SVM':
+            scaler = RobustScaler()
+        else:
+            scaler = StandardScaler()
         scaler.fit(X_train)
-        X_train_scaled = scaler.transform(X_train)
-        X_test_scaled = scaler.transform(X_test)
+        X_train, X_test = scaler.transform(X_train), scaler.transform(X_test)
         
         if framework == 'pytorch':
-            X_train_tensor = torch.tensor(X_train_scaled, dtype=torch.float32)
+            X_train_tensor = torch.tensor(X_train, dtype=torch.float32)
             Y_train_tensor = torch.tensor(Y_train, dtype=torch.float32).unsqueeze(1)
-            X_test_tensor = torch.tensor(X_test_scaled, dtype=torch.float32)
+            X_test_tensor = torch.tensor(X_test, dtype=torch.float32)
             
             train_loader = DataLoader(
                 TensorDataset(X_train_tensor, Y_train_tensor),
@@ -115,8 +126,8 @@ class StudyManager:
                 
         elif framework == 'sklearn':
             sklearn_model = model_class(task_type, **hyperparams)
-            sklearn_model.model.fit(X_train_scaled, Y_train)
-            test_predictions = sklearn_model.model.predict(X_test_scaled).flatten()
+            sklearn_model.model.fit(X_train, Y_train)
+            test_predictions = sklearn_model.model.predict(X_test).flatten()
         
         return test_predictions
 
@@ -136,7 +147,7 @@ class StudyManager:
         
         def objective(trial):
             hyperparams = model_class.get_hyperparameter_space(trial)
-            cv_predictions = self.kfold_cv(X, Y, model_class, framework, task_type, hyperparams)
+            cv_predictions = self.kfold_cv(X, Y, model_name, model_class, framework, task_type, hyperparams)
             return util.evaluate(Y, cv_predictions, task_type)
         
         study.optimize(objective, n_trials=env.N_TRIALS)
@@ -159,7 +170,7 @@ class StudyManager:
         task_type = util.get_task_type(data.Y)
         
         test_predictions = self.train_and_predict(
-            X_train, Y_train, X_test, model_class, framework, task_type, best_hyperparams
+            X_train, Y_train, X_test, model_name, model_class, framework, task_type, best_hyperparams
         )
         
         return seed, test_predictions, test_indices

@@ -69,6 +69,8 @@ TODAYS GOAL:
 - multi-threading in outer loop of nested CV, maybe because some of the combinations are taking a long time
 - standardscaler must be only trained on one, but applied to both
 
+- maybe static method for every model to define data preprocessing pipeline or maybe as part of the dataset depending on fingerprint
+
 - 18 <-> ECFP SVM Caco2_Wang went through but is not in the benchmark
 
 SVM doesnt terminate: MOL2VEC SVM Caco2_Wang => need to log inside the optuna trials to see wether progress is made

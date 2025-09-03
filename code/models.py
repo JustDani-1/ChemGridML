@@ -195,7 +195,7 @@ class SVMModel(BaseModel):
     @staticmethod
     def get_hyperparameter_space(trial):
         return {
-            'C': trial.suggest_float('C', 0.1, 100, log=True),
+            'C': trial.suggest_float('C', 0.001, 10, log=True),
             #'gamma': trial.suggest_categorical('gamma', ['scale', 'auto', 0.001, 0.01, 0.1, 1]),
             'kernel': trial.suggest_categorical('kernel', ['rbf', 'poly', 'sigmoid']),
         }
