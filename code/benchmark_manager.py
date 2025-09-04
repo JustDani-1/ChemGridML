@@ -157,8 +157,28 @@ class BenchmarkManager:
             print("No valid results to plot.")
             return
         
+        # Group datasets by type and sort alphabetically within each group
+        classification_datasets = []
+        regression_datasets = []
+        
+        for dataset in df['dataset'].unique():
+            dataset_df = df[df['dataset'] == dataset]
+            is_classification = dataset_df['is_classification'].iloc[0]
+            
+            if is_classification:
+                classification_datasets.append(dataset)
+            else:
+                regression_datasets.append(dataset)
+        
+        # Sort alphabetically within each group
+        classification_datasets = sorted(classification_datasets)
+        regression_datasets = sorted(regression_datasets)
+        
+        # Combine: classification first, then regression
+        datasets = classification_datasets + regression_datasets
+        
         # Determine number of subplots needed
-        n_datasets = df['dataset'].nunique()
+        n_datasets = len(datasets)
         n_cols = min(3, n_datasets)
         n_rows = (n_datasets + n_cols - 1) // n_cols
         
@@ -172,8 +192,6 @@ class BenchmarkManager:
         
         fig.suptitle(f'Performance by Dataset and Model (Mean ± Std across seeds)\nRun: {self.run_timestamp}',
                     fontsize=16, fontweight='bold')
-        
-        datasets = sorted(df['dataset'].unique())
         
         # Define consistent colors for fingerprints across all datasets
         all_fingerprints = sorted(df['fingerprint'].unique())
@@ -220,7 +238,7 @@ class BenchmarkManager:
                 
                 for model_idx, model in enumerate(models):
                     subset = dataset_df[(dataset_df['fingerprint'] == fingerprint) & 
-                                      (dataset_df['model'] == model)]
+                                    (dataset_df['model'] == model)]
                     if len(subset) > 0:
                         mean_score = subset['mean'].iloc[0]
                         std_score = subset['std'].iloc[0]
@@ -236,9 +254,9 @@ class BenchmarkManager:
                 
                 # Plot bars for this fingerprint across all models with error bars
                 ax.bar(fp_positions, fp_means, bar_width * 0.9,
-                      label=fingerprint, color=fingerprint_color_map[fingerprint],
-                      alpha=0.8, edgecolor='white', linewidth=0.5,
-                      yerr=fp_stds, capsize=3, error_kw={'alpha': 0.6})
+                    label=fingerprint, color=fingerprint_color_map[fingerprint],
+                    alpha=0.8, edgecolor='white', linewidth=0.5,
+                    yerr=fp_stds, capsize=3, error_kw={'alpha': 0.6})
             
             # Add model average lines/markers
             for model_idx, model in enumerate(models):
@@ -247,31 +265,33 @@ class BenchmarkManager:
                 left_edge = model_positions[model_idx] - group_width/2
                 right_edge = model_positions[model_idx] + group_width/2
                 ax.hlines(avg_score, left_edge, right_edge,
-                         colors='red', linestyles='--', linewidth=2, alpha=0.7)
+                        colors='red', linestyles='--', linewidth=2, alpha=0.7)
                 
                 # Add average value as text
                 y_offset = 0.05 * (ax.get_ylim()[1] - ax.get_ylim()[0])
                 ax.text(model_positions[model_idx], avg_score + y_offset,
-                       f'{avg_score:.3f}', ha='center', va='bottom',
-                       fontweight='bold', fontsize=8, color='red')
+                    f'{avg_score:.3f}', ha='center', va='bottom',
+                    fontweight='bold', fontsize=8, color='red')
             
             # Customize the plot
             ax.set_xlabel('Model')
             ax.set_ylabel(metric_name)
-            ax.set_title(f'{dataset} ({metric_name})')
+            
+            ax.set_title(f'{dataset}')
+            
             ax.set_xticks(model_positions)
             ax.set_xticklabels(models, rotation=45, ha='right')
             
             # Add vertical lines to separate model groups
             for i in range(1, len(models)):
                 ax.axvline(x=model_positions[i] - 0.5, color='gray',
-                          linestyle=':', alpha=0.5, linewidth=1)
+                        linestyle=':', alpha=0.5, linewidth=1)
             
             # Only show legend on first subplot to avoid redundancy
             if idx == 0:
                 # Create custom legend with fingerprints and model average
                 legend_elements = [plt.Rectangle((0,0),1,1, facecolor=fingerprint_color_map[fp],
-                                               alpha=0.8, label=fp) for fp in fingerprints]
+                                            alpha=0.8, label=fp) for fp in fingerprints]
                 legend_elements.append(plt.Line2D([0], [0], color='red', linestyle='--',
                                                 linewidth=2, label='Model Average'))
                 ax.legend(handles=legend_elements, fontsize=8, loc='upper right')
@@ -294,7 +314,6 @@ class BenchmarkManager:
         plot_path = os.path.join(self.save_dir, f'detailed_comparison.png')
         plt.savefig(plot_path, dpi=300, bbox_inches='tight')
         plt.show()
-        print(f"Plot saved to: {plot_path}")
     
     def save_results(self, filename: Optional[str] = None):
         """Save analysis results to CSV"""
@@ -361,6 +380,6 @@ def run_analysis(db_manager, save_dir="./analysis_results"):
     return analyzer
 
 
-path = "./studies/372536/"
+path = "./studies/380874/"
 db_manager = DatabaseManager(f"{path}predictions.db")
 analyzer = run_analysis(db_manager, path)

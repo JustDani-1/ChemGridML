@@ -7,10 +7,6 @@ SHORT DAILY LOG OF WORK:
 - skimmed the computational_pharmaceutics git course
 - started reading about Morgan Fingerprints, Molecular Grammars
 
-Papers:
-- Hierarchical Grammar-Induced Geometry for Data-Efficient Molecular Property Prediction
-- DATA-EFFICIENT GRAPH GRAMMAR LEARNING FOR MOLECULAR GENERATION
-
 12.08.:
 -------
 - first look at TDC
@@ -93,3 +89,18 @@ Papers:
 - method to get the 10 longest running jobs
 - investigation on some jobs freezing
 - finally able to replicate the problem, wondering what causes it
+
+
+03.09.:
+-------
+- finalized the finerprint x model x dataset pipeline
+- ran final job with default fingerprint size 1024
+- worked with Mark on MD Myriad optimization
+
+04.09.:
+-------
+- complete pesky UCL courses about safety, diversity, ...
+- meeting with Mark & David
+=> new direction: new experiment with deepchem framework for learnable models
+=> after that: pre-trained models (GROVER, MOLBERT, maybe even remove MOL2VEC from fingerprints)
+=> after that: dataset size aspect, benchmark how the performance of the model changes for different dataset sizes
