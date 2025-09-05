@@ -74,7 +74,9 @@ TODAYS GOAL:
     - .fit => fitting the model (for pytorch, the epochs are an attribute)
     - .predict => predict from trained model
     => 3 base classes: deepchem, sklearn, pytorch
-    
+
+- for the 10 scores for each model, perform statistical significance tests
+
 FOR EACH COMBO
 old approach:
 N_TRIALS * N_FOLDS + N_TESTS = 50 * 5 + 15 = 265

@@ -15,7 +15,7 @@
 #$ -pe smp 4
 
 # Set the name of the job.
-#$ -N ProcessArray
+#$ -N Fingerprints
 
 # Set the working directory to somewhere in your scratch space. 
 #$ -wd /home/ucnwdma/Scratch/UCL_internship

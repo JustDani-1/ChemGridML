@@ -1,11 +1,7 @@
-from time import sleep
 import datasets, env, models, util
 from database_manager import DatabaseManager
 from sklearn.model_selection import KFold, train_test_split
-from sklearn.preprocessing import StandardScaler, RobustScaler
-from sklearn.feature_selection import VarianceThreshold
-import torch, optuna, os, sqlite3
-from torch.utils.data import DataLoader, TensorDataset
+import optuna, os, sqlite3
 import numpy as np
 from typing import Dict, Tuple
 from concurrent.futures import ProcessPoolExecutor, as_completed
@@ -24,7 +20,6 @@ class StudyManager:
         temp_storage = optuna.storages.RDBStorage(f"sqlite:///{storage_path}")
         optuna.create_study(storage=temp_storage, study_name="__init__", direction="minimize")
 
-        
         conn = sqlite3.connect(storage_path)
         conn.execute("PRAGMA journal_mode=WAL")
         conn.execute("PRAGMA synchronous=NORMAL") 
@@ -33,104 +28,44 @@ class StudyManager:
         
         self.storage_url = f"sqlite:///{storage_path}?check_same_thread=false"
 
-    def kfold_cv(self, X, Y, model_name, model_class, framework, task_type, hyperparams):
+    def kfold_cv(self, X, Y, model_name, task_type, hyperparams):
+        """Perform k-fold cross-validation using uniform model API"""
         kfold = KFold(env.N_FOLDS, shuffle=True, random_state=42)
         predictions = np.zeros_like(Y)
-
-        if framework == 'sklearn':
-            sklearn_model = model_class(task_type, **hyperparams)
         
         for fold, (train_idx, val_idx) in enumerate(kfold.split(X)):
             X_train, X_val = X[train_idx], X[val_idx]
             Y_train, Y_val = Y[train_idx], Y[val_idx]
             
-            threshold = VarianceThreshold(threshold=0.0)
-            threshold.fit(X_train)
-            X_train, X_val = threshold.transform(X_train), threshold.transform(X_val)
-
-            if model_name == 'SVM':
-                scaler = RobustScaler()
-            else:
-                scaler = StandardScaler()
-            scaler.fit(X_train)
-            X_train, X_val = scaler.transform(X_train), scaler.transform(X_val)
+            # Create model instance
+            model_class = models.ModelRegistry.get_model(model_name)
+            model = model_class(task_type=task_type, **hyperparams)
             
-            if framework == 'pytorch':
-                X_train = torch.tensor(X_train, dtype=torch.float32)
-                X_val = torch.tensor(X_val, dtype=torch.float32)
-                Y_train = torch.tensor(Y_train, dtype=torch.float32).unsqueeze(1)
-                Y_val = torch.tensor(Y_val, dtype=torch.float32).unsqueeze(1)
-                
-                train_loader = DataLoader(
-                    TensorDataset(X_train, Y_train),
-                    batch_size=hyperparams['batch_size'],
-                    shuffle=True
-                )
-                val_loader = DataLoader(
-                    TensorDataset(X_val, Y_val),
-                    batch_size=hyperparams['batch_size'],
-                    shuffle=False
-                )
-                
-                model = model_class(input_size=X_train.shape[1], task_type=task_type, **hyperparams).to(env.DEVICE)
-                optimizer = torch.optim.Adam(model.parameters(), lr=hyperparams['lr'])
-                model = util.train_with_val(model, optimizer, train_loader, val_loader, hyperparams['epochs'])
-                
-                X_val = X_val.to(env.DEVICE)
-                predictions[val_idx] = model(X_val).cpu().detach().numpy().flatten()
-                
-            elif framework == 'sklearn':
-                sleep(0.001)
-                sklearn_model.model.fit(X_train, Y_train)
-                predictions[val_idx] = sklearn_model.model.predict(X_val).flatten()
+            X_train, X_val, Y_train, Y_val = model.preprocess(X_train, X_val, Y_train, Y_val)
+
+            model.fit(X_train, Y_train)
+            
+            fold_predictions = model.predict(X_val)
+            predictions[val_idx] = fold_predictions
         
         return predictions
 
-    def train_and_predict(self, X_train, Y_train, X_test, model_name, model_class, framework, task_type, hyperparams):
-        threshold = VarianceThreshold(threshold=0.0)
-        threshold.fit(X_train)
-        X_train, X_test = threshold.transform(X_train), threshold.transform(X_test)
+    def train_and_predict(self, X_train, Y_train, X_test, model_name, task_type, hyperparams):
+        """Train model and make predictions"""
+        # Create model instance
+        model_class = models.ModelRegistry.get_model(model_name)
+        model = model_class(task_type=task_type, **hyperparams)
+        
+        X_train, X_test, Y_train, _ = model.preprocess(X_train, X_test, Y_train, Y_train)
 
-        # only scale non-binary features
-        #if X_train[0, 0] != 0 and X_train[0,0] != 1:
-            #print("non binary")
-        if model_name == 'SVM':
-            scaler = RobustScaler()
-        else:
-            scaler = StandardScaler()
-        scaler.fit(X_train)
-        X_train, X_test = scaler.transform(X_train), scaler.transform(X_test)
+        # Train model
+        model.fit(X_train, Y_train)
         
-        if framework == 'pytorch':
-            X_train_tensor = torch.tensor(X_train, dtype=torch.float32)
-            Y_train_tensor = torch.tensor(Y_train, dtype=torch.float32).unsqueeze(1)
-            X_test_tensor = torch.tensor(X_test, dtype=torch.float32)
-            
-            train_loader = DataLoader(
-                TensorDataset(X_train_tensor, Y_train_tensor),
-                batch_size=hyperparams['batch_size'],
-                shuffle=True
-            )
-            
-            model = model_class(input_size=X_train.shape[1], task_type=task_type, **hyperparams).to(env.DEVICE)
-            optimizer = torch.optim.Adam(model.parameters(), lr=hyperparams['lr'])
-            model = util.train_without_val(model, optimizer, train_loader, hyperparams['epochs'])
-            
-            model.eval()
-            with torch.no_grad():
-                X_test_tensor = X_test_tensor.to(env.DEVICE)
-                test_predictions = model(X_test_tensor).cpu().detach().numpy().flatten()
-                
-        elif framework == 'sklearn':
-            sklearn_model = model_class(task_type, **hyperparams)
-            sklearn_model.model.fit(X_train, Y_train)
-            test_predictions = sklearn_model.model.predict(X_test).flatten()
-        
-        return test_predictions
+        return model.predict(X_test)
 
     def run_hyperparameter_optimization(self, X, Y, seed, fp_name: str, model_name: str, dataset_name: str) -> Dict:
+        """Run hyperparameter optimization"""
         model_class = models.ModelRegistry.get_model(model_name)
-        framework = models.ModelRegistry.get_framework(model_name)
         task_type = util.get_task_type(Y)
         
         study_id = f"{fp_name}_{model_name}_{dataset_name}"
@@ -144,7 +79,7 @@ class StudyManager:
         
         def objective(trial):
             hyperparams = model_class.get_hyperparameter_space(trial)
-            cv_predictions = self.kfold_cv(X, Y, model_name, model_class, framework, task_type, hyperparams)
+            cv_predictions = self.kfold_cv(X, Y, model_name, task_type, hyperparams)
             return util.evaluate(Y, cv_predictions, task_type)
         
         study.optimize(objective, n_trials=env.N_TRIALS)
@@ -152,6 +87,7 @@ class StudyManager:
         return study.best_params
 
     def run_single_experiment(self, seed: int, fp_name: str, model_name: str, dataset_name: str, data) -> Tuple[int, np.ndarray, np.ndarray]:
+        """Run a single experiment (train-test split)"""
         
         X_train, X_test, Y_train, Y_test, train_indices, test_indices = train_test_split(
             data.X, data.Y, np.arange(len(data.Y)),
@@ -162,17 +98,16 @@ class StudyManager:
             X_train, Y_train, seed, fp_name, model_name, dataset_name
         )
         
-        model_class = models.ModelRegistry.get_model(model_name)
-        framework = models.ModelRegistry.get_framework(model_name)
         task_type = util.get_task_type(data.Y)
         
         test_predictions = self.train_and_predict(
-            X_train, Y_train, X_test, model_name, model_class, framework, task_type, best_hyperparams
+            X_train, Y_train, X_test, model_name, task_type, best_hyperparams
         )
         
         return seed, test_predictions, test_indices
 
     def run_nested_cv(self, fp_name, model_name, dataset_name):
+        """Run nested cross-validation experiment"""
         data = datasets.TDC_Dataset(dataset_name, fp_name)
         self.db.store_dataset_targets(dataset_name, data.Y)
         study_id = f"{fp_name}_{model_name}_{dataset_name}"

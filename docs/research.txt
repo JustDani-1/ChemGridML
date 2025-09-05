@@ -126,10 +126,34 @@ Concepts:
 ---------
 - one strategy for self-supervised learning of molecular embeddings:
 	- remove bonds/substructures, let model predict what should be there
-	
+
+
+Pat Walters:
+------------
+Focus benchmarking efforts on simple, robust, relevant, clearly defined endpoints.  
+Initially, I would recommend aqueous solubility, membrane permeability, in vitro metabolic stability, and biochemical assays.  
+These endpoints are reproducible, relatively inexpensive, and can provide reasonably large datasets.  
+Until we develop a clear understanding of these benchmarks, we should avoid more complex cellular or in-vivo endpoints.	
+
+"Good" benchmark datasets:
+	https://github.com/molecularinformatics/Computational-ADME
+	Biogen dataset
+
+Regression metrics to include:
+	Mean Absolute Error (MAE)
+	Root Mean Squared Error (RMSE)
+	Spearman Rank Correlation
+	Pearson Correlation Coefficient
+	Kendall Tau
+
+Splits:
+	Random
+	Scaffold
+	Butina
+	(look into: make these splits stratified for the classification tasks)
 
 Claude:
-
+-------
 Your categorization makes good conceptual sense and captures the main paradigms in molecular property prediction! The three-way division based on modularity and training approach is logical. Here are some thoughts on your structure:
 Strengths of your categorization:
 
