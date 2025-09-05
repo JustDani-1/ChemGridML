@@ -6,8 +6,8 @@ import plotly.io as pio
 pio.renderers.default = "browser"
 
 study = optuna.load_study(
-    study_name="TOPOTOR_FNN_PPBR_AZ",
-    storage="sqlite:///./studies/369722/TOPOTOR_FNN_PPBR_AZ.db"
+    study_name="ECFP_FNN_Caco2_Wang.db",
+    storage="sqlite:///./studies/380874/studies/ECFP_FNN_PPBR_AZ.db"
 )
 
 print(f"Best params: {study.best_params}")
@@ -16,4 +16,3 @@ print(f"Best value: {study.best_value}")
 vis.plot_optimization_history(study).show()
 vis.plot_param_importances(study).show()
 
-print("test")

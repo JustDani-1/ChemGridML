@@ -48,9 +48,6 @@ class StudyManager:
             threshold.fit(X_train)
             X_train, X_val = threshold.transform(X_train), threshold.transform(X_val)
 
-            # only scale non-binary features
-            #if X_train[0, 0] != 0 and X_train[0,0] != 1:
-
             if model_name == 'SVM':
                 scaler = RobustScaler()
             else:

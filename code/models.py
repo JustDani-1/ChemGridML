@@ -29,14 +29,18 @@ class ModelRegistry:
     def get_model(cls, name):
         return cls.models[name]
     
-    @classmethod
-    def get_framework(cls, name):
-        model_class = cls.models[name]
-        return model_class.framework
-    
 
 class BaseModel(ABC):
-    framework = None
+
+    @abstractmethod
+    def preprocess(self, X_train, X_test, Y_train, Y_test):
+        """Perform framework- and model-specific preprocessing of the data"""
+        pass
+
+    @abstractmethod
+    def train(self, X_train, X_val, ):
+        """Perform framework- and model-specific preprocessing of the data"""
+        pass
 
     @abstractmethod
     def get_hyperparameter_space(self, trial):
@@ -46,8 +50,6 @@ class BaseModel(ABC):
 
 @ModelRegistry.register('FNN')
 class FNN(BaseModel, torch.nn.Module):
-    framework = 'pytorch'
-
     def __init__(self, **kwargs):
         super().__init__()
         self.input_size = kwargs.get('input_size', env.DEFAULT_FP_SIZE)
@@ -87,27 +89,14 @@ class FNN(BaseModel, torch.nn.Module):
             'activation': trial.suggest_categorical('activation', ['relu', 'tanh']),
             
             # Training hyperparameters
-            'epochs': trial.suggest_categorical('epochs', [100, 150, 200]),
+            'epochs': trial.suggest_categorical('epochs', [50, 100, 150, 200]),
             'lr': trial.suggest_float('lr', 1e-5, 1e-2, log=True),
             'batch_size': trial.suggest_categorical('batch_size', [16, 32, 64])
         }
-        # return {
-        #     # Model hyperparameters
-        #     'hidden_sizes': trial.suggest_categorical('hidden_sizes', [[32], [32, 16], [32, 16, 8]]),
-        #     'dropout_rate': trial.suggest_categorical('dropout_rate', [0.0, 0.1, 0.25, 0.4, 0.5]),
-        #     'activation': trial.suggest_categorical('activation', ['relu', 'tanh']),
-            
-        #     # Training hyperparameters
-        #     'epochs': trial.suggest_categorical('epochs', [10, 15, 20]),
-        #     'lr': trial.suggest_float('lr', 1e-5, 1e-2, log=True),
-        #     'batch_size': trial.suggest_categorical('batch_size', [16, 32, 64])
-        # }
     
 
 @ModelRegistry.register('RF')
 class RandomForestModel(BaseModel):
-    framework = 'sklearn'
-
     def __init__(self, task_type='regression', **kwargs):
         if task_type == 'regression':
             self.model = RandomForestRegressor(
@@ -139,8 +128,6 @@ class RandomForestModel(BaseModel):
 
 @ModelRegistry.register('XGBoost')
 class XGBoostModel(BaseModel):
-    framework = 'sklearn'
-
     def __init__(self, task_type='regression', **kwargs):
         if task_type == 'regression':
             self.model = xgb.XGBRegressor(
@@ -175,8 +162,6 @@ class XGBoostModel(BaseModel):
 
 @ModelRegistry.register('SVM')
 class SVMModel(BaseModel):
-    framework = 'sklearn'
-
     def __init__(self, task_type='regression', **kwargs):
         if task_type == 'regression':
             self.model = SVR(
@@ -202,8 +187,6 @@ class SVMModel(BaseModel):
 
 @ModelRegistry.register('ElasticNet')
 class ElasticNetModel(BaseModel):
-    framework = 'sklearn'
-
     def __init__(self, task_type='regression', **kwargs):
         if task_type == 'regression':
             self.model = ElasticNet(
@@ -230,8 +213,6 @@ class ElasticNetModel(BaseModel):
 
 @ModelRegistry.register('KNN')
 class KNNModel(BaseModel):
-    framework = 'sklearn'
-
     def __init__(self, task_type='regression', **kwargs):
         if task_type == 'regression':
             self.model = KNeighborsRegressor(
