@@ -17,29 +17,28 @@ class StudyManager:
         storage_path = f"{self.studies_path}/{study_id}.db"
         os.makedirs(self.studies_path, exist_ok=True)
 
-        temp_storage = optuna.storages.RDBStorage(f"sqlite:///{storage_path}")
-        optuna.create_study(storage=temp_storage, study_name="__init__", direction="minimize")
-
+        # Add connection pooling parameters
         conn = sqlite3.connect(storage_path)
         conn.execute("PRAGMA journal_mode=WAL")
         conn.execute("PRAGMA synchronous=NORMAL") 
         conn.execute("PRAGMA cache_size=10000")
+        conn.execute("PRAGMA busy_timeout=30000")
         conn.close()
         
-        self.storage_url = f"sqlite:///{storage_path}?check_same_thread=false"
+        self.storage_url = f"sqlite:///{storage_path}?check_same_thread=false&pool_timeout=30"
 
     def kfold_cv(self, X, Y, model_name, task_type, hyperparams):
         """Perform k-fold cross-validation using uniform model API"""
         kfold = KFold(env.N_FOLDS, shuffle=True, random_state=42)
         predictions = np.zeros_like(Y)
+
+        # Create model instance
+        model_class = models.ModelRegistry.get_model(model_name)
+        model = model_class(task_type=task_type, **hyperparams)
         
         for fold, (train_idx, val_idx) in enumerate(kfold.split(X)):
             X_train, X_val = X[train_idx], X[val_idx]
             Y_train, Y_val = Y[train_idx], Y[val_idx]
-            
-            # Create model instance
-            model_class = models.ModelRegistry.get_model(model_name)
-            model = model_class(task_type=task_type, **hyperparams)
             
             X_train, X_val, Y_train, Y_val = model.preprocess(X_train, X_val, Y_train, Y_val)
 
@@ -117,7 +116,7 @@ class StudyManager:
         indices = [None for _ in range(env.N_TESTS)]
         
         allocated_cores = int(os.environ.get('NSLOTS', multiprocessing.cpu_count()))
-        max_workers = min(allocated_cores, env.N_TESTS)
+        max_workers = min(4, allocated_cores, env.N_TESTS)
         
         with ProcessPoolExecutor(max_workers=max_workers) as executor:
             future_to_seed = {

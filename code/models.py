@@ -3,6 +3,7 @@ import xgboost as xgb
 from abc import ABC, abstractmethod
 import env
 import numpy as np
+from util import train_without_val
 from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
 from sklearn.svm import SVR, SVC
 from sklearn.linear_model import ElasticNet, LogisticRegression
@@ -102,8 +103,7 @@ class PytorchBase(ModelBase):
         # Train model
         optimizer = torch.optim.Adam(self.model.parameters(), lr=self.hyperparams['lr'])
         
-        from util import train_without_val
-        self.model = train_without_val(self.model, optimizer, train_loader, self.hyperparams['epochs'])
+        train_without_val(self.model, optimizer, train_loader, self.hyperparams['epochs'])
 
 
     def predict(self, X):
@@ -153,7 +153,8 @@ class SklearnBase(ModelBase):
         """Train the sklearn model"""
         
         # Create actual model
-        self.model = self._create_model()
+        if self.model is None:
+            self.model = self._create_model()
         
         # Fit model
         self.model.fit(X_train, Y_train)
@@ -235,10 +236,10 @@ class FNN(PytorchBase):
             # Model hyperparameters
             'hidden_sizes': trial.suggest_categorical('hidden_sizes', [[128], [128, 64], [256, 128, 64]]),
             'dropout_rate': trial.suggest_categorical('dropout_rate', [0.0, 0.1, 0.25, 0.4, 0.5]),
-            'activation': trial.suggest_categorical('activation', ['relu', 'tanh']),
+            #'activation': trial.suggest_categorical('activation', ['relu', 'tanh']),
             
             # Training hyperparameters
-            'epochs': trial.suggest_categorical('epochs', [50, 100, 150, 200]),
+            'epochs': trial.suggest_categorical('epochs', [50, 100, 150]),
             'lr': trial.suggest_float('lr', 1e-5, 1e-2, log=True),
             'batch_size': trial.suggest_categorical('batch_size', [16, 32, 64])
         }

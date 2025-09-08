@@ -95,7 +95,5 @@ def train_without_val(model, optimizer, train_loader, epochs):
             loss.backward()
             optimizer.step()
 
-    return model
-
 def get_task_type(Y):
     return 'classification' if Y[0] == 0 or Y[0] == 1 else 'regression'
