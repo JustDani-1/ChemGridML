@@ -12,10 +12,14 @@ class StudyManager:
         self.studies_path = studies_path
         os.makedirs(os.path.dirname(predictions_path), exist_ok=True)
         self.db = DatabaseManager(predictions_path)
+        self.optuna_init = False
     
     def setup_optuna_storage(self, study_id):
         storage_path = f"{self.studies_path}/{study_id}.db"
         os.makedirs(self.studies_path, exist_ok=True)
+
+        temp_storage = optuna.storages.RDBStorage(f"sqlite:///{storage_path}")
+        optuna.create_study(storage=temp_storage, study_name="__init__", direction="minimize")
 
         # Add connection pooling parameters
         conn = sqlite3.connect(storage_path)

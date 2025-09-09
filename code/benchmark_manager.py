@@ -380,6 +380,6 @@ def run_analysis(db_manager, save_dir="./analysis_results"):
     return analyzer
 
 
-path = "./studies/438499/"
+path = "./studies/999998/"
 db_manager = DatabaseManager(f"{path}predictions.db")
 analyzer = run_analysis(db_manager, path)

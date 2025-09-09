@@ -1,4 +1,4 @@
-import torch, time
+import time
 
 # Environment
 TIMESTAMP = int(time.time())
@@ -12,12 +12,16 @@ N_TESTS = 10
 N_FOLDS = 5
 N_TRIALS = 15
 # Fingerprints
-FINGERPRINTS = ['ECFP', 'AtomPair', 'MACCS', 'RDKitFP', 'TOPOTOR', 'MOL2VEC']
-MODELS = ['FNN', 'RF', 'XGBoost', 'SVM', 'ElasticNet', 'KNN']
+FPS: list[str] = ['ECFP', 'AtomPair', 'MACCS', 'RDKitFP', 'TOPOTOR', 'MOL2VEC']
+MDLS: list[str] = ['FNN', 'RF', 'XGBoost', 'SVM', 'ElasticNet', 'KNN']
 # Learnables
-LEARNABLES = ['GCN', 'GAT']
+LEARNABLES = []#['GCN', 'GAT']
 # Pre-trained
+FTRS = []#['GRAPH']
 PRETRAINEDS = ['MOLBERT', 'GROVER']
-# Datasets
+
+# Combinations
+FEATURES = FPS + FTRS
+MODELS = MDLS + LEARNABLES
 DATASETS = ['Caco2_Wang', 'PPBR_AZ', 'Lipophilicity_AstraZeneca', 'BBB_Martins', 'PAMPA_NCATS', 'Pgp_Broccatelli']
 

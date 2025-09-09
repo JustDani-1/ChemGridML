@@ -2,10 +2,11 @@ from rdkit import Chem
 from rdkit.Chem import rdFingerprintGenerator
 from rdkit.Chem import MACCSkeys
 import numpy as np
-from gensim.models import word2vec
-from altered_mol2vec import mol2alt_sentence, sentences2vec
+#from gensim.models import word2vec
+#from altered_mol2vec import mol2alt_sentence, sentences2vec
 import env
 import numpy as np
+import deepchem as dc
 
 def AtomPair(mols, fpSize=env.DEFAULT_FP_SIZE):
     gen = rdFingerprintGenerator.GetAtomPairGenerator(includeChirality=True, fpSize=fpSize)
@@ -27,10 +28,15 @@ def TOPOTOR(mols, fpSize=env.DEFAULT_FP_SIZE):
     return np.stack([np.array(gen.GetFingerprint(x)) for x in mols])
 
 def MOL2VEC(mols):
+    return dc.deepchem.feat.Mol2VecFingerprint().featurize(mols)
     model = word2vec.Word2Vec.load('./models/mol2vec_300dim.pkl')
     sentences = [mol2alt_sentence(mol, 1) for mol in mols]
     vecs = sentences2vec(sentences, model)
     return vecs
+
+def GRAPH(mols):
+    # TODO: check options of this featurizer
+    return dc.deepchem.feat.MolGraphConvFeaturizer().featurize(mols)
 
 def getFP(mols, fingerprint: str):
     if fingerprint not in globals():
@@ -41,3 +47,4 @@ def getFP(mols, fingerprint: str):
         raise ValueError(f"{fingerprint} is not a callable function")
     
     return func(mols)
+

@@ -3,6 +3,7 @@ import xgboost as xgb
 from abc import ABC, abstractmethod
 import env
 import numpy as np
+import deepchem as dc
 from util import train_without_val
 from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
 from sklearn.svm import SVR, SVC
@@ -175,28 +176,37 @@ class SklearnBase(ModelBase):
 class DeepchemBase(ModelBase):
     def __init__(self, task_type, **kwargs):
         super().__init__(task_type, **kwargs)
-        # TODO: Implement deepchem base class
 
     def preprocess(self, X_train, X_val, Y_train, Y_val):
         # TODO: Implement deepchem preprocessing
-        pass
+        return X_train, X_val, Y_train, Y_val
 
     def fit(self, X_train, Y_train):
         # TODO: Implement deepchem fitting
-        pass
+        dataset = dc.deepchem.data.NumpyDataset(X=X_train, y=Y_train)
+
+        # Create actual model
+        if self.model is None:
+            self.model = self._create_model()
+        
+        # Fit model
+        self.model.fit(dataset, nb_epochs=self.hyperparams['epochs'])
+
 
     def predict(self, X):
         # TODO: Implement deepchem prediction
-        pass
+        dataset = dc.deepchem.data.NumpyDataset(X)
+        return self.model.predict(dataset)
 
-
-# Concrete model implementations
+##################################
+# Concrete model implementations #
+##################################
 
 @ModelRegistry.register('FNN')
-class FNN(PytorchBase):
+class FNNModel(PytorchBase):
     def _create_model(self, input_size):
         """Create the FeedForward Neural Network"""
-        class FNNModel(torch.nn.Module):
+        class FNN(torch.nn.Module):
             def __init__(self, input_size, hidden_sizes, dropout_rate, activation, task_type):
                 super().__init__()
                 
@@ -222,7 +232,7 @@ class FNN(PytorchBase):
             def forward(self, x):
                 return self.network(x)
         
-        return FNNModel(
+        return FNN(
             input_size=input_size,
             hidden_sizes=self.hyperparams.get('hidden_sizes', [128, 64]),
             dropout_rate=self.hyperparams.get('dropout_rate', 0.3),
@@ -385,4 +395,44 @@ class KNNModel(SklearnBase):
             'n_neighbors': trial.suggest_categorical('n_neighbors', [3, 5, 7, 9, 11]),
             'weights': trial.suggest_categorical('weights', ['uniform', 'distance']),
             'metric': trial.suggest_categorical('metric', ['minkowski', 'manhattan', 'chebyshev']),
+        }
+    
+
+@ModelRegistry.register('GAT')
+class GATModel(DeepchemBase):
+    def _create_model(self):
+        return dc.deepchem.models.GATModel(
+            n_tasks=1,
+            mode=self.task_type,
+        )
+    
+    @staticmethod
+    def get_hyperparameter_space(trial):
+        # TODO: change to GAT specific hyperparams
+        return {
+            'n_neighbors': trial.suggest_categorical('n_neighbors', [3, 5, 7, 9, 11]),
+            'weights': trial.suggest_categorical('weights', ['uniform', 'distance']),
+            'metric': trial.suggest_categorical('metric', ['minkowski', 'manhattan', 'chebyshev']),
+        }
+    
+@ModelRegistry.register('GCN')
+class GCNModel(DeepchemBase):
+    def _create_model(self):
+        return dc.deepchem.models.GCNModel(
+            n_tasks=1,
+            mode=self.task_type,
+        )
+    
+    @staticmethod
+    def get_hyperparameter_space(trial):
+        # TODO: change to GCN specific hyperparams
+        return {
+            'n_neighbors': trial.suggest_categorical('n_neighbors', [3, 5, 7, 9, 11]),
+            'weights': trial.suggest_categorical('weights', ['uniform', 'distance']),
+            'metric': trial.suggest_categorical('metric', ['minkowski', 'manhattan', 'chebyshev']),
+
+            # Training hyperparameters
+            'epochs': trial.suggest_categorical('epochs', [50, 100, 150]),
+            'lr': trial.suggest_float('lr', 1e-5, 1e-2, log=True),
+            'batch_size': trial.suggest_categorical('batch_size', [16, 32, 64])
         }
