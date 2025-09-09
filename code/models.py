@@ -190,13 +190,13 @@ class DeepchemBase(ModelBase):
             self.model = self._create_model()
         
         # Fit model
-        self.model.fit(dataset, nb_epochs=self.hyperparams['epochs'])
+        self.model.fit(dataset, nb_epoch=self.hyperparams['epochs'])
 
 
     def predict(self, X):
         # TODO: Implement deepchem prediction
         dataset = dc.deepchem.data.NumpyDataset(X)
-        return self.model.predict(dataset)
+        return self.model.predict(dataset).flatten()
 
 ##################################
 # Concrete model implementations #
@@ -404,6 +404,7 @@ class GATModel(DeepchemBase):
         return dc.deepchem.models.GATModel(
             n_tasks=1,
             mode=self.task_type,
+            device=env.DEVICE
         )
     
     @staticmethod
@@ -413,6 +414,11 @@ class GATModel(DeepchemBase):
             'n_neighbors': trial.suggest_categorical('n_neighbors', [3, 5, 7, 9, 11]),
             'weights': trial.suggest_categorical('weights', ['uniform', 'distance']),
             'metric': trial.suggest_categorical('metric', ['minkowski', 'manhattan', 'chebyshev']),
+
+            # Training hyperparameters
+            'epochs': trial.suggest_categorical('epochs', [50, 100, 150]),
+            'lr': trial.suggest_float('lr', 1e-5, 1e-2, log=True),
+            'batch_size': trial.suggest_categorical('batch_size', [16, 32, 64])
         }
     
 @ModelRegistry.register('GCN')
@@ -421,6 +427,7 @@ class GCNModel(DeepchemBase):
         return dc.deepchem.models.GCNModel(
             n_tasks=1,
             mode=self.task_type,
+            device=env.DEVICE
         )
     
     @staticmethod

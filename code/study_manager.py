@@ -35,6 +35,7 @@ class StudyManager:
         """Perform k-fold cross-validation using uniform model API"""
         kfold = KFold(env.N_FOLDS, shuffle=True, random_state=42)
         predictions = np.zeros_like(Y)
+        print(f"predictions shape:{predictions.shape}")
 
         # Create model instance
         model_class = models.ModelRegistry.get_model(model_name)
