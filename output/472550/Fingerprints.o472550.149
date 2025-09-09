@@ -1,0 +1,14 @@
+Seed 1 failed: (sqlite3.OperationalError) table trial_user_attributes already exists
+[SQL: 
+CREATE TABLE trial_user_attributes (
+	trial_user_attribute_id INTEGER NOT NULL, 
+	trial_id INTEGER, 
+	"key" VARCHAR(512), 
+	value_json TEXT, 
+	PRIMARY KEY (trial_user_attribute_id), 
+	UNIQUE (trial_id, "key"), 
+	FOREIGN KEY(trial_id) REFERENCES trials (trial_id)
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
