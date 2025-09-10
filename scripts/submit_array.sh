@@ -9,13 +9,13 @@
 #$ -l mem=8G
 
 # Set up the job array. Upper bound specifies the number of jobs
-#$ -t 1-12
+#$ -t 1-216
 
-# Request cores.
+# Request cores
 #$ -pe smp 5
 
 # Set the name of the job.
-#$ -N Graph
+#$ -N Fingerprint
 
 # Set the working directory to somewhere in your scratch space. 
 #$ -wd /home/ucnwdma/Scratch/UCL_internship

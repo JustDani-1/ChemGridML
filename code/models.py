@@ -104,7 +104,17 @@ class PytorchBase(ModelBase):
         # Train model
         optimizer = torch.optim.Adam(self.model.parameters(), lr=self.hyperparams['lr'])
         
-        train_without_val(self.model, optimizer, train_loader, self.hyperparams['epochs'])
+        self.model.train()
+        for e in range(self.hyperparams['epochs']):
+            # Training
+            for batch_x, batch_y in train_loader:
+                batch_x = batch_x.to(env.DEVICE)
+                batch_y = batch_y.to(env.DEVICE)
+                optimizer.zero_grad()
+                outputs = self.model(batch_x)
+                loss = self.model.loss_fn(outputs, batch_y)
+                loss.backward()
+                optimizer.step()
 
 
     def predict(self, X):
@@ -118,11 +128,14 @@ class PytorchBase(ModelBase):
         with torch.no_grad():
             for i in range(0, len(X), batch_size):
                 batch = X[i:i+batch_size]
-                batch_pred = self.model(batch).cpu().detach().numpy()
+                batch_pred = self.model(batch).cpu().detach()
+                if self.task_type == 'classification':
+                    batch_pred = torch.sigmoid(batch_pred)
+                batch_pred = batch_pred.numpy()
                 predictions.append(batch_pred)
         
         return np.concatenate(predictions, axis=0).flatten()
-
+    
     @abstractmethod
     def _create_model(self, input_size):
         """Create the actual PyTorch model"""
@@ -162,7 +175,12 @@ class SklearnBase(ModelBase):
 
     def predict(self, X):
         """Predict using the trained model"""
-        return self.model.predict(X).flatten()
+        if self.task_type == 'regression':
+            prediction = self.model.predict(X)
+        elif self.task_type == 'classification':
+            prediction = self.model.predict_proba(X)
+            prediction = prediction[:, 1]
+        return prediction.flatten()
 
     def _get_scaler_class(self):
         """Return the appropriate scaler class for this model"""
@@ -196,7 +214,10 @@ class DeepchemBase(ModelBase):
     def predict(self, X):
         # TODO: Implement deepchem prediction
         dataset = dc.deepchem.data.NumpyDataset(X)
-        return self.model.predict(dataset).flatten()
+        prediction = self.model.predict(dataset)
+        if self.task_type == 'classification':
+            prediction = prediction[:, 1]
+        return prediction.flatten()
 
 ##################################
 # Concrete model implementations #

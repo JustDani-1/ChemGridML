@@ -12,13 +12,13 @@ N_TESTS = 10
 N_FOLDS = 5
 N_TRIALS = 15
 # Fingerprints
-FPS: list[str] = []#['ECFP', 'AtomPair', 'MACCS', 'RDKitFP', 'TOPOTOR', 'MOL2VEC']
-MDLS: list[str] = []#['FNN', 'RF', 'XGBoost', 'SVM', 'ElasticNet', 'KNN']
+FPS: list[str] = ['ECFP', 'AtomPair', 'MACCS', 'RDKitFP', 'TOPOTOR', 'MOL2VEC']
+MDLS: list[str] = ['FNN', 'RF', 'XGBoost', 'SVM', 'ElasticNet', 'KNN']
 # Learnables
-LEARNABLES = ['GCN', 'GAT']
+LEARNABLES = []#['GCN', 'GAT']
 # Pre-trained
-FTRS = ['GRAPH']
-PRETRAINEDS = ['MOLBERT', 'GROVER']
+FTRS = []#['GRAPH']
+PRETRAINEDS = []#['MOLBERT', 'GROVER']
 
 # Combinations
 FEATURES = FPS + FTRS

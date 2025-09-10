@@ -79,6 +79,11 @@ TODAYS GOAL:
 - try out label scaling for the regression tasks
 - use all the deepchem fingerprints instead of RdKit, check if they are the same e.g. for MOL2VEC
 
+- check wether the classification outputs of sklearn are 0|1 => dont just apply BCE-logits-loss to them
+- deepchem outputs probability for each class => also dont just apply BCE-logits
+
+- regression works with deepchem
+
 FOR EACH COMBO
 old approach:
 N_TRIALS * N_FOLDS + N_TESTS = 50 * 5 + 15 = 265
