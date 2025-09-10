@@ -2,6 +2,6 @@ conda deactivate
 conda remove --name internship --all
 conda create -n internship python=3.9
 conda activate internship
-conda install -c conda-forge numpy pytorch torchdata torch-geometric dgl dgllife rdkit pytdc deepchem pandas tqdm gensim joblib scikit-learn matplotlib optuna xgboost lightning jax dm-haiku
+conda install -c conda-forge numpy pytorch torchdata torch-geometric dgl dgllife rdkit pytdc deepchem pandas tqdm gensim joblib scikit-learn matplotlib optuna xgboost lightning jax dm-haiku plotly
 pip install git+https://github.com/samoturk/mol2vec
 conda install torchdata=0.7.1 -c conda-forge

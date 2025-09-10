@@ -4,7 +4,6 @@ from abc import ABC, abstractmethod
 import env
 import numpy as np
 import deepchem as dc
-from util import train_without_val
 from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
 from sklearn.svm import SVR, SVC
 from sklearn.linear_model import ElasticNet, LogisticRegression

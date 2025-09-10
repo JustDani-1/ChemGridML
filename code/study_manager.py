@@ -34,7 +34,7 @@ class StudyManager:
     def kfold_cv(self, X, Y, model_name, task_type, hyperparams):
         """Perform k-fold cross-validation using uniform model API"""
         kfold = KFold(env.N_FOLDS, shuffle=True, random_state=42)
-        predictions = np.zeros_like(Y)
+        predictions = np.zeros_like(Y, dtype=np.float32)
 
         # Create model instance
         model_class = models.ModelRegistry.get_model(model_name)
@@ -120,7 +120,7 @@ class StudyManager:
         indices = [None for _ in range(env.N_TESTS)]
         
         allocated_cores = int(os.environ.get('NSLOTS', multiprocessing.cpu_count()))
-        max_workers = min(1, allocated_cores, env.N_TESTS)
+        max_workers = min(allocated_cores, env.N_TESTS)
         
         with ProcessPoolExecutor(max_workers=max_workers) as executor:
             future_to_seed = {
