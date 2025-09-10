@@ -1,0 +1,103 @@
+No normalization for SPS. Feature removed!
+No normalization for AvgIpc. Feature removed!
+No normalization for NumAmideBonds. Feature removed!
+No normalization for NumAtomStereoCenters. Feature removed!
+No normalization for NumBridgeheadAtoms. Feature removed!
+No normalization for NumHeterocycles. Feature removed!
+No normalization for NumSpiroAtoms. Feature removed!
+No normalization for NumUnspecifiedAtomStereoCenters. Feature removed!
+No normalization for Phi. Feature removed!
+2025-09-09 14:52:37.588183: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-09-09 14:52:37.627146: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:From /home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/tensorflow/python/util/deprecation.py:588: calling function (from tensorflow.python.eager.polymorphic_function.polymorphic_function) with experimental_relax_shapes is deprecated and will be removed in a future version.
+Instructions for updating:
+experimental_relax_shapes is deprecated, use reduce_retracing instead
+Skipped loading modules with transformers dependency. No module named 'transformers'
+cannot import name 'HuggingFaceModel' from 'deepchem.models.torch_models' (/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/deepchem/models/torch_models/__init__.py)
+Found local copy...
+Loading...
+Done!
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: studies.study_name
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_rdb/storage.py", line 282, in create_new_study
+    session.add(models.StudyModel(study_name=study_name, directions=direction_models))
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/contextlib.py", line 126, in __exit__
+    next(self.gen)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_rdb/storage.py", line 78, in _create_scoped_session
+    session.commit()
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4345, in flush
+    self._flush(objects)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4481, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 224, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 4441, in _flush
+    flush_context.execute()
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: studies.study_name
+[SQL: INSERT INTO studies (study_name) VALUES (?)]
+[parameters: ('__init__',)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/./code/main.py", line 18, in <module>
+    manager.run_nested_cv(fingerprint, model_name, dataset_name)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 118, in run_nested_cv
+    self.setup_optuna_storage(study_id)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 22, in setup_optuna_storage
+    optuna.create_study(storage=temp_storage, study_name="__init__", direction="minimize")
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/_convert_positional_args.py", line 135, in converter_wrapper
+    return func(**kwargs)  # type: ignore[call-arg]
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/study.py", line 1299, in create_study
+    study_id = storage.create_new_study(direction_objects, study_name)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_cached_storage.py", line 78, in create_new_study
+    study_id = self._backend.create_new_study(directions=directions, study_name=study_name)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_rdb/storage.py", line 285, in create_new_study
+    raise optuna.exceptions.DuplicatedStudyError(
+optuna.exceptions.DuplicatedStudyError: Another study with name '__init__' already exists. Please specify a different name, or reuse the existing one by setting `load_if_exists` (for Python API) or `--skip-if-exists` flag (for CLI).

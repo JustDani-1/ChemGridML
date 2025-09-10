@@ -1,0 +1,171 @@
+No normalization for SPS. Feature removed!
+No normalization for AvgIpc. Feature removed!
+No normalization for NumAmideBonds. Feature removed!
+No normalization for NumAtomStereoCenters. Feature removed!
+No normalization for NumBridgeheadAtoms. Feature removed!
+No normalization for NumHeterocycles. Feature removed!
+No normalization for NumSpiroAtoms. Feature removed!
+No normalization for NumUnspecifiedAtomStereoCenters. Feature removed!
+No normalization for Phi. Feature removed!
+2025-09-09 15:01:47.950312: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-09-09 15:01:47.995656: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:From /home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/tensorflow/python/util/deprecation.py:588: calling function (from tensorflow.python.eager.polymorphic_function.polymorphic_function) with experimental_relax_shapes is deprecated and will be removed in a future version.
+Instructions for updating:
+experimental_relax_shapes is deprecated, use reduce_retracing instead
+Skipped loading modules with transformers dependency. No module named 'transformers'
+cannot import name 'HuggingFaceModel' from 'deepchem.models.torch_models' (/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/deepchem/models/torch_models/__init__.py)
+Found local copy...
+Loading...
+Done!
+[I 2025-09-09 15:02:18,115] A new study created in RDB with name: __init__
+[I 2025-09-09 15:02:18,745] A new study created in RDB with name: GRAPH_GCN_PAMPA_NCATS_0
+[I 2025-09-09 15:02:18,789] A new study created in RDB with name: GRAPH_GCN_PAMPA_NCATS_1
+[I 2025-09-09 15:02:18,847] A new study created in RDB with name: GRAPH_GCN_PAMPA_NCATS_2
+[I 2025-09-09 15:02:18,901] A new study created in RDB with name: GRAPH_GCN_PAMPA_NCATS_3
+[W 2025-09-09 15:04:46,240] Trial 0 failed with parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'minkowski', 'epochs': 50, 'lr': 0.009267533250910214, 'batch_size': 16} because of the following error: ValueError('shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)').
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 201, in _run_trial
+    value_or_values = func(trial)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 86, in objective
+    cv_predictions = self.kfold_cv(X, Y, model_name, task_type, hyperparams)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 53, in kfold_cv
+    predictions[val_idx] = fold_predictions
+ValueError: shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)
+[W 2025-09-09 15:04:46,242] Trial 0 failed with value None.
+[I 2025-09-09 15:04:46,455] A new study created in RDB with name: GRAPH_GCN_PAMPA_NCATS_4
+[W 2025-09-09 15:07:37,503] Trial 0 failed with parameters: {'n_neighbors': 3, 'weights': 'distance', 'metric': 'chebyshev', 'epochs': 100, 'lr': 0.0018771591423452888, 'batch_size': 64} because of the following error: ValueError('shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)').
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 201, in _run_trial
+    value_or_values = func(trial)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 86, in objective
+    cv_predictions = self.kfold_cv(X, Y, model_name, task_type, hyperparams)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 53, in kfold_cv
+    predictions[val_idx] = fold_predictions
+ValueError: shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)
+[W 2025-09-09 15:07:37,508] Trial 0 failed with value None.
+[I 2025-09-09 15:07:37,719] A new study created in RDB with name: GRAPH_GCN_PAMPA_NCATS_5
+[W 2025-09-09 15:10:19,496] Trial 0 failed with parameters: {'n_neighbors': 3, 'weights': 'distance', 'metric': 'chebyshev', 'epochs': 150, 'lr': 5.4072630807250707e-05, 'batch_size': 16} because of the following error: ValueError('shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)').
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 201, in _run_trial
+    value_or_values = func(trial)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 86, in objective
+    cv_predictions = self.kfold_cv(X, Y, model_name, task_type, hyperparams)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 53, in kfold_cv
+    predictions[val_idx] = fold_predictions
+ValueError: shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)
+[W 2025-09-09 15:10:19,497] Trial 0 failed with value None.
+[I 2025-09-09 15:10:19,796] A new study created in RDB with name: GRAPH_GCN_PAMPA_NCATS_6
+[W 2025-09-09 15:10:35,281] Trial 0 failed with parameters: {'n_neighbors': 9, 'weights': 'distance', 'metric': 'manhattan', 'epochs': 150, 'lr': 0.0003770046549626733, 'batch_size': 64} because of the following error: ValueError('shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)').
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 201, in _run_trial
+    value_or_values = func(trial)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 86, in objective
+    cv_predictions = self.kfold_cv(X, Y, model_name, task_type, hyperparams)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 53, in kfold_cv
+    predictions[val_idx] = fold_predictions
+ValueError: shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)
+[W 2025-09-09 15:10:35,282] Trial 0 failed with value None.
+[I 2025-09-09 15:10:35,551] A new study created in RDB with name: GRAPH_GCN_PAMPA_NCATS_7
+[W 2025-09-09 15:11:51,644] Trial 0 failed with parameters: {'n_neighbors': 3, 'weights': 'uniform', 'metric': 'chebyshev', 'epochs': 150, 'lr': 0.00015873520017838934, 'batch_size': 32} because of the following error: ValueError('shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)').
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 201, in _run_trial
+    value_or_values = func(trial)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 86, in objective
+    cv_predictions = self.kfold_cv(X, Y, model_name, task_type, hyperparams)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 53, in kfold_cv
+    predictions[val_idx] = fold_predictions
+ValueError: shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)
+[W 2025-09-09 15:11:51,644] Trial 0 failed with value None.
+[I 2025-09-09 15:11:52,001] A new study created in RDB with name: GRAPH_GCN_PAMPA_NCATS_8
+[W 2025-09-09 15:15:33,880] Trial 0 failed with parameters: {'n_neighbors': 7, 'weights': 'uniform', 'metric': 'minkowski', 'epochs': 150, 'lr': 0.0005999346707251734, 'batch_size': 32} because of the following error: ValueError('shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)').
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 201, in _run_trial
+    value_or_values = func(trial)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 86, in objective
+    cv_predictions = self.kfold_cv(X, Y, model_name, task_type, hyperparams)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 53, in kfold_cv
+    predictions[val_idx] = fold_predictions
+ValueError: shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)
+[W 2025-09-09 15:15:33,880] Trial 0 failed with value None.
+[I 2025-09-09 15:15:34,199] A new study created in RDB with name: GRAPH_GCN_PAMPA_NCATS_9
+[W 2025-09-09 15:15:58,572] Trial 0 failed with parameters: {'n_neighbors': 3, 'weights': 'uniform', 'metric': 'minkowski', 'epochs': 100, 'lr': 0.007307003924814277, 'batch_size': 64} because of the following error: ValueError('shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)').
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 201, in _run_trial
+    value_or_values = func(trial)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 86, in objective
+    cv_predictions = self.kfold_cv(X, Y, model_name, task_type, hyperparams)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 53, in kfold_cv
+    predictions[val_idx] = fold_predictions
+ValueError: shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)
+[W 2025-09-09 15:15:58,572] Trial 0 failed with value None.
+[W 2025-09-09 15:17:02,326] Trial 0 failed with parameters: {'n_neighbors': 9, 'weights': 'distance', 'metric': 'minkowski', 'epochs': 100, 'lr': 0.000296398410903859, 'batch_size': 32} because of the following error: ValueError('shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)').
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 201, in _run_trial
+    value_or_values = func(trial)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 86, in objective
+    cv_predictions = self.kfold_cv(X, Y, model_name, task_type, hyperparams)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 53, in kfold_cv
+    predictions[val_idx] = fold_predictions
+ValueError: shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)
+[W 2025-09-09 15:17:02,326] Trial 0 failed with value None.
+[W 2025-09-09 15:17:38,875] Trial 0 failed with parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'manhattan', 'epochs': 50, 'lr': 0.00020152052342938784, 'batch_size': 32} because of the following error: ValueError('shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)').
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 201, in _run_trial
+    value_or_values = func(trial)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 86, in objective
+    cv_predictions = self.kfold_cv(X, Y, model_name, task_type, hyperparams)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 53, in kfold_cv
+    predictions[val_idx] = fold_predictions
+ValueError: shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)
+[W 2025-09-09 15:17:38,876] Trial 0 failed with value None.
+[W 2025-09-09 15:17:41,606] Trial 0 failed with parameters: {'n_neighbors': 7, 'weights': 'uniform', 'metric': 'chebyshev', 'epochs': 150, 'lr': 0.005541636067842336, 'batch_size': 16} because of the following error: ValueError('shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)').
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 201, in _run_trial
+    value_or_values = func(trial)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 86, in objective
+    cv_predictions = self.kfold_cv(X, Y, model_name, task_type, hyperparams)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 53, in kfold_cv
+    predictions[val_idx] = fold_predictions
+ValueError: shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)
+[W 2025-09-09 15:17:41,606] Trial 0 failed with value None.
+concurrent.futures.process._RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/concurrent/futures/process.py", line 246, in _process_worker
+    r = call_item.fn(*call_item.args, **call_item.kwargs)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 101, in run_single_experiment
+    best_hyperparams = self.run_hyperparameter_optimization(
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 89, in run_hyperparameter_optimization
+    study.optimize(objective, n_trials=env.N_TRIALS)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/study.py", line 490, in optimize
+    _optimize(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 63, in _optimize
+    _optimize_sequential(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 160, in _optimize_sequential
+    frozen_trial_id = _run_trial(study, func, catch)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 258, in _run_trial
+    raise func_err
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 201, in _run_trial
+    value_or_values = func(trial)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 86, in objective
+    cv_predictions = self.kfold_cv(X, Y, model_name, task_type, hyperparams)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 53, in kfold_cv
+    predictions[val_idx] = fold_predictions
+ValueError: shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/./code/main.py", line 18, in <module>
+    manager.run_nested_cv(fingerprint, model_name, dataset_name)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 140, in run_nested_cv
+    raise exc
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 135, in run_nested_cv
+    seed_result, test_predictions, test_indices = future.result()
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/concurrent/futures/_base.py", line 439, in result
+    return self.__get_result()
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/concurrent/futures/_base.py", line 391, in __get_result
+    raise self._exception
+ValueError: shape mismatch: value array of shape (652,) could not be broadcast to indexing result of shape (326,)
