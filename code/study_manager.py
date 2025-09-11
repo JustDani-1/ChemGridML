@@ -1,3 +1,5 @@
+# study_manager.py
+from methods import Method
 import datasets, env, models, util
 from database_manager import DatabaseManager
 from sklearn.model_selection import KFold, train_test_split
@@ -14,7 +16,7 @@ class StudyManager:
         self.db = DatabaseManager(predictions_path)
         self.optuna_init = False
     
-    def setup_optuna_storage(self, study_id):
+    def setup_optuna_storage(self, study_id: str):
         storage_path = f"{self.studies_path}/{study_id}.db"
         os.makedirs(self.studies_path, exist_ok=True)
 
@@ -31,13 +33,14 @@ class StudyManager:
         
         self.storage_url = f"sqlite:///{storage_path}?check_same_thread=false&pool_timeout=30"
 
-    def kfold_cv(self, X, Y, model_name, task_type, hyperparams):
+    def kfold_cv(self, X, Y, method: Method, hyperparams: Dict):
         """Perform k-fold cross-validation using uniform model API"""
         kfold = KFold(env.N_FOLDS, shuffle=True, random_state=42)
         predictions = np.zeros_like(Y, dtype=np.float32)
 
         # Create model instance
-        model_class = models.ModelRegistry.get_model(model_name)
+        model_class = models.ModelRegistry.get_model(method.model)
+        task_type = util.get_task_type(Y)
         model = model_class(task_type=task_type, **hyperparams)
         
         for fold, (train_idx, val_idx) in enumerate(kfold.split(X)):
@@ -53,10 +56,11 @@ class StudyManager:
         
         return predictions
 
-    def train_and_predict(self, X_train, Y_train, X_test, model_name, task_type, hyperparams):
+    def train_and_predict(self, X_train, Y_train, X_test, method: Method, hyperparams: Dict):
         """Train model and make predictions"""
         # Create model instance
-        model_class = models.ModelRegistry.get_model(model_name)
+        model_class = models.ModelRegistry.get_model(method.model)
+        task_type = util.get_task_type(Y_train)
         model = model_class(task_type=task_type, **hyperparams)
         
         X_train, X_test, Y_train, _ = model.preprocess(X_train, X_test, Y_train, Y_train)
@@ -66,12 +70,12 @@ class StudyManager:
         
         return model.predict(X_test)
 
-    def run_hyperparameter_optimization(self, X, Y, seed, fp_name: str, model_name: str, dataset_name: str) -> Dict:
+    def run_hyperparameter_optimization(self, X: np.ndarray, Y: np.ndarray, seed: int, method: Method, dataset_name: str) -> Dict:
         """Run hyperparameter optimization"""
-        model_class = models.ModelRegistry.get_model(model_name)
+        model_class = models.ModelRegistry.get_model(method.model)
         task_type = util.get_task_type(Y)
         
-        study_id = f"{fp_name}_{model_name}_{dataset_name}"
+        study_id = f"{method.name}_{dataset_name}"
         
         study = optuna.create_study(
             study_name=f"{study_id}_{seed}",
@@ -82,14 +86,14 @@ class StudyManager:
         
         def objective(trial):
             hyperparams = model_class.get_hyperparameter_space(trial)
-            cv_predictions = self.kfold_cv(X, Y, model_name, task_type, hyperparams)
+            cv_predictions = self.kfold_cv(X, Y, method, hyperparams)
             return util.evaluate(Y, cv_predictions, task_type)
         
         study.optimize(objective, n_trials=env.N_TRIALS)
         
         return study.best_params
 
-    def run_single_experiment(self, seed: int, fp_name: str, model_name: str, dataset_name: str, data) -> Tuple[int, np.ndarray, np.ndarray]:
+    def run_single_experiment(self, seed: int, method: Method, dataset_name: str, data) -> Tuple[int, np.ndarray, np.ndarray]:
         """Run a single experiment (train-test split)"""
         
         X_train, X_test, Y_train, Y_test, train_indices, test_indices = train_test_split(
@@ -98,22 +102,21 @@ class StudyManager:
         )
         
         best_hyperparams = self.run_hyperparameter_optimization(
-            X_train, Y_train, seed, fp_name, model_name, dataset_name
+            X_train, Y_train, seed, method, dataset_name
         )
         
-        task_type = util.get_task_type(data.Y)
-        
         test_predictions = self.train_and_predict(
-            X_train, Y_train, X_test, model_name, task_type, best_hyperparams
+            X_train, Y_train, X_test, method, best_hyperparams
         )
         
         return seed, test_predictions, test_indices
 
-    def run_nested_cv(self, fp_name, model_name, dataset_name):
+    def run_nested_cv(self, method: Method, dataset_name: str):
         """Run nested cross-validation experiment"""
-        data = datasets.TDC_Dataset(dataset_name, fp_name)
+        data = datasets.TDC_Dataset(dataset_name, method)
         self.db.store_dataset_targets(dataset_name, data.Y)
-        study_id = f"{fp_name}_{model_name}_{dataset_name}"
+        
+        study_id = f"{method.name}_{dataset_name}"
         self.setup_optuna_storage(study_id)
         
         predictions = [None for _ in range(env.N_TESTS)]
@@ -124,7 +127,7 @@ class StudyManager:
         
         with ProcessPoolExecutor(max_workers=max_workers) as executor:
             future_to_seed = {
-                executor.submit(self.run_single_experiment, seed, fp_name, model_name, dataset_name, data): seed
+                executor.submit(self.run_single_experiment, seed, method, dataset_name, data): seed
                 for seed in range(env.N_TESTS)
             }
             
@@ -141,6 +144,6 @@ class StudyManager:
         for seed in range(env.N_TESTS):
             if predictions[seed] is not None:
                 self.db.store_predictions(
-                    dataset_name, fp_name, model_name, 
+                    dataset_name, method.input_representation, method.model, 
                     predictions[seed], indices[seed], seed, 'random'
                 )

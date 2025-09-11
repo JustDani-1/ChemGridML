@@ -82,7 +82,21 @@ TODAYS GOAL:
 - check wether the classification outputs of sklearn are 0|1 => dont just apply BCE-logits-loss to them
 - deepchem outputs probability for each class => also dont just apply BCE-logits
 
-- regression works with deepchem
+- try out MolBERT and GROVER, for now just as featurizors; then do an end-to-end ML approach where you concatenate a MLP
+- somehow encode which features are possible for which model so that the entire expirement can be run
+
+- GROVER: concatenate 200 dim RdKit descriptors with learned representations
+    - when trying to use GROVER not as FP but with finetuning, the entire READOUT + 2 MLPs have to be optimized
+
+- write get_num and get_combo for new methods abstraction
+- update benchmark manager to produce different plot that compares "methods" 
+
+- write hierarchical submit script with
+    - master.py [FINGERPRINT] [LEARNABLE] [PRETRAINED] [TDC|DATASIZE] 
+    - determines total tasks and produces submit-scripts
+    - maybe one job-array per category, requesting more or less resources each, or GPU
+
+
 
 FOR EACH COMBO
 old approach:
@@ -109,8 +123,6 @@ Follow-up:
 - try to use curated datasets at first and then maybe try to use ChEMBL-extracted datasets, compare performance
     - compare performances over small, medium and large datasets
 - features -> models -> datasets
-
-
 
 
 Methods:

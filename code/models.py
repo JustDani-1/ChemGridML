@@ -42,19 +42,19 @@ class ModelBase(ABC):
         self.model = None
 
     @abstractmethod
-    def preprocess(self, X_train, X_val=None, Y_train=None, Y_val=None):
+    def preprocess(self, X_train, X_val, Y_train, Y_val):
         """Perform framework- and model-specific preprocessing of the data"""
-        pass
+        return X_train, X_val, Y_train, Y_val
 
     @abstractmethod
-    def fit(self, X_train, Y_train, X_val=None, Y_val=None):
+    def fit(self, X_train, Y_train):
         """Train the model"""
-        pass
+        return 
 
     @abstractmethod
     def predict(self, X):
         """Get the prediction of the model for the given data"""
-        pass
+        return np.zeros_like(X)
 
     @staticmethod
     @abstractmethod
