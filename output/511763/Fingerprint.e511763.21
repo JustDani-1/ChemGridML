@@ -1,0 +1,181 @@
+No normalization for SPS. Feature removed!
+No normalization for AvgIpc. Feature removed!
+No normalization for NumAmideBonds. Feature removed!
+No normalization for NumAtomStereoCenters. Feature removed!
+No normalization for NumBridgeheadAtoms. Feature removed!
+No normalization for NumHeterocycles. Feature removed!
+No normalization for NumSpiroAtoms. Feature removed!
+No normalization for NumUnspecifiedAtomStereoCenters. Feature removed!
+No normalization for Phi. Feature removed!
+2025-09-10 15:51:06.003663: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-09-10 15:51:06.053080: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:From /home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/tensorflow/python/util/deprecation.py:588: calling function (from tensorflow.python.eager.polymorphic_function.polymorphic_function) with experimental_relax_shapes is deprecated and will be removed in a future version.
+Instructions for updating:
+experimental_relax_shapes is deprecated, use reduce_retracing instead
+Skipped loading modules with transformers dependency. No module named 'transformers'
+cannot import name 'HuggingFaceModel' from 'deepchem.models.torch_models' (/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/deepchem/models/torch_models/__init__.py)
+Found local copy...
+Loading...
+Done!
+[I 2025-09-10 15:51:35,031] A new study created in RDB with name: __init__
+[I 2025-09-10 15:51:35,238] A new study created in RDB with name: RDKitFP_SVM_Caco2_Wang_0
+[I 2025-09-10 15:51:35,247] A new study created in RDB with name: RDKitFP_SVM_Caco2_Wang_1
+[I 2025-09-10 15:51:35,271] A new study created in RDB with name: RDKitFP_SVM_Caco2_Wang_2
+[I 2025-09-10 15:51:35,279] A new study created in RDB with name: RDKitFP_SVM_Caco2_Wang_3
+[I 2025-09-10 15:51:35,300] A new study created in RDB with name: RDKitFP_SVM_Caco2_Wang_4
+[I 2025-09-10 15:51:36,921] Trial 0 finished with value: 0.4575261809985272 and parameters: {'C': 0.09436602533986319, 'kernel': 'poly'}. Best is trial 0 with value: 0.4575261809985272.
+[I 2025-09-10 15:51:36,936] Trial 0 finished with value: 0.5411939776139592 and parameters: {'C': 0.015283372987837917, 'kernel': 'poly'}. Best is trial 0 with value: 0.5411939776139592.
+[I 2025-09-10 15:51:37,085] Trial 0 finished with value: 763.9357286181181 and parameters: {'C': 6.256501826301169, 'kernel': 'sigmoid'}. Best is trial 0 with value: 763.9357286181181.
+[I 2025-09-10 15:51:37,094] Trial 0 finished with value: 0.24731997331177383 and parameters: {'C': 2.068482898940755, 'kernel': 'rbf'}. Best is trial 0 with value: 0.24731997331177383.
+[I 2025-09-10 15:51:37,158] Trial 0 finished with value: 0.5635386220223034 and parameters: {'C': 0.014529874051511562, 'kernel': 'rbf'}. Best is trial 0 with value: 0.5635386220223034.
+[I 2025-09-10 15:51:38,534] Trial 1 finished with value: 0.553289537479211 and parameters: {'C': 0.009530935489881267, 'kernel': 'poly'}. Best is trial 0 with value: 0.4575261809985272.
+[I 2025-09-10 15:51:38,564] Trial 1 finished with value: 0.2745600452132044 and parameters: {'C': 6.238582222935683, 'kernel': 'poly'}. Best is trial 1 with value: 0.2745600452132044.
+[I 2025-09-10 15:51:38,680] Trial 1 finished with value: 0.2472218183911258 and parameters: {'C': 4.113202964892098, 'kernel': 'poly'}. Best is trial 1 with value: 0.2472218183911258.
+[I 2025-09-10 15:51:38,829] Trial 1 finished with value: 0.5629023224335128 and parameters: {'C': 0.021346517054270004, 'kernel': 'sigmoid'}. Best is trial 1 with value: 0.5629023224335128.
+[I 2025-09-10 15:51:38,868] Trial 1 finished with value: 593.8023850561297 and parameters: {'C': 5.518158143360824, 'kernel': 'sigmoid'}. Best is trial 1 with value: 593.8023850561297.
+[I 2025-09-10 15:51:40,237] Trial 2 finished with value: 0.5328290888706616 and parameters: {'C': 0.14180610995221857, 'kernel': 'sigmoid'}. Best is trial 1 with value: 0.2745600452132044.
+[I 2025-09-10 15:51:40,327] Trial 2 finished with value: 1356.2459526443188 and parameters: {'C': 8.76202659364292, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.4575261809985272.
+[I 2025-09-10 15:51:40,355] Trial 2 finished with value: 0.543353836268545 and parameters: {'C': 0.05701495433954557, 'kernel': 'sigmoid'}. Best is trial 1 with value: 0.2472218183911258.
+[I 2025-09-10 15:51:40,541] Trial 2 finished with value: 0.5866214170963612 and parameters: {'C': 0.015969729803566757, 'kernel': 'sigmoid'}. Best is trial 2 with value: 0.5866214170963612.
+[I 2025-09-10 15:51:40,578] Trial 2 finished with value: 80.1540480044856 and parameters: {'C': 1.992169046596858, 'kernel': 'sigmoid'}. Best is trial 1 with value: 0.5629023224335128.
+[I 2025-09-10 15:51:42,010] Trial 3 finished with value: 0.5696326779835597 and parameters: {'C': 0.013106130188403469, 'kernel': 'rbf'}. Best is trial 1 with value: 0.2745600452132044.
+[I 2025-09-10 15:51:42,052] Trial 3 finished with value: 0.2683986946880729 and parameters: {'C': 1.3358139286986865, 'kernel': 'rbf'}. Best is trial 3 with value: 0.2683986946880729.
+[I 2025-09-10 15:51:42,135] Trial 3 finished with value: 0.25056835328124205 and parameters: {'C': 6.349008278180622, 'kernel': 'poly'}. Best is trial 3 with value: 0.25056835328124205.
+[I 2025-09-10 15:51:42,162] Trial 3 finished with value: 0.5894959128534116 and parameters: {'C': 0.010070727591832635, 'kernel': 'rbf'}. Best is trial 1 with value: 0.2472218183911258.
+[I 2025-09-10 15:51:42,196] Trial 3 finished with value: 0.6030756967504616 and parameters: {'C': 0.007526789303044783, 'kernel': 'sigmoid'}. Best is trial 2 with value: 0.5866214170963612.
+[I 2025-09-10 15:51:43,772] Trial 4 finished with value: 0.601159247727927 and parameters: {'C': 0.0019184345255975573, 'kernel': 'poly'}. Best is trial 2 with value: 0.5866214170963612.
+[I 2025-09-10 15:51:43,783] Trial 4 finished with value: 0.2726812563860678 and parameters: {'C': 6.171390413619241, 'kernel': 'rbf'}. Best is trial 4 with value: 0.2726812563860678.
+[I 2025-09-10 15:51:43,861] Trial 4 finished with value: 0.5894797426966746 and parameters: {'C': 0.006900597254361591, 'kernel': 'rbf'}. Best is trial 3 with value: 0.2683986946880729.
+[I 2025-09-10 15:51:43,864] Trial 4 finished with value: 0.6218336849636742 and parameters: {'C': 0.0012101087500132445, 'kernel': 'sigmoid'}. Best is trial 1 with value: 0.2472218183911258.
+[I 2025-09-10 15:51:43,891] Trial 4 finished with value: 0.24543566755911425 and parameters: {'C': 3.5372684783682247, 'kernel': 'rbf'}. Best is trial 4 with value: 0.24543566755911425.
+[I 2025-09-10 15:51:45,359] Trial 5 finished with value: 0.2737393500183316 and parameters: {'C': 3.6813201556834643, 'kernel': 'poly'}. Best is trial 4 with value: 0.2726812563860678.
+[I 2025-09-10 15:51:45,523] Trial 5 finished with value: 0.2509798761360418 and parameters: {'C': 4.104543493847464, 'kernel': 'rbf'}. Best is trial 5 with value: 0.2509798761360418.
+[I 2025-09-10 15:51:45,601] Trial 5 finished with value: 75.1120136673566 and parameters: {'C': 2.0400298812404905, 'kernel': 'sigmoid'}. Best is trial 3 with value: 0.2683986946880729.
+[I 2025-09-10 15:51:45,624] Trial 5 finished with value: 0.24503108561146736 and parameters: {'C': 5.433558822982115, 'kernel': 'rbf'}. Best is trial 5 with value: 0.24503108561146736.
+[I 2025-09-10 15:51:45,642] Trial 5 finished with value: 0.5910008809836452 and parameters: {'C': 0.009527434683527864, 'kernel': 'rbf'}. Best is trial 1 with value: 0.2472218183911258.
+[I 2025-09-10 15:51:47,066] Trial 6 finished with value: 4.589580504547751 and parameters: {'C': 0.44695828429230033, 'kernel': 'sigmoid'}. Best is trial 4 with value: 0.2726812563860678.
+[I 2025-09-10 15:51:47,219] Trial 6 finished with value: 0.4466065598832911 and parameters: {'C': 0.10620404216197864, 'kernel': 'poly'}. Best is trial 1 with value: 0.2472218183911258.
+[I 2025-09-10 15:51:47,333] Trial 6 finished with value: 0.601028699796329 and parameters: {'C': 0.006388497697140513, 'kernel': 'rbf'}. Best is trial 5 with value: 0.2509798761360418.
+[I 2025-09-10 15:51:47,340] Trial 6 finished with value: 0.260161344031988 and parameters: {'C': 8.952560818053213, 'kernel': 'rbf'}. Best is trial 6 with value: 0.260161344031988.
+[I 2025-09-10 15:51:47,341] Trial 6 finished with value: 0.30309260491832507 and parameters: {'C': 0.6177202188029343, 'kernel': 'rbf'}. Best is trial 5 with value: 0.24503108561146736.
+[I 2025-09-10 15:51:48,739] Trial 7 finished with value: 0.6067801140135194 and parameters: {'C': 0.0010996443575543803, 'kernel': 'sigmoid'}. Best is trial 4 with value: 0.2726812563860678.
+[I 2025-09-10 15:51:48,795] Trial 7 finished with value: 0.6062643421772566 and parameters: {'C': 0.0013621156287869636, 'kernel': 'poly'}. Best is trial 1 with value: 0.2472218183911258.
+[I 2025-09-10 15:51:48,887] Trial 7 finished with value: 0.4324707210117634 and parameters: {'C': 0.11213277621273954, 'kernel': 'poly'}. Best is trial 5 with value: 0.24503108561146736.
+[I 2025-09-10 15:51:48,967] Trial 7 finished with value: 0.5602070103926463 and parameters: {'C': 0.037705646175093616, 'kernel': 'sigmoid'}. Best is trial 5 with value: 0.2509798761360418.
+[I 2025-09-10 15:51:49,048] Trial 7 finished with value: 0.26396259998962723 and parameters: {'C': 1.610013865588175, 'kernel': 'rbf'}. Best is trial 6 with value: 0.260161344031988.
+[I 2025-09-10 15:51:50,457] Trial 8 finished with value: 0.6051436003306802 and parameters: {'C': 0.006968068994281165, 'kernel': 'sigmoid'}. Best is trial 1 with value: 0.2472218183911258.
+[I 2025-09-10 15:51:50,467] Trial 8 finished with value: 0.30210041682693245 and parameters: {'C': 0.7327623164675284, 'kernel': 'rbf'}. Best is trial 4 with value: 0.2726812563860678.
+[I 2025-09-10 15:51:50,592] Trial 8 finished with value: 73.05154385752599 and parameters: {'C': 1.9015802790347713, 'kernel': 'sigmoid'}. Best is trial 5 with value: 0.24503108561146736.
+[I 2025-09-10 15:51:50,609] Trial 8 finished with value: 0.9572624266721367 and parameters: {'C': 0.23869648674165247, 'kernel': 'sigmoid'}. Best is trial 5 with value: 0.2509798761360418.
+[I 2025-09-10 15:51:50,704] Trial 8 finished with value: 0.6059451281147019 and parameters: {'C': 0.003181781979789437, 'kernel': 'sigmoid'}. Best is trial 6 with value: 0.260161344031988.
+[I 2025-09-10 15:51:52,043] Trial 9 finished with value: 0.593434870548276 and parameters: {'C': 0.002519200594018026, 'kernel': 'poly'}. Best is trial 1 with value: 0.2472218183911258.
+[I 2025-09-10 15:51:52,157] Trial 9 finished with value: 0.36492879603478373 and parameters: {'C': 0.26968839348183926, 'kernel': 'poly'}. Best is trial 5 with value: 0.2509798761360418.
+[I 2025-09-10 15:51:52,208] Trial 9 finished with value: 41.16587906904105 and parameters: {'C': 1.3504086132371143, 'kernel': 'sigmoid'}. Best is trial 4 with value: 0.2726812563860678.
+[I 2025-09-10 15:51:52,262] Trial 9 finished with value: 0.5780094827527039 and parameters: {'C': 0.003618813651864058, 'kernel': 'poly'}. Best is trial 6 with value: 0.260161344031988.
+[I 2025-09-10 15:51:52,363] Trial 9 finished with value: 0.5106035491765867 and parameters: {'C': 0.04840691413855976, 'kernel': 'rbf'}. Best is trial 5 with value: 0.24503108561146736.
+[I 2025-09-10 15:51:53,618] Trial 10 finished with value: 0.24677554740584995 and parameters: {'C': 5.0340535921781795, 'kernel': 'poly'}. Best is trial 10 with value: 0.24677554740584995.
+[I 2025-09-10 15:51:53,884] Trial 10 finished with value: 0.26206420300693417 and parameters: {'C': 1.104425426772173, 'kernel': 'rbf'}. Best is trial 5 with value: 0.2509798761360418.
+[I 2025-09-10 15:51:53,983] Trial 10 finished with value: 0.548904428144261 and parameters: {'C': 0.024837055977617702, 'kernel': 'rbf'}. Best is trial 4 with value: 0.2726812563860678.
+[I 2025-09-10 15:51:54,004] Trial 10 finished with value: 0.4228089186344644 and parameters: {'C': 0.1897045977311606, 'kernel': 'rbf'}. Best is trial 6 with value: 0.260161344031988.
+[I 2025-09-10 15:51:54,064] Trial 10 finished with value: 0.36789019694320757 and parameters: {'C': 0.28225406408006, 'kernel': 'rbf'}. Best is trial 5 with value: 0.24503108561146736.
+[I 2025-09-10 15:51:55,178] Trial 11 finished with value: 0.24692050302140506 and parameters: {'C': 9.648938552690801, 'kernel': 'poly'}. Best is trial 10 with value: 0.24677554740584995.
+[I 2025-09-10 15:51:55,548] Trial 11 finished with value: 0.2749289497105505 and parameters: {'C': 7.746553345609736, 'kernel': 'poly'}. Best is trial 4 with value: 0.2726812563860678.
+[I 2025-09-10 15:51:55,598] Trial 11 finished with value: 0.25878014694252305 and parameters: {'C': 1.1954245630679217, 'kernel': 'rbf'}. Best is trial 5 with value: 0.2509798761360418.
+[I 2025-09-10 15:51:55,687] Trial 11 finished with value: 0.2600492926627012 and parameters: {'C': 8.6826406100484, 'kernel': 'rbf'}. Best is trial 11 with value: 0.2600492926627012.
+[I 2025-09-10 15:51:55,806] Trial 11 finished with value: 0.6015932923073813 and parameters: {'C': 0.0014736323223315069, 'kernel': 'rbf'}. Best is trial 5 with value: 0.24503108561146736.
+[I 2025-09-10 15:51:56,740] Trial 12 finished with value: 0.24710271011069868 and parameters: {'C': 7.050907946093705, 'kernel': 'poly'}. Best is trial 10 with value: 0.24677554740584995.
+[I 2025-09-10 15:51:57,112] Trial 12 finished with value: 0.27691783100268447 and parameters: {'C': 2.302657485461747, 'kernel': 'poly'}. Best is trial 4 with value: 0.2726812563860678.
+[I 2025-09-10 15:51:57,297] Trial 12 finished with value: 0.2626183207168406 and parameters: {'C': 1.090830558253003, 'kernel': 'rbf'}. Best is trial 5 with value: 0.2509798761360418.
+[I 2025-09-10 15:51:57,399] Trial 12 finished with value: 0.26043638286383763 and parameters: {'C': 9.530989910365482, 'kernel': 'rbf'}. Best is trial 11 with value: 0.2600492926627012.
+[I 2025-09-10 15:51:57,525] Trial 12 finished with value: 0.244812964891014 and parameters: {'C': 8.643111328018781, 'kernel': 'rbf'}. Best is trial 12 with value: 0.244812964891014.
+[I 2025-09-10 15:51:58,296] Trial 13 finished with value: 0.2753046247353033 and parameters: {'C': 0.8107070910235004, 'kernel': 'poly'}. Best is trial 10 with value: 0.24677554740584995.
+[I 2025-09-10 15:51:58,836] Trial 13 finished with value: 0.27577560276487395 and parameters: {'C': 3.101396590086835, 'kernel': 'rbf'}. Best is trial 4 with value: 0.2726812563860678.
+[I 2025-09-10 15:51:59,000] Trial 13 finished with value: 0.25320226674938706 and parameters: {'C': 1.484705736777866, 'kernel': 'rbf'}. Best is trial 5 with value: 0.2509798761360418.
+[I 2025-09-10 15:51:59,112] Trial 13 finished with value: 0.3535170677945834 and parameters: {'C': 0.37786229210766814, 'kernel': 'rbf'}. Best is trial 11 with value: 0.2600492926627012.
+[I 2025-09-10 15:51:59,234] Trial 13 finished with value: 0.24496268934719886 and parameters: {'C': 8.099134309433854, 'kernel': 'rbf'}. Best is trial 12 with value: 0.244812964891014.
+[I 2025-09-10 15:51:59,847] Trial 14 finished with value: 0.2877173490600087 and parameters: {'C': 0.6309077309370124, 'kernel': 'poly'}. Best is trial 10 with value: 0.24677554740584995.
+[I 2025-09-10 15:52:00,349] A new study created in RDB with name: RDKitFP_SVM_Caco2_Wang_5
+[I 2025-09-10 15:52:00,601] Trial 14 finished with value: 0.39788629277875115 and parameters: {'C': 0.20505101949300025, 'kernel': 'rbf'}. Best is trial 4 with value: 0.2726812563860678.
+[I 2025-09-10 15:52:00,711] Trial 14 finished with value: 0.25369853066300996 and parameters: {'C': 9.356117425699965, 'kernel': 'rbf'}. Best is trial 5 with value: 0.2509798761360418.
+[I 2025-09-10 15:52:00,869] Trial 14 finished with value: 0.5501371089732263 and parameters: {'C': 0.02802505067872852, 'kernel': 'rbf'}. Best is trial 11 with value: 0.2600492926627012.
+[I 2025-09-10 15:52:00,931] Trial 14 finished with value: 0.31921786795106316 and parameters: {'C': 0.49785329354585345, 'kernel': 'rbf'}. Best is trial 12 with value: 0.244812964891014.
+[I 2025-09-10 15:52:01,145] A new study created in RDB with name: RDKitFP_SVM_Caco2_Wang_6
+[I 2025-09-10 15:52:01,234] A new study created in RDB with name: RDKitFP_SVM_Caco2_Wang_7
+[I 2025-09-10 15:52:01,398] A new study created in RDB with name: RDKitFP_SVM_Caco2_Wang_8
+[I 2025-09-10 15:52:01,449] A new study created in RDB with name: RDKitFP_SVM_Caco2_Wang_9
+[I 2025-09-10 15:52:02,135] Trial 0 finished with value: 0.27091347538101046 and parameters: {'C': 9.158471138437898, 'kernel': 'rbf'}. Best is trial 0 with value: 0.27091347538101046.
+[I 2025-09-10 15:52:02,766] Trial 0 finished with value: 0.26909674420323837 and parameters: {'C': 1.527238315652464, 'kernel': 'poly'}. Best is trial 0 with value: 0.26909674420323837.
+[I 2025-09-10 15:52:02,826] Trial 0 finished with value: 0.5266815993379872 and parameters: {'C': 0.035910396589484826, 'kernel': 'poly'}. Best is trial 0 with value: 0.5266815993379872.
+[I 2025-09-10 15:52:03,046] Trial 0 finished with value: 0.5912356875315959 and parameters: {'C': 0.0016866220057307154, 'kernel': 'poly'}. Best is trial 0 with value: 0.5912356875315959.
+[I 2025-09-10 15:52:03,079] Trial 0 finished with value: 0.6039703693783794 and parameters: {'C': 0.13983728932942316, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.6039703693783794.
+[I 2025-09-10 15:52:03,948] Trial 1 finished with value: 0.6072766406262137 and parameters: {'C': 0.014539598090326941, 'kernel': 'rbf'}. Best is trial 0 with value: 0.27091347538101046.
+[I 2025-09-10 15:52:04,395] Trial 1 finished with value: 0.5569524085387569 and parameters: {'C': 0.017543944569951335, 'kernel': 'poly'}. Best is trial 0 with value: 0.5266815993379872.
+[I 2025-09-10 15:52:04,521] Trial 1 finished with value: 0.2512625821544663 and parameters: {'C': 5.17184510625604, 'kernel': 'rbf'}. Best is trial 1 with value: 0.2512625821544663.
+[I 2025-09-10 15:52:04,849] Trial 1 finished with value: 0.3392289058273236 and parameters: {'C': 0.3765088165783592, 'kernel': 'rbf'}. Best is trial 1 with value: 0.3392289058273236.
+[I 2025-09-10 15:52:04,878] Trial 1 finished with value: 0.5872076751995795 and parameters: {'C': 0.008549938634970677, 'kernel': 'rbf'}. Best is trial 1 with value: 0.5872076751995795.
+[I 2025-09-10 15:52:05,562] Trial 2 finished with value: 0.6201787034357973 and parameters: {'C': 0.0028252395172981173, 'kernel': 'poly'}. Best is trial 0 with value: 0.27091347538101046.
+[I 2025-09-10 15:52:06,224] Trial 2 finished with value: 1.2577477309545055 and parameters: {'C': 0.26339027756472977, 'kernel': 'sigmoid'}. Best is trial 1 with value: 0.2512625821544663.
+[I 2025-09-10 15:52:06,266] Trial 2 finished with value: 0.6265165443373337 and parameters: {'C': 0.0031449558341592543, 'kernel': 'rbf'}. Best is trial 0 with value: 0.5266815993379872.
+[I 2025-09-10 15:52:06,672] Trial 2 finished with value: 0.2566219328405561 and parameters: {'C': 3.9063534210483346, 'kernel': 'rbf'}. Best is trial 2 with value: 0.2566219328405561.
+[I 2025-09-10 15:52:06,689] Trial 2 finished with value: 0.5956406048524763 and parameters: {'C': 0.0056164716705013815, 'kernel': 'rbf'}. Best is trial 1 with value: 0.5872076751995795.
+[I 2025-09-10 15:52:07,151] Trial 3 finished with value: 0.5188368787981223 and parameters: {'C': 0.052765831770509454, 'kernel': 'poly'}. Best is trial 0 with value: 0.27091347538101046.
+[I 2025-09-10 15:52:07,833] Trial 3 finished with value: 0.48205647971618526 and parameters: {'C': 0.07080353414606957, 'kernel': 'poly'}. Best is trial 3 with value: 0.48205647971618526.
+[I 2025-09-10 15:52:07,902] Trial 3 finished with value: 0.5924800755676459 and parameters: {'C': 0.0016277314220574093, 'kernel': 'sigmoid'}. Best is trial 1 with value: 0.2512625821544663.
+[I 2025-09-10 15:52:08,241] Trial 3 finished with value: 0.5885211851670611 and parameters: {'C': 0.005937573629335718, 'kernel': 'poly'}. Best is trial 2 with value: 0.2566219328405561.
+[I 2025-09-10 15:52:08,472] Trial 3 finished with value: 0.5789194265279988 and parameters: {'C': 0.01140388085057141, 'kernel': 'rbf'}. Best is trial 3 with value: 0.5789194265279988.
+[I 2025-09-10 15:52:08,724] Trial 4 finished with value: 0.37215885209485594 and parameters: {'C': 0.2734093689889177, 'kernel': 'poly'}. Best is trial 0 with value: 0.27091347538101046.
+[I 2025-09-10 15:52:09,565] Trial 4 finished with value: 300.3583517883331 and parameters: {'C': 3.796386142977362, 'kernel': 'sigmoid'}. Best is trial 3 with value: 0.48205647971618526.
+[I 2025-09-10 15:52:09,597] Trial 4 finished with value: 0.5018843921443377 and parameters: {'C': 0.07584131271056557, 'kernel': 'sigmoid'}. Best is trial 1 with value: 0.2512625821544663.
+[I 2025-09-10 15:52:09,984] Trial 4 finished with value: 0.256151121288314 and parameters: {'C': 5.238824099162678, 'kernel': 'rbf'}. Best is trial 4 with value: 0.256151121288314.
+[I 2025-09-10 15:52:10,049] Trial 4 finished with value: 0.5465882260425261 and parameters: {'C': 0.013637983522889113, 'kernel': 'poly'}. Best is trial 4 with value: 0.5465882260425261.
+[I 2025-09-10 15:52:10,323] Trial 5 finished with value: 0.27272648143175365 and parameters: {'C': 4.303497014048195, 'kernel': 'poly'}. Best is trial 0 with value: 0.27091347538101046.
+[I 2025-09-10 15:52:11,134] Trial 5 finished with value: 0.5901564451243023 and parameters: {'C': 0.0053053010040003965, 'kernel': 'poly'}. Best is trial 3 with value: 0.48205647971618526.
+[I 2025-09-10 15:52:11,320] Trial 5 finished with value: 0.5674985510537929 and parameters: {'C': 0.010374533261451302, 'kernel': 'sigmoid'}. Best is trial 1 with value: 0.2512625821544663.
+[I 2025-09-10 15:52:11,611] Trial 5 finished with value: 0.24235672112894446 and parameters: {'C': 3.2043351412249415, 'kernel': 'poly'}. Best is trial 5 with value: 0.24235672112894446.
+[I 2025-09-10 15:52:11,716] Trial 5 finished with value: 0.2559634246208942 and parameters: {'C': 1.790134315843236, 'kernel': 'rbf'}. Best is trial 5 with value: 0.2559634246208942.
+[I 2025-09-10 15:52:12,075] Trial 6 finished with value: 39.496994993204 and parameters: {'C': 1.3294727620209223, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.27091347538101046.
+[I 2025-09-10 15:52:12,941] Trial 6 finished with value: 0.5648949374456513 and parameters: {'C': 0.028267428556351358, 'kernel': 'rbf'}. Best is trial 3 with value: 0.48205647971618526.
+[I 2025-09-10 15:52:13,061] Trial 6 finished with value: 6.201325851863469 and parameters: {'C': 0.5498764034295605, 'kernel': 'sigmoid'}. Best is trial 1 with value: 0.2512625821544663.
+[I 2025-09-10 15:52:13,214] Trial 6 finished with value: 0.5894086777383069 and parameters: {'C': 0.0018611562840609383, 'kernel': 'poly'}. Best is trial 5 with value: 0.24235672112894446.
+[I 2025-09-10 15:52:13,338] Trial 6 finished with value: 0.603385316322933 and parameters: {'C': 0.0029320931136773863, 'kernel': 'poly'}. Best is trial 5 with value: 0.2559634246208942.
+[I 2025-09-10 15:52:13,869] Trial 7 finished with value: 0.6434374781845488 and parameters: {'C': 0.0030697894608522026, 'kernel': 'rbf'}. Best is trial 0 with value: 0.27091347538101046.
+[I 2025-09-10 15:52:14,514] Trial 7 finished with value: 0.4327738610904319 and parameters: {'C': 0.12486358069101577, 'kernel': 'poly'}. Best is trial 7 with value: 0.4327738610904319.
+[I 2025-09-10 15:52:14,787] Trial 7 finished with value: 0.24138026715242203 and parameters: {'C': 9.891383045499916, 'kernel': 'poly'}. Best is trial 7 with value: 0.24138026715242203.
+[I 2025-09-10 15:52:14,880] Trial 7 finished with value: 0.4774940204506558 and parameters: {'C': 0.06882319825648427, 'kernel': 'rbf'}. Best is trial 1 with value: 0.2512625821544663.
+[I 2025-09-10 15:52:14,940] Trial 7 finished with value: 0.6150555925153973 and parameters: {'C': 0.0018824325235430874, 'kernel': 'poly'}. Best is trial 5 with value: 0.2559634246208942.
+[I 2025-09-10 15:52:15,704] Trial 8 finished with value: 0.641105373112409 and parameters: {'C': 0.0036386434204980374, 'kernel': 'rbf'}. Best is trial 0 with value: 0.27091347538101046.
+[I 2025-09-10 15:52:16,126] Trial 8 finished with value: 0.6119610215397807 and parameters: {'C': 0.001925671371459439, 'kernel': 'poly'}. Best is trial 7 with value: 0.4327738610904319.
+[I 2025-09-10 15:52:16,556] Trial 8 finished with value: 0.49743060127877137 and parameters: {'C': 0.06343072596230599, 'kernel': 'poly'}. Best is trial 5 with value: 0.2559634246208942.
+[I 2025-09-10 15:52:16,590] Trial 8 finished with value: 0.5686869459933922 and parameters: {'C': 0.009807896437090322, 'kernel': 'sigmoid'}. Best is trial 1 with value: 0.2512625821544663.
+[I 2025-09-10 15:52:16,600] Trial 8 finished with value: 0.50930443706806 and parameters: {'C': 0.05715201502350518, 'kernel': 'rbf'}. Best is trial 7 with value: 0.24138026715242203.
+[I 2025-09-10 15:52:17,310] Trial 9 finished with value: 0.6372265042088805 and parameters: {'C': 0.001232566844486833, 'kernel': 'poly'}. Best is trial 0 with value: 0.27091347538101046.
+[I 2025-09-10 15:52:17,703] Trial 9 finished with value: 0.33754252015497754 and parameters: {'C': 0.32102135407133414, 'kernel': 'poly'}. Best is trial 9 with value: 0.33754252015497754.
+[I 2025-09-10 15:52:18,310] Trial 9 finished with value: 0.5539453806256456 and parameters: {'C': 0.04634006833512903, 'kernel': 'sigmoid'}. Best is trial 7 with value: 0.24138026715242203.
+[I 2025-09-10 15:52:18,423] Trial 9 finished with value: 0.4971561986258947 and parameters: {'C': 0.07917151850910654, 'kernel': 'rbf'}. Best is trial 5 with value: 0.2559634246208942.
+[I 2025-09-10 15:52:18,454] Trial 9 finished with value: 14.938655524890917 and parameters: {'C': 0.8492587138167784, 'kernel': 'sigmoid'}. Best is trial 1 with value: 0.2512625821544663.
+[I 2025-09-10 15:52:19,124] Trial 10 finished with value: 1589.3652286111655 and parameters: {'C': 8.566478806585701, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.27091347538101046.
+[I 2025-09-10 15:52:19,439] Trial 10 finished with value: 12.725867078403324 and parameters: {'C': 0.7804546881825355, 'kernel': 'sigmoid'}. Best is trial 9 with value: 0.33754252015497754.
+[I 2025-09-10 15:52:20,048] Trial 10 finished with value: 1261.2167551027926 and parameters: {'C': 7.4421000584894825, 'kernel': 'sigmoid'}. Best is trial 7 with value: 0.24138026715242203.
+[I 2025-09-10 15:52:20,162] Trial 10 finished with value: 16.915830663928457 and parameters: {'C': 0.8450336198874328, 'kernel': 'sigmoid'}. Best is trial 5 with value: 0.2559634246208942.
+[I 2025-09-10 15:52:20,213] Trial 10 finished with value: 0.25281108385844353 and parameters: {'C': 7.25349612596316, 'kernel': 'rbf'}. Best is trial 1 with value: 0.2512625821544663.
+[I 2025-09-10 15:52:20,874] Trial 11 finished with value: 0.2700113499458472 and parameters: {'C': 5.986956518043284, 'kernel': 'rbf'}. Best is trial 11 with value: 0.2700113499458472.
+[I 2025-09-10 15:52:21,006] Trial 11 finished with value: 0.3158320200456384 and parameters: {'C': 0.4273613908775684, 'kernel': 'poly'}. Best is trial 11 with value: 0.3158320200456384.
+[I 2025-09-10 15:52:21,611] Trial 11 finished with value: 0.24125929711581148 and parameters: {'C': 9.455575993817067, 'kernel': 'poly'}. Best is trial 11 with value: 0.24125929711581148.
+[I 2025-09-10 15:52:21,899] Trial 11 finished with value: 0.2560112264833079 and parameters: {'C': 8.178643589287491, 'kernel': 'rbf'}. Best is trial 5 with value: 0.2559634246208942.
+[I 2025-09-10 15:52:21,958] Trial 11 finished with value: 0.253368742139991 and parameters: {'C': 9.795500981851895, 'kernel': 'rbf'}. Best is trial 1 with value: 0.2512625821544663.
+[I 2025-09-10 15:52:22,603] Trial 12 finished with value: 0.3125342228198616 and parameters: {'C': 0.4525315538756809, 'kernel': 'poly'}. Best is trial 12 with value: 0.3125342228198616.
+[I 2025-09-10 15:52:22,650] Trial 12 finished with value: 0.276411137172294 and parameters: {'C': 1.1116487323547732, 'kernel': 'rbf'}. Best is trial 11 with value: 0.2700113499458472.
+[I 2025-09-10 15:52:23,176] Trial 12 finished with value: 0.2694992800990417 and parameters: {'C': 0.7915674813987256, 'kernel': 'poly'}. Best is trial 11 with value: 0.24125929711581148.
+[I 2025-09-10 15:52:23,682] Trial 12 finished with value: 0.2559682971805739 and parameters: {'C': 9.239720968004809, 'kernel': 'rbf'}. Best is trial 5 with value: 0.2559634246208942.
+[I 2025-09-10 15:52:23,734] Trial 12 finished with value: 0.25334907308085786 and parameters: {'C': 9.373858252154271, 'kernel': 'rbf'}. Best is trial 1 with value: 0.2512625821544663.
+[I 2025-09-10 15:52:24,364] Trial 13 finished with value: 74.44050758048394 and parameters: {'C': 1.8846089541306508, 'kernel': 'sigmoid'}. Best is trial 12 with value: 0.3125342228198616.
+[I 2025-09-10 15:52:24,444] Trial 13 finished with value: 0.26798219834202064 and parameters: {'C': 1.8112693730421585, 'kernel': 'rbf'}. Best is trial 13 with value: 0.26798219834202064.
+[I 2025-09-10 15:52:24,736] Trial 13 finished with value: 0.28272201306947115 and parameters: {'C': 0.6076357226214585, 'kernel': 'poly'}. Best is trial 11 with value: 0.24125929711581148.
+[I 2025-09-10 15:52:25,481] Trial 13 finished with value: 0.2603298099083416 and parameters: {'C': 1.3732775060330955, 'kernel': 'rbf'}. Best is trial 5 with value: 0.2559634246208942.
+[I 2025-09-10 15:52:25,546] Trial 13 finished with value: 0.2516852329765087 and parameters: {'C': 2.8850905474152277, 'kernel': 'rbf'}. Best is trial 1 with value: 0.2512625821544663.
+[I 2025-09-10 15:52:25,937] Trial 14 finished with value: 0.24982613466652506 and parameters: {'C': 9.96552396248032, 'kernel': 'poly'}. Best is trial 14 with value: 0.24982613466652506.
+[I 2025-09-10 15:52:26,218] Trial 14 finished with value: 0.2797748918830155 and parameters: {'C': 1.0267721933160026, 'kernel': 'rbf'}. Best is trial 13 with value: 0.26798219834202064.
+[I 2025-09-10 15:52:26,288] Trial 14 finished with value: 0.2578306456327689 and parameters: {'C': 1.1299830520953815, 'kernel': 'poly'}. Best is trial 11 with value: 0.24125929711581148.
+[I 2025-09-10 15:52:27,213] Trial 14 finished with value: 0.25576545673035 and parameters: {'C': 2.053951962976816, 'kernel': 'rbf'}. Best is trial 14 with value: 0.25576545673035.
+[I 2025-09-10 15:52:27,287] Trial 14 finished with value: 0.2522449542384533 and parameters: {'C': 2.590403370915889, 'kernel': 'rbf'}. Best is trial 1 with value: 0.2512625821544663.
