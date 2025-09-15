@@ -2,7 +2,7 @@ import os
 import re
 import sys
 from pathlib import Path
-from code.util.get_method import get_combo
+from get_method import get_method
 
 def extract_runtime_from_file(file_path):
     """
@@ -82,14 +82,15 @@ def analyze_runtimes(base_directory, job_id):
 
 def main():
     """Main function"""
-    job_id = sys.argv[1]
-    base_directory = f"./output/{job_id}"
+    master_job_id = sys.argv[1]
+    experiment_name = sys.argv[2]
+    base_directory = f"./output/{master_job_id}/{experiment_name}"
     
     print(f"Analyzing runtime data in: {base_directory}")
     print("=" * 50)
     
     # Analyze runtimes
-    runtime_data = analyze_runtimes(base_directory, job_id)
+    runtime_data = analyze_runtimes(base_directory, master_job_id)
     
     if not runtime_data:
         print("No runtime data found!")
@@ -107,8 +108,8 @@ def main():
     
     for i, data in enumerate(runtime_data[:10], 1):
         runtime_str = f"{data['runtime']:.2f}" if data['runtime'] != -1 else "EMPTY/ERROR"
-        fp, model, dataset = get_combo(int(data['task_id']))
-        print(f"{i:<5} {data['task_id']:<15} {fp:<10} {model:<10} {dataset:<30}{runtime_str:<12}")
+        feature, model, dataset = get_method(experiment_name, int(data['task_id']))
+        print(f"{i:<5} {data['task_id']:<15} {feature:<10} {model:<10} {dataset:<30}{runtime_str:<12}")
     
     # Show some statistics
     valid_runtimes = [d['runtime'] for d in runtime_data if d['runtime'] != -1]
