@@ -2,7 +2,7 @@ import os
 import re
 import sys
 from pathlib import Path
-from get_combo import get_combo
+from util.get_combo import get_combo
 
 def extract_runtime_from_file(file_path):
     """

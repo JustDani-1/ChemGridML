@@ -1,4 +1,4 @@
-import sqlite3
+# benchmark_manager.py
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -380,6 +380,6 @@ def run_analysis(db_manager, save_dir="./analysis_results"):
     return analyzer
 
 
-path = "./studies/511763/"
+path = "./studies/520998/"
 db_manager = DatabaseManager(f"{path}predictions.db")
 analyzer = run_analysis(db_manager, path)

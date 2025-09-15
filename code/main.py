@@ -1,33 +1,34 @@
 # main.py
 import env, time, sys
 from study_manager import StudyManager
-from methods import MethodRegistry
+from experiments import ExperimentRegistry
 
 if __name__ == '__main__':
-    # Array job calculations
-    env.TIMESTAMP = sys.argv[1]
-    task_id = int(sys.argv[2])
+    if len(sys.argv) != 4:
+        print("Usage: python main.py <master_job_id> <experiment_name> <task_id>")
+        sys.exit(1)
+    
+    # Parse arguments
+    master_job_id = sys.argv[1]
+    experiment_name = sys.argv[2]
+    task_id = int(sys.argv[3]) - 1  # start from 0
 
-    # Initialize method registry
-    method_registry = MethodRegistry()
+    # Get experiment and method
+    experiment_registry = ExperimentRegistry()
+    experiment = experiment_registry.get_experiment(experiment_name)
+    method = experiment.methods[task_id]
     
-    # Calculate indices for array job
-    total_methods = method_registry.total_methods()
-    total_datasets = len(env.DATASETS)
-    
-    # Get method and dataset from task_id
-    method_idx = task_id % total_methods
-    dataset_idx = (task_id // total_methods) % total_datasets
-    
-    method = method_registry.get_method(method_idx)
-    dataset_name = env.DATASETS[dataset_idx]
 
     # Run study
     start_time = time.time()
 
-    manager = StudyManager(f"./studies/{env.TIMESTAMP}/studies/", f"./studies/{env.TIMESTAMP}/predictions.db") 
-    manager.run_nested_cv(method, dataset_name)
+    # Create output paths using master job ID and experiment name
+    studies_path = f"./studies/{master_job_id}/{experiment_name}/studies/"
+    predictions_path = f"./studies/{master_job_id}/{experiment_name}/predictions.db"
+    
+    manager = StudyManager(method, studies_path, predictions_path)
+    manager.run_nested_cv()
 
     end_time = time.time()
 
-    print(f"\nTotal execution time: {end_time - start_time:.2f} seconds")
+    print(f"Total execution time: {end_time - start_time:.2f} seconds")

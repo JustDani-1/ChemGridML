@@ -23,13 +23,13 @@
 # Set the working directory to somewhere in your scratch space.  
 # This is a necessary step as compute nodes cannot write to $HOME.
 # Replace "<your_UCL_id>" with your UCL user ID.
-#$ -wd /home/ucnwdma/Scratch/UCL_internship/output
+#$ -wd $HOME/Scratch/UCL_internship/output
 
 # Notify phone
 curl -d "Myriad: ntfy_job running" ntfy.sh/myriad_job_running
 
-cp -r /home/ucnwdma/Scratch/UCL_internship/code/ $TMPDIR/
-cp -r /home/ucnwdma/Scratch/UCL_internship/models/ $TMPDIR/
+cp -r $HOME/Scratch/UCL_internship/code/ $TMPDIR/
+cp -r $HOME/Scratch/UCL_internship/models/ $TMPDIR/
 
 cd $TMPDIR
 mkdir studies

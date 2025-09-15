@@ -1,9 +1,11 @@
+# models.py
 import torch
 import xgboost as xgb
 from abc import ABC, abstractmethod
 import env
 import numpy as np
 import deepchem as dc
+from deepchem.data import NumpyDataset
 from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
 from sklearn.svm import SVR, SVC
 from sklearn.linear_model import ElasticNet, LogisticRegression
@@ -200,7 +202,7 @@ class DeepchemBase(ModelBase):
 
     def fit(self, X_train, Y_train):
         # TODO: Implement deepchem fitting
-        dataset = dc.deepchem.data.NumpyDataset(X=X_train, y=Y_train)
+        dataset = NumpyDataset(X=X_train, y=Y_train)
 
         # Create actual model
         if self.model is None:
@@ -212,7 +214,7 @@ class DeepchemBase(ModelBase):
 
     def predict(self, X):
         # TODO: Implement deepchem prediction
-        dataset = dc.deepchem.data.NumpyDataset(X)
+        dataset = NumpyDataset(X)
         prediction = self.model.predict(dataset)
         if self.task_type == 'classification':
             prediction = prediction[:, 1]

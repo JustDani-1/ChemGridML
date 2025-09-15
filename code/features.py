@@ -1,4 +1,4 @@
-from rdkit import Chem
+# features.py
 from rdkit.Chem import rdFingerprintGenerator
 from rdkit.Chem import MACCSkeys
 import numpy as np
@@ -32,7 +32,7 @@ def GRAPH(mols):
     # TODO: check options of this featurizer
     return dc.deepchem.feat.MolGraphConvFeaturizer().featurize(mols)
 
-def getFP(mols, fingerprint: str):
+def getFeature(mols, fingerprint: str):
     if fingerprint not in globals():
         raise ValueError(f"Unknown fingerprint type: {fingerprint}")
     

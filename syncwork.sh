@@ -1,6 +1,7 @@
 #!/bin/bash
 
 git pull
+rm -rf ./master.log
 
 ####################
 # Move output files

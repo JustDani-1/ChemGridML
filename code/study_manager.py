@@ -1,6 +1,5 @@
 # study_manager.py
-from methods import Method
-import datasets, env, models, util
+import datasets, env, models, util.util as util
 from database_manager import DatabaseManager
 from sklearn.model_selection import KFold, train_test_split
 import optuna, os, sqlite3
@@ -8,16 +7,18 @@ import numpy as np
 from typing import Dict, Tuple
 from concurrent.futures import ProcessPoolExecutor, as_completed
 import multiprocessing
+from experiments import Method
 
 class StudyManager:
-    def __init__(self, studies_path: str = './studies/', predictions_path: str = 'studies/predictions.db'):
+    def __init__(self, method: Method, studies_path: str = './studies/', predictions_path: str = 'studies/predictions.db'):
+        self.method = method
         self.studies_path = studies_path
         os.makedirs(os.path.dirname(predictions_path), exist_ok=True)
         self.db = DatabaseManager(predictions_path)
         self.optuna_init = False
     
-    def setup_optuna_storage(self, study_id: str):
-        storage_path = f"{self.studies_path}/{study_id}.db"
+    def setup_optuna_storage(self):
+        storage_path = f"{self.studies_path}/{str(self.method)}.db"
         os.makedirs(self.studies_path, exist_ok=True)
 
         temp_storage = optuna.storages.RDBStorage(f"sqlite:///{storage_path}")
@@ -33,13 +34,13 @@ class StudyManager:
         
         self.storage_url = f"sqlite:///{storage_path}?check_same_thread=false&pool_timeout=30"
 
-    def kfold_cv(self, X, Y, method: Method, hyperparams: Dict):
+    def kfold_cv(self, X, Y, hyperparams: Dict):
         """Perform k-fold cross-validation using uniform model API"""
         kfold = KFold(env.N_FOLDS, shuffle=True, random_state=42)
         predictions = np.zeros_like(Y, dtype=np.float32)
 
         # Create model instance
-        model_class = models.ModelRegistry.get_model(method.model)
+        model_class = models.ModelRegistry.get_model(self.method.model)
         task_type = util.get_task_type(Y)
         model = model_class(task_type=task_type, **hyperparams)
         
@@ -56,10 +57,10 @@ class StudyManager:
         
         return predictions
 
-    def train_and_predict(self, X_train, Y_train, X_test, method: Method, hyperparams: Dict):
+    def train_and_predict(self, X_train, Y_train, X_test, hyperparams: Dict):
         """Train model and make predictions"""
         # Create model instance
-        model_class = models.ModelRegistry.get_model(method.model)
+        model_class = models.ModelRegistry.get_model(self.method.model)
         task_type = util.get_task_type(Y_train)
         model = model_class(task_type=task_type, **hyperparams)
         
@@ -70,12 +71,12 @@ class StudyManager:
         
         return model.predict(X_test)
 
-    def run_hyperparameter_optimization(self, X: np.ndarray, Y: np.ndarray, seed: int, method: Method, dataset_name: str) -> Dict:
+    def run_hyperparameter_optimization(self, X: np.ndarray, Y: np.ndarray, seed: int) -> Dict:
         """Run hyperparameter optimization"""
-        model_class = models.ModelRegistry.get_model(method.model)
+        model_class = models.ModelRegistry.get_model(self.method.model)
         task_type = util.get_task_type(Y)
         
-        study_id = f"{method.name}_{dataset_name}"
+        study_id = str(self.method)
         
         study = optuna.create_study(
             study_name=f"{study_id}_{seed}",
@@ -86,14 +87,14 @@ class StudyManager:
         
         def objective(trial):
             hyperparams = model_class.get_hyperparameter_space(trial)
-            cv_predictions = self.kfold_cv(X, Y, method, hyperparams)
+            cv_predictions = self.kfold_cv(X, Y, hyperparams)
             return util.evaluate(Y, cv_predictions, task_type)
         
         study.optimize(objective, n_trials=env.N_TRIALS)
         
         return study.best_params
 
-    def run_single_experiment(self, seed: int, method: Method, dataset_name: str, data) -> Tuple[int, np.ndarray, np.ndarray]:
+    def run_single_experiment(self, seed: int, data) -> Tuple[int, np.ndarray, np.ndarray]:
         """Run a single experiment (train-test split)"""
         
         X_train, X_test, Y_train, Y_test, train_indices, test_indices = train_test_split(
@@ -102,21 +103,21 @@ class StudyManager:
         )
         
         best_hyperparams = self.run_hyperparameter_optimization(
-            X_train, Y_train, seed, method, dataset_name
+            X_train, Y_train, seed
         )
         
         test_predictions = self.train_and_predict(
-            X_train, Y_train, X_test, method, best_hyperparams
+            X_train, Y_train, X_test, best_hyperparams
         )
         
         return seed, test_predictions, test_indices
 
-    def run_nested_cv(self, method: Method, dataset_name: str):
+    def run_nested_cv(self):
         """Run nested cross-validation experiment"""
-        data = datasets.TDC_Dataset(dataset_name, method)
-        self.db.store_dataset_targets(dataset_name, data.Y)
+        data = datasets.Dataset(self.method)
+        self.db.store_dataset_targets(self.method.dataset, data.Y)
         
-        study_id = f"{method.name}_{dataset_name}"
+        study_id = str(self.method)
         self.setup_optuna_storage(study_id)
         
         predictions = [None for _ in range(env.N_TESTS)]
@@ -124,10 +125,12 @@ class StudyManager:
         
         allocated_cores = int(os.environ.get('NSLOTS', multiprocessing.cpu_count()))
         max_workers = min(allocated_cores, env.N_TESTS)
+        if env.DEVICE != 'cpu':
+            max_workers = 1
         
         with ProcessPoolExecutor(max_workers=max_workers) as executor:
             future_to_seed = {
-                executor.submit(self.run_single_experiment, seed, method, dataset_name, data): seed
+                executor.submit(self.run_single_experiment, seed, data): seed
                 for seed in range(env.N_TESTS)
             }
             
@@ -144,6 +147,6 @@ class StudyManager:
         for seed in range(env.N_TESTS):
             if predictions[seed] is not None:
                 self.db.store_predictions(
-                    dataset_name, method.input_representation, method.model, 
+                    self.method.dataset, self.method.feature, self.method.model, 
                     predictions[seed], indices[seed], seed, 'random'
                 )

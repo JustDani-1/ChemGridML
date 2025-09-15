@@ -95,6 +95,46 @@ TODAYS GOAL:
     - master.py [FINGERPRINT] [LEARNABLE] [PRETRAINED] [TDC|DATASIZE] 
     - determines total tasks and produces submit-scripts
     - maybe one job-array per category, requesting more or less resources each, or GPU
+    - include benchmark_manager afterwards, to produce graphics according to the configuration
+
+master idea:
+    - save everything under job_id of the master
+    - combine output files into single logits
+    - save them in ./output/<master_job_id> under Job.o<master_job_id>.<task_id>
+    - pass master job id to job tasks, so that the studies also get saved under ./studies/<master_job_id>/studies
+    - define "experiments": sets of methods (include feature, model, datset) as well as required resources
+    - then in the master script just define which experiments to run
+        - FINGERPRINT, LEARNABLE, PRETRAINED, DATASIZE (directly with determined subset of methods on different datasets)
+    
+
+
+TIMELINE
+========================================================================================================
+========================================================================================================
+
+Week 5:
+    - get_num, get_combo
+    - start on master.py and submit_master.sh
+
+Week 6:
+    - finish master.py/.sh
+    - smart job submitting, depending on the experiment
+    - include MolBERT and GROVER
+    - make final decision which fingerprints and which graph models to include
+    - make final evaluation of Fingerprint performances, decide on "winners"
+        -> small winner set and a little extra will be included into datasize experiment
+    - write Myriad efficiency script based on Mark's runtimes
+
+Week 7:
+    - datasize experiment 
+    - begin write up, prepare Presentation
+    - evaluation of data, writing nice benchmark_manager for everything
+
+Week 8:
+    - prepare presentation
+
+========================================================================================================
+========================================================================================================
 
 
 
