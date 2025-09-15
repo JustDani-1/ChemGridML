@@ -7,7 +7,7 @@
 #$ -N MASTER
 
 #$ -j y
-#$ -o ./_master.log
+#$ -o $HOME/Scratch/UCL_internship/_master.log
 #$ -wd $HOME/Scratch/UCL_internship
 
 # Create output directory

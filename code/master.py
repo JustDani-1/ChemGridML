@@ -20,7 +20,7 @@ def create_job_script(master_job_id: str, experiment: Experiment) -> str:
 #$ -N {experiment.name}
 
 #$ -j y
-#$ -o ./output/{master_job_id}/{experiment.name}/
+#$ -o $HOME/Scratch/UCL_internship/output/{master_job_id}/{experiment.name}/
 #$ -wd $HOME/Scratch/UCL_internship
 
 conda activate internship
