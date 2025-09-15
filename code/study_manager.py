@@ -117,8 +117,7 @@ class StudyManager:
         data = datasets.Dataset(self.method)
         self.db.store_dataset_targets(self.method.dataset, data.Y)
         
-        study_id = str(self.method)
-        self.setup_optuna_storage(study_id)
+        self.setup_optuna_storage()
         
         predictions = [None for _ in range(env.N_TESTS)]
         indices = [None for _ in range(env.N_TESTS)]

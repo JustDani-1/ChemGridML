@@ -73,7 +73,8 @@ class ExperimentRegistry:
             resources=Resources(
                 wall_time="12:00:0",    
                 memory="16G",           
-                cores=10,               
+                cores=10,   
+                gpu=False            
             )
         )
         
