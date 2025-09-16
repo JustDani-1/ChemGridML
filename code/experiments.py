@@ -6,8 +6,8 @@ from itertools import product
 @dataclass
 class Method:
     feature: str
-    model: int
-    dataset: int
+    model: str
+    dataset: str
 
     def __str__(self):
         return f"{self.feature}_{self.model}_{self.dataset}"
@@ -20,15 +20,55 @@ class Resources:
     cores: int      # number of CPU cores
     gpu: bool       # wether to request a GPU
 
+@dataclass
+class Group:
+    """A named group of methods with shared resources"""
+    name: str
+    methods: List[Method]
+    resources: Resources
+    lower: int          # lower bound for task id
+    upper: int          # upper bound for task id
+    
+    def __len__(self):
+        return len(self.methods)
+
 
 @dataclass
 class Experiment:
     """
-    Encapsulates a complete experiment including methods and cluster resources
+    Encapsulates a complete experiment including groups of methods and cluster resources
     """
     name: str
-    methods: List[Method]
-    resources: Resources
+    groups: List[Group]
+
+    def __post_init__(self):
+        """Automatically calculate array job bounds after initialization"""
+        self._calculate_array_bounds()
+
+    def _calculate_array_bounds(self):
+        """Calculate array job bounds for each group"""
+        current_start = 1
+        
+        for group in self.groups:
+            group_size = len(group.methods)
+            current_end = current_start + group_size - 1
+            
+            group.lower = current_start
+            group.upper = current_end
+            
+            current_start = current_end + 1
+
+    def get_method(self, task_id: int) -> Method:
+        """Get method for a given task_id"""
+        for group in self.groups:
+            if group.lower <= task_id <= group.upper:
+                # Convert global task_id to local index within the group
+                local = task_id - group.lower
+                return group.methods[local]
+    
+    def total_methods(self) -> int:
+        """Get total amount of methods over all groups"""
+        return self.groups[-1].upper
     
 
 class ExperimentRegistry:
@@ -51,60 +91,36 @@ class ExperimentRegistry:
         models = ['FNN', 'RF', 'XGBoost', 'SVM', 'ElasticNet', 'KNN']
         datasets = ['Caco2_Wang', 'PPBR_AZ', 'Lipophilicity_AstraZeneca', 'BBB_Martins', 'PAMPA_NCATS', 'Pgp_Broccatelli']
 
+        methods = self._create_by_product(features, models, datasets)
+
         self.experiments["FINGERPRINT"] = Experiment(
             name="FINGERPRINT",
-            methods=self._create_by_product(features, models, datasets),
-            resources=Resources(
-                wall_time="10:00:0",    
-                memory=4,              
-                cores=5,                
-                gpu=False
-            )
+            groups=[
+                Group(
+                    name="FINGERPRINT",
+                    methods=methods,
+                    resources=Resources(wall_time="10:00:0", memory=4, cores=5, gpu=False)
+                )
+            ]
         )
 
+        # LEARNABLE experiment - end-to-end ML 
         features = ['GRAPH']
         models = ['GCN', 'GAT']
         datasets = ['Caco2_Wang', 'PPBR_AZ', 'Lipophilicity_AstraZeneca', 'BBB_Martins', 'PAMPA_NCATS', 'Pgp_Broccatelli']
+
+        methods = self._create_by_product(features, models, datasets)
         
-        # LEARNABLE experiment - end-to-end ML 
         self.experiments["LEARNABLE"] = Experiment(
             name="LEARNABLE",
-            methods=self._create_by_product(features, models, datasets),
-            resources=Resources(
-                wall_time="12:00:0",    
-                memory="16G",           
-                cores=10,   
-                gpu=False            
-            )
+            groups=[
+                Group(
+                    name="LEARNABLE",
+                    methods=methods,
+                    resources=Resources(wall_time="12:00:0", memory=16, cores=10, gpu=False)
+                )
+            ]
         )
-        
-        # FAST experiment - Quick methods for testing
-        # fast_methods = [m for m in self.method_registry.methods 
-        #                if m.model in ['RF', 'FNN'] and m.input_representation in ['ECFP', 'GRAPH']]
-        # self.experiments["FAST"] = Experiment(
-        #     name="FAST",
-        #     methods=fast_methods,
-        #     resources=Resources(
-        #         wall_time="2:00:0",   # 2 hours
-        #         memory="4G",          # 4GB RAM
-        #         cores=2,              # 2 CPU cores
-        #         job_name="FAST"
-        #     )
-        # )
-        
-        # ENSEMBLE experiment - Methods suitable for ensembling
-        # ensemble_models = ['RF', 'XGBoost', 'FNN', 'GCN']
-        # ensemble_methods = [m for m in self.method_registry.methods if m.model in ensemble_models]
-        # self.experiments["ENSEMBLE"] = Experiment(
-        #     name="ENSEMBLE",
-        #     methods=ensemble_methods,
-        #     resources=Resources(
-        #         wall_time="20:00:0",  # 20 hours (long for ensemble training)
-        #         memory="24G",         # 24GB RAM
-        #         cores=12,             # 12 CPU cores
-        #         job_name="ENS"
-        #     )
-        # )
     
     def get_experiment(self, name: str) -> Experiment:
         """Get experiment by name"""

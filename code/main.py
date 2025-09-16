@@ -1,5 +1,5 @@
 # main.py
-import env, time, sys
+import time, sys
 from study_manager import StudyManager
 from experiments import ExperimentRegistry
 
@@ -11,14 +11,13 @@ if __name__ == '__main__':
     # Parse arguments
     master_job_id = sys.argv[1]
     experiment_name = sys.argv[2]
-    task_id = int(sys.argv[3]) - 1  # start from 0
+    task_id = int(sys.argv[3])
 
     # Get experiment and method
     experiment_registry = ExperimentRegistry()
     experiment = experiment_registry.get_experiment(experiment_name)
-    method = experiment.methods[task_id]
+    method = experiment.get_method(task_id)
     
-
     # Run study
     start_time = time.time()
 
