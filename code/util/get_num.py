@@ -6,14 +6,13 @@ from experiments import ExperimentRegistry
 experiment_name = sys.argv[1]
 experiment_registry = ExperimentRegistry()
 experiment = experiment_registry.get_experiment(experiment_name)
-fingerprint = sys.argv[2]
+feature = sys.argv[2]
 model = sys.argv[3]
 dataset = sys.argv[4]
 
-for i, method in enumerate(experiment.methods):
-    if str(method) == f"{fingerprint}_{model}_{dataset}":
-        print(f"Task ID: {i+1}")
-        break
-else:
-    print("Not found")
+for group in experiment.groups:
+    for i, method in enumerate(group.methods):
+        if str(method) == f"{feature}_{model}_{dataset}":
+            print(f"Task ID: {group.lower+i}")
+            break
 

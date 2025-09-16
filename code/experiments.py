@@ -26,11 +26,13 @@ class Group:
     name: str
     methods: List[Method]
     resources: Resources
-    lower: int          # lower bound for task id
-    upper: int          # upper bound for task id
+    lower: int  = -1        # lower bound for task id
+    upper: int  = -1        # upper bound for task id
     
     def __len__(self):
         return len(self.methods)
+    
+    
 
 
 @dataclass
