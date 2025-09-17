@@ -3,21 +3,21 @@ import sys
 import os
 import subprocess
 from typing import List
-from experiments import Experiment, ExperimentRegistry
+from experiments import Experiment, ExperimentRegistry, Group
 
-def create_job_script(master_job_id: str, experiment: Experiment) -> str:
+def create_job_script(master_job_id: str, experiment: Experiment, group: Group) -> str:
     """Create a job submission script for an experiment"""
 
-    gpu_line = "#$ -l gpu=1\n" if experiment.resources.gpu else ""
+    gpu_line = "#$ -l gpu=1\n" if group.resources.gpu else ""
     
     script_content = f"""#!/bin/bash -l
 
-#$ -l h_rt={experiment.resources.wall_time}
-#$ -l mem={experiment.resources.memory}G
-#$ -pe smp {experiment.resources.cores}
-{gpu_line}#$ -t 1-{len(experiment.methods)}
+#$ -l h_rt={group.resources.wall_time}
+#$ -l mem={group.resources.memory}G
+#$ -pe smp {group.resources.cores}
+{gpu_line}#$ -t {group.lower}-{group.upper}
 
-#$ -N {experiment.name}
+#$ -N {group.name}
 
 #$ -j y
 #$ -o $HOME/Scratch/UCL_internship/output/{master_job_id}/{experiment.name}/
@@ -36,33 +36,34 @@ def submit_experiment(master_job_id: str, experiment: Experiment):
     
     os.makedirs(f"./output/{master_job_id}/{experiment.name}", exist_ok=True)
 
-    # Create job script content
-    script_content = create_job_script(master_job_id, experiment)
-    
-    # Write script to file
-    script_filename = f"{experiment.name}.sh"
-    with open(script_filename, 'w') as f:
-        f.write(script_content)
-    
-    # Make script executable
-    os.chmod(script_filename, 0o755)
-    
-    # Submit job
-    try:
-        result = subprocess.run(['qsub', script_filename], 
-                              capture_output=True, text=True, check=True)
-        job_id = result.stdout.strip()
-        print(f"Submitted experiment '{experiment.name}': {job_id}")
-        print(f"  - Methods: {len(experiment.methods)}")
-        print(f"  - Resources: {experiment.resources.memory}G RAM, {experiment.resources.cores} cores, {experiment.resources.wall_time} time, GPU: {experiment.resources.gpu}")
-        return job_id
-    except subprocess.CalledProcessError as e:
-        print(f"Failed to submit experiment '{experiment.name}': {e}")
-        print(f"Error output: {e.stderr}")
-    finally:
-        # Clean up script file
-        if os.path.exists(script_filename):
-            os.remove(script_filename)
+    for group in experiment.groups:
+
+        # Create job script content
+        script_content = create_job_script(master_job_id, experiment, group)
+        
+        # Write script to file
+        script_filename = f"{group.name}.sh"
+        with open(script_filename, 'w') as f:
+            f.write(script_content)
+        
+        # Make script executable
+        os.chmod(script_filename, 0o755)
+        
+        # Submit job
+        try:
+            result = subprocess.run(['qsub', script_filename], 
+                                capture_output=True, text=True, check=True)
+            job_id = result.stdout.strip()
+            print(f"Submitted experiment '{experiment.name}': {job_id}")
+            print(f"  - Group: {group.name}")
+            print(f"  - Resources: {group.resources.memory}G RAM, {group.resources.cores} cores, {group.resources.wall_time} time, GPU: {group.resources.gpu}")
+        except subprocess.CalledProcessError as e:
+            print(f"Failed to submit group '{group.name}': {e}")
+            print(f"Error output: {e.stderr}")
+        finally:
+            # Clean up script file
+            if os.path.exists(script_filename):
+                os.remove(script_filename)
 
 def main():
     if len(sys.argv) < 3:
@@ -71,30 +72,19 @@ def main():
         registry = ExperimentRegistry()
         for exp_name in registry.list_experiments():
             exp = registry.get_experiment(exp_name)
-            print(f"  {exp_name}: {len(exp.methods)} methods, "
-                  f"{exp.resources.memory} RAM, {exp.resources.cores} cores")
+            print(f"  {exp_name}: {exp.total_methods()} methods")
         sys.exit(1)
     
     master_job_id = sys.argv[1]
     experiments = sys.argv[2:]
     
-    # Initialize experiment registry
     experiment_registry = ExperimentRegistry()
-    
-    submitted_jobs = []
     
     # Submit each experiment
     for exp in experiments:
-        try:
-            experiment = experiment_registry.get_experiment(exp)
-            job_id = submit_experiment(master_job_id, experiment)
-            if job_id:
-                submitted_jobs.append((exp, job_id))
-        except ValueError as e:
-            continue
+        experiment = experiment_registry.get_experiment(exp)
+        submit_experiment(master_job_id, experiment)
     
-    print("-" * 60)
-    print(f"Summary: Successfully submitted {len(submitted_jobs)}/{len(experiments)} experiments")
 
 if __name__ == "__main__":
     main()
