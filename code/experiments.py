@@ -72,7 +72,7 @@ class ExperimentRegistry:
             methods=self._create_by_product(features, models, datasets),
             resources=Resources(
                 wall_time="12:00:0",    
-                memory="16G",           
+                memory=16,           
                 cores=10,   
                 gpu=False            
             )

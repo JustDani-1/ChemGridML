@@ -1,0 +1,182 @@
+No normalization for SPS. Feature removed!
+No normalization for AvgIpc. Feature removed!
+No normalization for NumAmideBonds. Feature removed!
+No normalization for NumAtomStereoCenters. Feature removed!
+No normalization for NumBridgeheadAtoms. Feature removed!
+No normalization for NumHeterocycles. Feature removed!
+No normalization for NumSpiroAtoms. Feature removed!
+No normalization for NumUnspecifiedAtomStereoCenters. Feature removed!
+No normalization for Phi. Feature removed!
+2025-09-15 16:53:53.787285: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-09-15 16:53:53.911756: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:From /home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/tensorflow/python/util/deprecation.py:588: calling function (from tensorflow.python.eager.polymorphic_function.polymorphic_function) with experimental_relax_shapes is deprecated and will be removed in a future version.
+Instructions for updating:
+experimental_relax_shapes is deprecated, use reduce_retracing instead
+Skipped loading modules with transformers dependency. No module named 'transformers'
+cannot import name 'HuggingFaceModel' from 'deepchem.models.torch_models' (/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/deepchem/models/torch_models/__init__.py)
+Found local copy...
+Loading...
+Done!
+[I 2025-09-15 16:54:08,886] A new study created in RDB with name: __init__
+[I 2025-09-15 16:54:09,067] A new study created in RDB with name: MACCS_KNN_PAMPA_NCATS_0
+[I 2025-09-15 16:54:09,085] A new study created in RDB with name: MACCS_KNN_PAMPA_NCATS_1
+[I 2025-09-15 16:54:09,092] A new study created in RDB with name: MACCS_KNN_PAMPA_NCATS_2
+[I 2025-09-15 16:54:09,128] A new study created in RDB with name: MACCS_KNN_PAMPA_NCATS_4
+[I 2025-09-15 16:54:09,135] A new study created in RDB with name: MACCS_KNN_PAMPA_NCATS_3
+[I 2025-09-15 16:54:10,044] Trial 0 finished with value: 1.29641412566512 and parameters: {'n_neighbors': 3, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 0 with value: 1.29641412566512.
+[I 2025-09-15 16:54:10,241] Trial 0 finished with value: 1.4571322968908829 and parameters: {'n_neighbors': 3, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 0 with value: 1.4571322968908829.
+[I 2025-09-15 16:54:10,494] Trial 0 finished with value: 0.8438768300605227 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 0 with value: 0.8438768300605227.
+[I 2025-09-15 16:54:10,695] Trial 0 finished with value: 0.918648363591049 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 0 with value: 0.918648363591049.
+[I 2025-09-15 16:54:10,805] Trial 0 finished with value: 1.0112649764471733 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 0 with value: 1.0112649764471733.
+[I 2025-09-15 16:54:10,948] Trial 1 finished with value: 0.7672118647956653 and parameters: {'n_neighbors': 7, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 1 with value: 0.7672118647956653.
+[I 2025-09-15 16:54:11,132] Trial 1 finished with value: 0.7691533075794479 and parameters: {'n_neighbors': 9, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 1 with value: 0.7691533075794479.
+[I 2025-09-15 16:54:11,285] Trial 1 finished with value: 1.2096904853886397 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 1 with value: 1.2096904853886397.
+[I 2025-09-15 16:54:11,953] Trial 2 finished with value: 0.7452793525024254 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 2 with value: 0.7452793525024254.
+[I 2025-09-15 16:54:12,192] Trial 1 finished with value: 0.7500021222678955 and parameters: {'n_neighbors': 7, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 1 with value: 0.7500021222678955.
+[I 2025-09-15 16:54:12,263] Trial 2 finished with value: 0.7309623449561238 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 2 with value: 0.7309623449561238.
+[I 2025-09-15 16:54:12,342] Trial 1 finished with value: 0.788274841746668 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 1 with value: 0.788274841746668.
+[I 2025-09-15 16:54:12,706] Trial 2 finished with value: 0.9732037167460713 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 2 with value: 0.9732037167460713.
+[I 2025-09-15 16:54:13,083] Trial 3 finished with value: 0.9218964917507624 and parameters: {'n_neighbors': 9, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 2 with value: 0.7452793525024254.
+[I 2025-09-15 16:54:13,218] Trial 2 finished with value: 1.1421286267699047 and parameters: {'n_neighbors': 5, 'weights': 'distance', 'metric': 'minkowski'}. Best is trial 1 with value: 0.7500021222678955.
+[I 2025-09-15 16:54:13,381] Trial 3 finished with value: 0.6484837460513334 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 3 with value: 0.6484837460513334.
+[I 2025-09-15 16:54:13,543] Trial 2 finished with value: 0.7122663783402589 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 2 with value: 0.7122663783402589.
+[I 2025-09-15 16:54:14,011] Trial 3 finished with value: 0.8938589690029929 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'minkowski'}. Best is trial 2 with value: 0.7122663783402589.
+[I 2025-09-15 16:54:14,117] Trial 4 finished with value: 1.008844025081009 and parameters: {'n_neighbors': 5, 'weights': 'distance', 'metric': 'minkowski'}. Best is trial 3 with value: 0.6484837460513334.
+[I 2025-09-15 16:54:14,169] Trial 4 finished with value: 0.6969551237309928 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 4 with value: 0.6969551237309928.
+[I 2025-09-15 16:54:14,176] Trial 3 finished with value: 1.3883122090704603 and parameters: {'n_neighbors': 3, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 2 with value: 0.9732037167460713.
+[I 2025-09-15 16:54:14,416] Trial 5 finished with value: 0.9777811329279212 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 3 with value: 0.6484837460513334.
+[I 2025-09-15 16:54:14,975] Trial 5 finished with value: 0.6650224808292864 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 5 with value: 0.6650224808292864.
+[I 2025-09-15 16:54:15,076] Trial 4 finished with value: 0.965794337999723 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 2 with value: 0.7122663783402589.
+[I 2025-09-15 16:54:15,199] Trial 3 finished with value: 1.066576874393489 and parameters: {'n_neighbors': 5, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 1 with value: 0.7500021222678955.
+[I 2025-09-15 16:54:15,278] Trial 4 finished with value: 1.1403597767967903 and parameters: {'n_neighbors': 5, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 2 with value: 0.9732037167460713.
+[I 2025-09-15 16:54:15,615] Trial 6 finished with value: 0.8230266483284072 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 3 with value: 0.6484837460513334.
+[I 2025-09-15 16:54:15,802] Trial 6 finished with value: 0.731942802585967 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'minkowski'}. Best is trial 5 with value: 0.6650224808292864.
+[I 2025-09-15 16:54:16,030] Trial 5 finished with value: 1.2921053066931876 and parameters: {'n_neighbors': 5, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 2 with value: 0.9732037167460713.
+[I 2025-09-15 16:54:16,187] Trial 5 finished with value: 0.788274841746668 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 2 with value: 0.7122663783402589.
+[I 2025-09-15 16:54:16,796] Trial 6 finished with value: 1.29641412566512 and parameters: {'n_neighbors': 3, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 2 with value: 0.9732037167460713.
+[I 2025-09-15 16:54:16,920] Trial 7 finished with value: 0.5937676750296841 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 7 with value: 0.5937676750296841.
+[I 2025-09-15 16:54:16,934] Trial 6 finished with value: 1.1216358246455693 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 2 with value: 0.7122663783402589.
+[I 2025-09-15 16:54:17,017] Trial 7 finished with value: 1.1457862923205497 and parameters: {'n_neighbors': 5, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 3 with value: 0.6484837460513334.
+[I 2025-09-15 16:54:17,167] Trial 4 finished with value: 0.9026089587219085 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 1 with value: 0.7500021222678955.
+[I 2025-09-15 16:54:18,054] Trial 7 finished with value: 0.7916329044867207 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 2 with value: 0.7122663783402589.
+[I 2025-09-15 16:54:18,143] Trial 7 finished with value: 1.033436352556219 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 2 with value: 0.9732037167460713.
+[I 2025-09-15 16:54:18,365] Trial 8 finished with value: 0.9435755071811559 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 3 with value: 0.6484837460513334.
+[I 2025-09-15 16:54:18,409] Trial 8 finished with value: 1.036663131345093 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 7 with value: 0.5937676750296841.
+[I 2025-09-15 16:54:18,525] Trial 5 finished with value: 1.674753356475706 and parameters: {'n_neighbors': 3, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 1 with value: 0.7500021222678955.
+[I 2025-09-15 16:54:19,299] Trial 9 finished with value: 0.9777811329279212 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 3 with value: 0.6484837460513334.
+[I 2025-09-15 16:54:19,305] Trial 8 finished with value: 1.6384471630465194 and parameters: {'n_neighbors': 3, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 2 with value: 0.9732037167460713.
+[I 2025-09-15 16:54:19,381] Trial 6 finished with value: 0.8211500624184669 and parameters: {'n_neighbors': 7, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 1 with value: 0.7500021222678955.
+[I 2025-09-15 16:54:19,675] Trial 9 finished with value: 1.1629528060925518 and parameters: {'n_neighbors': 5, 'weights': 'distance', 'metric': 'minkowski'}. Best is trial 2 with value: 0.9732037167460713.
+[I 2025-09-15 16:54:19,707] Trial 8 finished with value: 0.9360075548066598 and parameters: {'n_neighbors': 7, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 2 with value: 0.7122663783402589.
+[I 2025-09-15 16:54:20,190] Trial 9 finished with value: 0.7733649235412199 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 7 with value: 0.5937676750296841.
+[I 2025-09-15 16:54:20,362] Trial 9 finished with value: 0.7299011876433007 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'minkowski'}. Best is trial 2 with value: 0.7122663783402589.
+[I 2025-09-15 16:54:20,723] Trial 10 finished with value: 0.6484837460513334 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 3 with value: 0.6484837460513334.
+[I 2025-09-15 16:54:20,802] Trial 7 finished with value: 1.1437268115093202 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 1 with value: 0.7500021222678955.
+[I 2025-09-15 16:54:20,988] Trial 10 finished with value: 0.9732037167460713 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 2 with value: 0.9732037167460713.
+[I 2025-09-15 16:54:21,691] Trial 10 finished with value: 1.2308058506669357 and parameters: {'n_neighbors': 3, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 7 with value: 0.5937676750296841.
+[I 2025-09-15 16:54:21,737] Trial 10 finished with value: 1.2370681369239327 and parameters: {'n_neighbors': 3, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 2 with value: 0.7122663783402589.
+[I 2025-09-15 16:54:22,302] Trial 11 finished with value: 0.9557426266501606 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 7 with value: 0.5937676750296841.
+[I 2025-09-15 16:54:22,479] Trial 8 finished with value: 1.280032242718328 and parameters: {'n_neighbors': 5, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 1 with value: 0.7500021222678955.
+[I 2025-09-15 16:54:22,553] Trial 11 finished with value: 0.9732037167460713 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 2 with value: 0.9732037167460713.
+[I 2025-09-15 16:54:22,567] Trial 11 finished with value: 0.6484837460513334 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 3 with value: 0.6484837460513334.
+[I 2025-09-15 16:54:22,845] Trial 12 finished with value: 0.6650224808292864 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 7 with value: 0.5937676750296841.
+[I 2025-09-15 16:54:23,145] Trial 11 finished with value: 0.7731069586690524 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 2 with value: 0.7122663783402589.
+[I 2025-09-15 16:54:23,272] Trial 13 finished with value: 1.2394154544627265 and parameters: {'n_neighbors': 3, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 7 with value: 0.5937676750296841.
+[I 2025-09-15 16:54:23,675] Trial 12 finished with value: 0.6684957539971539 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 12 with value: 0.6684957539971539.
+[I 2025-09-15 16:54:23,695] Trial 14 finished with value: 0.9557426266501606 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 7 with value: 0.5937676750296841.
+[I 2025-09-15 16:54:23,764] Trial 12 finished with value: 0.6484837460513334 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 3 with value: 0.6484837460513334.
+[I 2025-09-15 16:54:23,785] Trial 12 finished with value: 0.9732037167460713 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 2 with value: 0.9732037167460713.
+[I 2025-09-15 16:54:23,910] Trial 9 finished with value: 0.918648363591049 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 1 with value: 0.7500021222678955.
+[I 2025-09-15 16:54:23,985] A new study created in RDB with name: MACCS_KNN_PAMPA_NCATS_5
+[I 2025-09-15 16:54:24,920] Trial 0 finished with value: 0.7223499239690946 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 0 with value: 0.7223499239690946.
+[I 2025-09-15 16:54:25,044] Trial 13 finished with value: 0.6484837460513334 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 3 with value: 0.6484837460513334.
+[I 2025-09-15 16:54:25,106] Trial 13 finished with value: 0.9732037167460713 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 2 with value: 0.9732037167460713.
+[I 2025-09-15 16:54:25,417] Trial 13 finished with value: 0.7122663783402589 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 12 with value: 0.6684957539971539.
+[I 2025-09-15 16:54:25,616] Trial 10 finished with value: 0.6431169364284626 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 10 with value: 0.6431169364284626.
+[I 2025-09-15 16:54:25,643] Trial 1 finished with value: 1.286580622392896 and parameters: {'n_neighbors': 5, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 0 with value: 0.7223499239690946.
+[I 2025-09-15 16:54:26,384] Trial 14 finished with value: 0.7269479768317233 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 12 with value: 0.6684957539971539.
+[I 2025-09-15 16:54:26,390] Trial 14 finished with value: 0.6484837460513334 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 3 with value: 0.6484837460513334.
+[I 2025-09-15 16:54:26,803] A new study created in RDB with name: MACCS_KNN_PAMPA_NCATS_7
+[I 2025-09-15 16:54:26,826] A new study created in RDB with name: MACCS_KNN_PAMPA_NCATS_6
+[I 2025-09-15 16:54:27,002] Trial 11 finished with value: 0.6431169364284626 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 10 with value: 0.6431169364284626.
+[I 2025-09-15 16:54:27,033] Trial 14 finished with value: 0.801399920408991 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 14 with value: 0.801399920408991.
+[I 2025-09-15 16:54:27,308] Trial 2 finished with value: 1.432661726312196 and parameters: {'n_neighbors': 3, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 0 with value: 0.7223499239690946.
+[I 2025-09-15 16:54:27,424] A new study created in RDB with name: MACCS_KNN_PAMPA_NCATS_8
+[I 2025-09-15 16:54:27,540] Trial 0 finished with value: 1.3497649733087749 and parameters: {'n_neighbors': 3, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 0 with value: 1.3497649733087749.
+[I 2025-09-15 16:54:27,904] Trial 3 finished with value: 1.0517688758688912 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'minkowski'}. Best is trial 0 with value: 0.7223499239690946.
+[I 2025-09-15 16:54:27,956] Trial 0 finished with value: 0.9625681389838504 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'minkowski'}. Best is trial 0 with value: 0.9625681389838504.
+[I 2025-09-15 16:54:28,086] Trial 12 finished with value: 0.6431169364284626 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 10 with value: 0.6431169364284626.
+[I 2025-09-15 16:54:28,610] Trial 4 finished with value: 0.9860542952807402 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 0 with value: 0.7223499239690946.
+[I 2025-09-15 16:54:28,761] Trial 0 finished with value: 0.7850304314849718 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 0 with value: 0.7850304314849718.
+[I 2025-09-15 16:54:29,296] Trial 5 finished with value: 1.432661726312196 and parameters: {'n_neighbors': 3, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 0 with value: 0.7223499239690946.
+[I 2025-09-15 16:54:29,394] Trial 1 finished with value: 1.0311231993650405 and parameters: {'n_neighbors': 9, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 0 with value: 0.9625681389838504.
+[I 2025-09-15 16:54:29,593] Trial 1 finished with value: 0.8677581530038113 and parameters: {'n_neighbors': 7, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 1 with value: 0.8677581530038113.
+[I 2025-09-15 16:54:29,729] Trial 13 finished with value: 0.6431169364284626 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 10 with value: 0.6431169364284626.
+[I 2025-09-15 16:54:29,961] Trial 2 finished with value: 0.9625681389838504 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'minkowski'}. Best is trial 0 with value: 0.9625681389838504.
+[I 2025-09-15 16:54:30,022] Trial 6 finished with value: 1.1022789221220566 and parameters: {'n_neighbors': 5, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 0 with value: 0.7223499239690946.
+[I 2025-09-15 16:54:30,735] Trial 1 finished with value: 0.9972524219685713 and parameters: {'n_neighbors': 9, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 0 with value: 0.7850304314849718.
+[I 2025-09-15 16:54:30,737] Trial 7 finished with value: 1.0940925459824156 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 0 with value: 0.7223499239690946.
+[I 2025-09-15 16:54:30,958] Trial 3 finished with value: 1.0581635208322013 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 0 with value: 0.9625681389838504.
+[I 2025-09-15 16:54:31,560] Trial 8 finished with value: 1.0940925459824156 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 0 with value: 0.7223499239690946.
+[I 2025-09-15 16:54:31,631] Trial 2 finished with value: 0.6950447069517371 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 2 with value: 0.6950447069517371.
+[I 2025-09-15 16:54:31,894] Trial 14 finished with value: 0.5858104452341091 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 14 with value: 0.5858104452341091.
+[I 2025-09-15 16:54:32,316] Trial 9 finished with value: 0.8259036005323447 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 0 with value: 0.7223499239690946.
+[I 2025-09-15 16:54:32,719] A new study created in RDB with name: MACCS_KNN_PAMPA_NCATS_9
+[I 2025-09-15 16:54:33,028] Trial 4 finished with value: 1.6207743679205815 and parameters: {'n_neighbors': 3, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 0 with value: 0.9625681389838504.
+[I 2025-09-15 16:54:33,040] Trial 2 finished with value: 1.2483409794043292 and parameters: {'n_neighbors': 5, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 0 with value: 0.7850304314849718.
+[I 2025-09-15 16:54:33,418] Trial 10 finished with value: 0.8329637363213193 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 0 with value: 0.7223499239690946.
+[I 2025-09-15 16:54:33,856] Trial 0 finished with value: 0.8841517736318364 and parameters: {'n_neighbors': 7, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 0 with value: 0.8841517736318364.
+[I 2025-09-15 16:54:33,928] Trial 3 finished with value: 1.0384797199527107 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'minkowski'}. Best is trial 0 with value: 0.7850304314849718.
+[I 2025-09-15 16:54:33,946] Trial 3 finished with value: 1.3310197514437228 and parameters: {'n_neighbors': 3, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 2 with value: 0.6950447069517371.
+[I 2025-09-15 16:54:34,678] Trial 1 finished with value: 1.4204593983587286 and parameters: {'n_neighbors': 3, 'weights': 'distance', 'metric': 'minkowski'}. Best is trial 0 with value: 0.8841517736318364.
+[I 2025-09-15 16:54:35,372] Trial 4 finished with value: 0.7365307565465901 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 2 with value: 0.6950447069517371.
+[I 2025-09-15 16:54:35,484] Trial 5 finished with value: 0.9572744527721296 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 5 with value: 0.9572744527721296.
+[I 2025-09-15 16:54:35,624] Trial 2 finished with value: 0.9214019407703092 and parameters: {'n_neighbors': 9, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 0 with value: 0.8841517736318364.
+[I 2025-09-15 16:54:35,861] Trial 11 finished with value: 0.7223499239690946 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 0 with value: 0.7223499239690946.
+[I 2025-09-15 16:54:36,206] Trial 3 finished with value: 1.3246530395035565 and parameters: {'n_neighbors': 3, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 0 with value: 0.8841517736318364.
+[I 2025-09-15 16:54:36,264] Trial 4 finished with value: 0.9972524219685713 and parameters: {'n_neighbors': 9, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 0 with value: 0.7850304314849718.
+[I 2025-09-15 16:54:37,000] Trial 5 finished with value: 0.72822821587153 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 2 with value: 0.6950447069517371.
+[I 2025-09-15 16:54:37,184] Trial 5 finished with value: 1.0384797199527107 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'minkowski'}. Best is trial 0 with value: 0.7850304314849718.
+[I 2025-09-15 16:54:37,442] Trial 6 finished with value: 1.0581635208322013 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 5 with value: 0.9572744527721296.
+[I 2025-09-15 16:54:37,600] Trial 6 finished with value: 0.7046242722505939 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 2 with value: 0.6950447069517371.
+[I 2025-09-15 16:54:37,759] Trial 12 finished with value: 0.7223499239690946 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 0 with value: 0.7223499239690946.
+[I 2025-09-15 16:54:37,833] Trial 4 finished with value: 1.1357331115945108 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 0 with value: 0.8841517736318364.
+[I 2025-09-15 16:54:37,896] Trial 7 finished with value: 0.9625681389838504 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'minkowski'}. Best is trial 5 with value: 0.9572744527721296.
+[I 2025-09-15 16:54:38,306] Trial 8 finished with value: 0.7063101628370376 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 8 with value: 0.7063101628370376.
+[I 2025-09-15 16:54:38,573] Trial 7 finished with value: 1.063176024850651 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 2 with value: 0.6950447069517371.
+[I 2025-09-15 16:54:38,907] Trial 6 finished with value: 0.7506133950311131 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 6 with value: 0.7506133950311131.
+[I 2025-09-15 16:54:38,963] Trial 8 finished with value: 1.3497649733087749 and parameters: {'n_neighbors': 3, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 2 with value: 0.6950447069517371.
+[I 2025-09-15 16:54:39,343] Trial 5 finished with value: 1.5194100769866499 and parameters: {'n_neighbors': 3, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 0 with value: 0.8841517736318364.
+[I 2025-09-15 16:54:39,615] Trial 9 finished with value: 0.8527602863281688 and parameters: {'n_neighbors': 9, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 8 with value: 0.7063101628370376.
+[I 2025-09-15 16:54:40,047] Trial 13 finished with value: 0.7223499239690946 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 0 with value: 0.7223499239690946.
+[I 2025-09-15 16:54:40,209] Trial 9 finished with value: 0.8206697056084574 and parameters: {'n_neighbors': 7, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 2 with value: 0.6950447069517371.
+[I 2025-09-15 16:54:40,893] Trial 10 finished with value: 0.7063101628370376 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 8 with value: 0.7063101628370376.
+[I 2025-09-15 16:54:41,148] Trial 6 finished with value: 0.772661946442303 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 6 with value: 0.772661946442303.
+[I 2025-09-15 16:54:41,643] Trial 7 finished with value: 0.7644926249304418 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 6 with value: 0.7506133950311131.
+[I 2025-09-15 16:54:41,698] Trial 10 finished with value: 0.7856260143450002 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 2 with value: 0.6950447069517371.
+[I 2025-09-15 16:54:42,062] Trial 11 finished with value: 0.77912506290196 and parameters: {'n_neighbors': 9, 'weights': 'distance', 'metric': 'minkowski'}. Best is trial 2 with value: 0.6950447069517371.
+[I 2025-09-15 16:54:42,208] Trial 11 finished with value: 0.7063101628370376 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 8 with value: 0.7063101628370376.
+[I 2025-09-15 16:54:42,826] Trial 12 finished with value: 0.6950447069517371 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 2 with value: 0.6950447069517371.
+[I 2025-09-15 16:54:43,564] Trial 14 finished with value: 0.7223499239690946 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 0 with value: 0.7223499239690946.
+[I 2025-09-15 16:54:43,753] Trial 12 finished with value: 0.7063101628370376 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 8 with value: 0.7063101628370376.
+[I 2025-09-15 16:54:44,635] Trial 7 finished with value: 0.8841517736318364 and parameters: {'n_neighbors': 7, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 6 with value: 0.772661946442303.
+[I 2025-09-15 16:54:44,688] Trial 8 finished with value: 0.9972524219685713 and parameters: {'n_neighbors': 9, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 6 with value: 0.7506133950311131.
+[I 2025-09-15 16:54:44,937] Trial 13 finished with value: 0.7063101628370376 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 8 with value: 0.7063101628370376.
+[I 2025-09-15 16:54:45,180] Trial 13 finished with value: 0.6950447069517371 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 2 with value: 0.6950447069517371.
+[I 2025-09-15 16:54:45,612] Trial 14 finished with value: 0.6950447069517371 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 2 with value: 0.6950447069517371.
+[I 2025-09-15 16:54:45,913] Trial 14 finished with value: 0.7063101628370376 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'minkowski'}. Best is trial 8 with value: 0.7063101628370376.
+[I 2025-09-15 16:54:46,744] Trial 9 finished with value: 1.788227000618061 and parameters: {'n_neighbors': 3, 'weights': 'distance', 'metric': 'chebyshev'}. Best is trial 6 with value: 0.7506133950311131.
+[I 2025-09-15 16:54:47,067] Trial 8 finished with value: 0.772661946442303 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 6 with value: 0.772661946442303.
+[I 2025-09-15 16:54:48,161] Trial 10 finished with value: 0.7506133950311131 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 6 with value: 0.7506133950311131.
+[I 2025-09-15 16:54:48,580] Trial 9 finished with value: 1.1357331115945108 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'chebyshev'}. Best is trial 6 with value: 0.772661946442303.
+[I 2025-09-15 16:54:49,303] Trial 10 finished with value: 0.8268588056281332 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'manhattan'}. Best is trial 6 with value: 0.772661946442303.
+[I 2025-09-15 16:54:49,431] Trial 11 finished with value: 0.7506133950311131 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 6 with value: 0.7506133950311131.
+[I 2025-09-15 16:54:49,800] Trial 11 finished with value: 0.772661946442303 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 6 with value: 0.772661946442303.
+[I 2025-09-15 16:54:50,285] Trial 12 finished with value: 0.772661946442303 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 6 with value: 0.772661946442303.
+[I 2025-09-15 16:54:50,622] Trial 12 finished with value: 0.7506133950311131 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 6 with value: 0.7506133950311131.
+[I 2025-09-15 16:54:50,779] Trial 13 finished with value: 0.772661946442303 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 6 with value: 0.772661946442303.
+[I 2025-09-15 16:54:51,283] Trial 14 finished with value: 0.772661946442303 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 6 with value: 0.772661946442303.
+[I 2025-09-15 16:54:51,828] Trial 13 finished with value: 0.7506133950311131 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 6 with value: 0.7506133950311131.
+[I 2025-09-15 16:54:52,912] Trial 14 finished with value: 0.7506133950311131 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'manhattan'}. Best is trial 6 with value: 0.7506133950311131.
+Total execution time: 48.40 seconds
