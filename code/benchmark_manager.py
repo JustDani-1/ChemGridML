@@ -4,7 +4,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics import roc_auc_score, mean_squared_error
 from typing import Dict, List, Tuple, Optional
-import os
+import os, sys
+from pathlib import Path
 from datetime import datetime
 from database_manager import DatabaseManager
 
@@ -379,7 +380,13 @@ def run_analysis(db_manager, save_dir="./analysis_results"):
     
     return analyzer
 
-
-path = "./studies/564213/LEARNABLE/"
-db_manager = DatabaseManager(f"{path}predictions.db")
-analyzer = run_analysis(db_manager, path)
+if __name__ == '__main__':
+    master_job_id = sys.argv[1]
+    base = Path('./studies')
+    path = base / master_job_id
+    directories = [item.name for item in path.iterdir() if item.is_dir()]
+    for dic in directories:
+        subdir_path = path / dic
+        string = f"{subdir_path}/predictions.db"
+        db_manager = DatabaseManager(string)
+        analyzer = run_analysis(db_manager, str(subdir_path))

@@ -123,6 +123,44 @@ class ExperimentRegistry:
                 )
             ]
         )
+
+        # DATASIZE experiment - get predictive performance of models on different sizes of datasets
+        features = ['ECFP', 'MOL2VEC', 'MACCS']
+        models_slow = ['FNN', 'RF']
+        models_fast = ['XGBoost', 'KNN']
+        datasets_small = ['Solubility_005','Solubility_010','Solubility_020','Solubility_030','Solubility_040', 'Solubility_050']
+        datasets_large = ['Solubility_060','Solubility_070','Solubility_080','Solubility_090','Solubility_100']
+
+        methods_slow_small = self._create_by_product(features, models_slow, datasets_small)
+        methods_slow_large = self._create_by_product(features, models_fast, datasets_small)
+        methods_fast_small = self._create_by_product(features, models_slow, datasets_large)
+        methods_fast_large = self._create_by_product(features, models_fast, datasets_large)
+        
+        self.experiments["DATASIZE"] = Experiment(
+            name="DATASIZE",
+            groups=[
+                Group(
+                    name="DATASIZE_SLOW_SMALL",
+                    methods=methods_slow_small,
+                    resources=Resources(wall_time="12:00:0", memory=4, cores=5, gpu=False)
+                ),
+                Group(
+                    name="DATASIZE_SLOW_LARGE",
+                    methods=methods_slow_large,
+                    resources=Resources(wall_time="18:00:0", memory=8, cores=10, gpu=False)
+                ),
+                Group(
+                    name="DATASIZE_FAST_SMALL",
+                    methods=methods_fast_small,
+                    resources=Resources(wall_time="6:00:0", memory=4, cores=5, gpu=False)
+                ),
+                Group(
+                    name="DATASIZE_FAST_LARGE",
+                    methods=methods_fast_large,
+                    resources=Resources(wall_time="12:00:0", memory=4, cores=5, gpu=False)
+                ),
+            ]
+        )
     
     def get_experiment(self, name: str) -> Experiment:
         """Get experiment by name"""

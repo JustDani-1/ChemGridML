@@ -65,17 +65,14 @@ def analyze_runtimes(base_directory, job_id):
     for file_path in base_path.iterdir():
         if file_path.is_file():
             filename = file_path.name
-            
-            # Skip error files 
-            if filename.count(f".o{job_id}."):
     
-                runtime = extract_runtime_from_file(file_path)
-                task_id = extract_task_id_from_filename(filename, job_id)
-                
-                runtime_data.append({
-                    'task_id': task_id,
-                    'runtime': runtime
-                })
+            runtime = extract_runtime_from_file(file_path)
+            task_id = extract_task_id_from_filename(filename, job_id)
+            
+            runtime_data.append({
+                'task_id': task_id,
+                'runtime': runtime
+            })
             
     
     return runtime_data
