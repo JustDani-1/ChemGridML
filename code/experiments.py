@@ -161,6 +161,24 @@ class ExperimentRegistry:
                 ),
             ]
         )
+
+        # CYCLODEXTRIN experiment
+        features = ['DATA']
+        models = ['FNN', 'XGBoost']
+        datasets = ['dataset.csv']
+
+        methods = self._create_by_product(features, models, datasets)
+        
+        self.experiments["CYCLODEXTRIN"] = Experiment(
+            name="CYCLODEXTRIN",
+            groups=[
+                Group(
+                    name="CYCLODEXTRIN",
+                    methods=methods,
+                    resources=Resources(wall_time="2:00:0", memory=8, cores=5, gpu=False)
+                )
+            ]
+        )
     
     def get_experiment(self, name: str) -> Experiment:
         """Get experiment by name"""

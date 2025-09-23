@@ -3,9 +3,8 @@ from tdc.single_pred import ADME
 from rdkit import Chem
 import features
 import numpy as np
-import deepchem as dc
 from experiments import Method
-from pathlib import Path
+import pandas as pd
 
 class Dataset():
     def __init__(self, method: Method):
@@ -15,7 +14,6 @@ class Dataset():
         Args:
             method: Method object from MethodRegistry
         """
-        # self._ensure_datasets()
 
         if method.dataset.startswith('Solubility_'):
             # Extract percentage from dataset name (e.g., 'Solubility_010' -> 10%)
@@ -32,26 +30,22 @@ class Dataset():
             # Sample the specified percentage of the dataset
             if percentage < 100:
                 df = df.sample(frac=percentage/100, random_state=42)
+
+            smiles = df['Drug']
+            mols = [Chem.MolFromSmiles(x) for x in smiles]
+            self.X = features.getFeature(mols, method.feature)
         else:
-            data = ADME(name=method.dataset)
-            df = data.get_data()
+            try:
+                data = ADME(name=method.dataset)
+                df = data.get_data()
+                smiles = df['Drug']
+                mols = [Chem.MolFromSmiles(x) for x in smiles]
+                self.X = features.getFeature(mols, method.feature)
+            except:
+                df = pd.read_csv(f"./data/{method.dataset}")
+                feature_columns = [col for col in df.columns if col != 'Y']
+                self.X = df[feature_columns].values.astype(np.float32)
+
             
-        smiles = df['Drug']
         labels = df['Y']
-
-        mols = [Chem.MolFromSmiles(x) for x in smiles]
-
-        # Labels
         self.Y = np.array(labels)
-
-        self.X = features.getFeature(mols, method.feature)
-        
-        # Store original data for potential use
-        # self.smiles = smiles
-        # self.mols = mols
-        # self.method = method
-
-    def _ensure_datasets(self):
-        if not Path("./data/HIV.csv").exists():
-            print("loading HIV")
-            _ = dc.deepchem.molnet.load_hiv(data_dir="./data", reload=False)
