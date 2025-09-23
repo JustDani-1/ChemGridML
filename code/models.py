@@ -426,21 +426,23 @@ class GATModel(DeepchemBase):
         return dc.deepchem.models.GATModel(
             n_tasks=1,
             mode=self.task_type,
-            device=env.DEVICE
+            device=env.DEVICE,
+            graph_attention_layers=self.hyperparams.get('graph_attention_layers', None),
+            n_attention_heads=self.hyperparams.get('n_attention_heads', 4),
+            dropout=self.hyperparams.get('dropout', 0),
+            predictor_dropout=self.hyperparams.get('predictor_dropout', 0)
         )
     
     @staticmethod
     def get_hyperparameter_space(trial):
-        # TODO: change to GAT specific hyperparams
         return {
-            'n_neighbors': trial.suggest_categorical('n_neighbors', [3, 5, 7, 9, 11]),
-            'weights': trial.suggest_categorical('weights', ['uniform', 'distance']),
-            'metric': trial.suggest_categorical('metric', ['minkowski', 'manhattan', 'chebyshev']),
-
+            'graph_attention_layers': trial.suggest_categorical('graph_attention_layers', [[8, 8], [16, 16], [8, 16]]),
+            'n_attention_heads': trial.suggest_categorical('n_attention_heads', [4, 8]),
+            'dropout': trial.suggest_float('dropout', 0.1, 0.4),
+            'predictor_dropout': trial.suggest_float('predictor_dropout', 0.1, 0.3),
+            
             # Training hyperparameters
             'epochs': trial.suggest_categorical('epochs', [50, 100, 150]),
-            'lr': trial.suggest_float('lr', 1e-5, 1e-2, log=True),
-            'batch_size': trial.suggest_categorical('batch_size', [16, 32, 64])
         }
     
 @ModelRegistry.register('GCN')
@@ -449,19 +451,21 @@ class GCNModel(DeepchemBase):
         return dc.deepchem.models.GCNModel(
             n_tasks=1,
             mode=self.task_type,
-            device=env.DEVICE
+            device=env.DEVICE,
+            graph_conv_layers=self.hyperparams.get('graph_conv_layers', None),
+            dropout=self.hyperparams.get('dropout', 0),
+            predictor_dropout=self.hyperparams.get('predictor_dropout', 0),
+            batchnorm=self.hyperparams.get('batchnorm', False)
         )
     
     @staticmethod
     def get_hyperparameter_space(trial):
-        # TODO: change to GCN specific hyperparams
         return {
-            'n_neighbors': trial.suggest_categorical('n_neighbors', [3, 5, 7, 9, 11]),
-            'weights': trial.suggest_categorical('weights', ['uniform', 'distance']),
-            'metric': trial.suggest_categorical('metric', ['minkowski', 'manhattan', 'chebyshev']),
-
+            'graph_conv_layers': trial.suggest_categorical('graph_conv_layers', [[64, 64], [64, 128], [32, 64]]),
+            'dropout': trial.suggest_float('dropout', 0.1, 0.4),
+            'predictor_dropout': trial.suggest_float('predictor_dropout', 0.1, 0.3),
+            'batchnorm': trial.suggest_categorical('batchnorm', [True, False]),
+            
             # Training hyperparameters
             'epochs': trial.suggest_categorical('epochs', [50, 100, 150]),
-            'lr': trial.suggest_float('lr', 1e-5, 1e-2, log=True),
-            'batch_size': trial.suggest_categorical('batch_size', [16, 32, 64])
         }

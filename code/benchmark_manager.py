@@ -8,6 +8,14 @@ import os, sys
 from pathlib import Path
 from datetime import datetime
 from database_manager import DatabaseManager
+from scipy.stats import friedmanchisquare, ttest_rel
+from scipy.stats import rankdata
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
+from statsmodels.stats.anova import anova_lm
+from statsmodels.stats.multicomp import pairwise_tukeyhsd
+import warnings
+warnings.filterwarnings('ignore', category=RuntimeWarning)
 
 class BenchmarkManager:
     """Analyzer for molecular property prediction results with multiple train-test splits"""
@@ -22,6 +30,7 @@ class BenchmarkManager:
         
         # Store computed results
         self.results = {}
+        self.statistical_results = {}
     
     def is_classification_dataset(self, dataset_name: str) -> bool:
         """Determine if dataset is classification by checking if all targets are 0 or 1"""
@@ -144,6 +153,282 @@ class BenchmarkManager:
             return pd.concat(summary_data, ignore_index=True)
         else:
             return pd.DataFrame()
+    
+    def get_detailed_scores(self) -> pd.DataFrame:
+        """Get individual seed scores for statistical analysis"""
+        detailed_data = []
+        
+        for dataset_name, dataset_results in self.results.items():
+            if not dataset_results or not dataset_results['scores']:
+                continue
+                
+            scores_df = pd.DataFrame(dataset_results['scores'])
+            scores_df['dataset'] = dataset_name
+            scores_df['metric'] = dataset_results['metric']
+            scores_df['is_classification'] = dataset_results['is_classification']
+            scores_df['method'] = scores_df['fingerprint'] + '_' + scores_df['model']
+            
+            detailed_data.append(scores_df)
+        
+        if detailed_data:
+            return pd.concat(detailed_data, ignore_index=True)
+        else:
+            return pd.DataFrame()
+    
+    def friedman_ranking_analysis(self) -> Dict:
+        """Perform Friedman test and ranking analysis"""
+        print("\n=== Friedman Ranking Analysis ===")
+        
+        detailed_df = self.get_detailed_scores()
+        if detailed_df.empty:
+            return {}
+        
+        # Separate classification and regression datasets
+        classification_df = detailed_df[detailed_df['is_classification'] == True]
+        regression_df = detailed_df[detailed_df['is_classification'] == False]
+        
+        results = {}
+        
+        for task_type, df in [('Classification', classification_df), ('Regression', regression_df)]:
+            if df.empty:
+                continue
+                
+            print(f"\n{task_type} Datasets:")
+            
+            # Create ranking matrix: rows=datasets, columns=methods
+            datasets = df['dataset'].unique()
+            methods = df['method'].unique()
+            
+            rank_matrix = []
+            for dataset in datasets:
+                dataset_data = df[df['dataset'] == dataset]
+                method_means = dataset_data.groupby('method')['score'].mean()
+                
+                # Rank methods (1=best)
+                if task_type == 'Classification':  # Higher AUROC is better
+                    ranks = rankdata(-method_means.values, method='average')
+                else:  # Lower RMSE is better
+                    ranks = rankdata(method_means.values, method='average')
+                
+                rank_matrix.append(ranks)
+            
+            rank_matrix = np.array(rank_matrix)
+            
+            # Friedman test
+            try:
+                statistic, p_value = friedmanchisquare(*rank_matrix.T)
+                
+                # Calculate mean ranks
+                mean_ranks = np.mean(rank_matrix, axis=0)
+                method_rankings = list(zip(methods, mean_ranks))
+                method_rankings.sort(key=lambda x: x[1])  # Sort by rank (lower is better)
+                
+                results[task_type] = {
+                    'friedman_stat': statistic,
+                    'friedman_p': p_value,
+                    'rankings': method_rankings,
+                    'significant': p_value < 0.05
+                }
+                
+                print(f"Friedman test: χ² = {statistic:.3f}, p = {p_value:.4f}")
+                if p_value < 0.05:
+                    print("Significant differences between methods detected!")
+                    print("Top 5 methods:")
+                    for i, (method, rank) in enumerate(method_rankings[:5]):
+                        fp, model = method.split('_')
+                        print(f"  {i+1}. {fp} + {model} (avg rank: {rank:.2f})")
+                else:
+                    print("No significant differences between methods")
+                    
+            except Exception as e:
+                print(f"Error in Friedman test: {e}")
+                results[task_type] = {'error': str(e)}
+        
+        return results
+    
+    def component_anova_analysis(self) -> Dict:
+        """Perform ANOVA analysis on fingerprints and models"""
+        print("\n=== Component ANOVA Analysis ===")
+        
+        detailed_df = self.get_detailed_scores()
+        if detailed_df.empty:
+            return {}
+        
+        # Separate classification and regression
+        classification_df = detailed_df[detailed_df['is_classification'] == True]
+        regression_df = detailed_df[detailed_df['is_classification'] == False]
+        
+        results = {}
+        
+        for task_type, df in [('Classification', classification_df), ('Regression', regression_df)]:
+            if df.empty:
+                continue
+                
+            print(f"\n{task_type} Datasets:")
+            
+            try:
+                # Main effects model
+                model_main = ols('score ~ C(fingerprint) + C(model) + C(dataset)', data=df).fit()
+                anova_main = anova_lm(model_main)
+                
+                # Interaction model  
+                model_int = ols('score ~ C(fingerprint) * C(model) + C(dataset)', data=df).fit()
+                anova_int = anova_lm(model_int)
+                
+                # Component means
+                fp_means = df.groupby('fingerprint')['score'].mean().sort_values(ascending=(task_type=='Regression'))
+                model_means = df.groupby('model')['score'].mean().sort_values(ascending=(task_type=='Regression'))
+                
+                results[task_type] = {
+                    'anova_main': anova_main,
+                    'anova_interaction': anova_int,
+                    'fingerprint_means': fp_means,
+                    'model_means': model_means
+                }
+                
+                # Print results
+                fp_p = anova_main.loc['C(fingerprint)', 'PR(>F)']
+                model_p = anova_main.loc['C(model)', 'PR(>F)']
+                int_p = anova_int.loc['C(fingerprint):C(model)', 'PR(>F)']
+                
+                print(f"Fingerprint effect: p = {fp_p:.4f} {'***' if fp_p < 0.001 else '**' if fp_p < 0.01 else '*' if fp_p < 0.05 else ''}")
+                print(f"Model effect: p = {model_p:.4f} {'***' if model_p < 0.001 else '**' if model_p < 0.01 else '*' if model_p < 0.05 else ''}")
+                print(f"Interaction effect: p = {int_p:.4f} {'***' if int_p < 0.001 else '**' if int_p < 0.01 else '*' if int_p < 0.05 else ''}")
+                
+                if fp_p < 0.05:
+                    print("Best fingerprints:")
+                    for i, (fp, score) in enumerate(fp_means.items()):
+                        if i < 3:
+                            print(f"  {i+1}. {fp}: {score:.4f}")
+                
+                if model_p < 0.05:
+                    print("Best models:")
+                    for i, (model, score) in enumerate(model_means.items()):
+                        if i < 3:
+                            print(f"  {i+1}. {model}: {score:.4f}")
+                            
+            except Exception as e:
+                print(f"Error in ANOVA: {e}")
+                results[task_type] = {'error': str(e)}
+        
+        return results
+    
+    def dataset_winners_analysis(self) -> Dict:
+        """Find statistical winners for each dataset"""
+        print("\n=== Dataset Winners Analysis ===")
+        
+        summary_df = self.get_summary_statistics()
+        detailed_df = self.get_detailed_scores()
+        
+        winners = {}
+        
+        for dataset in summary_df['dataset'].unique():
+            dataset_summary = summary_df[summary_df['dataset'] == dataset]
+            dataset_detailed = detailed_df[detailed_df['dataset'] == dataset]
+            
+            is_classification = dataset_summary['is_classification'].iloc[0]
+            
+            # Find best method
+            if is_classification:
+                best_idx = dataset_summary['mean'].idxmax()
+            else:
+                best_idx = dataset_summary['mean'].idxmin()
+            
+            best_method = dataset_summary.loc[best_idx]
+            best_fp = best_method['fingerprint']
+            best_model = best_method['model']
+            best_score = best_method['mean']
+            
+            # Get scores for statistical testing
+            best_scores = dataset_detailed[
+                (dataset_detailed['fingerprint'] == best_fp) & 
+                (dataset_detailed['model'] == best_model)
+            ]['score'].values
+            
+            # Test against second best
+            dataset_summary_sorted = dataset_summary.sort_values('mean', ascending=not is_classification)
+            if len(dataset_summary_sorted) > 1:
+                second_best = dataset_summary_sorted.iloc[1]
+                second_fp = second_best['fingerprint']
+                second_model = second_best['model']
+                
+                second_scores = dataset_detailed[
+                    (dataset_detailed['fingerprint'] == second_fp) & 
+                    (dataset_detailed['model'] == second_model)
+                ]['score'].values
+                
+                if len(best_scores) == len(second_scores) and len(best_scores) > 1:
+                    _, p_value = ttest_rel(best_scores, second_scores)
+                    significant = p_value < 0.05
+                else:
+                    p_value = np.nan
+                    significant = False
+            else:
+                p_value = np.nan
+                significant = False
+            
+            winners[dataset] = {
+                'winner': f"{best_fp}+{best_model}",
+                'score': best_score,
+                'p_value': p_value,
+                'significant': significant
+            }
+            
+            sig_text = " (significant)" if significant else ""
+            print(f"{dataset}: {best_fp}+{best_model} = {best_score:.4f}{sig_text}")
+        
+        return winners
+    
+    def run_statistical_analysis(self) -> Dict:
+        """Run complete statistical analysis"""
+        if not self.results:
+            print("No results available. Run analyze_all_datasets() first.")
+            return {}
+        
+        print("Running Statistical Analysis...")
+        
+        # Run all analyses
+        self.statistical_results = {
+            'dataset_winners': self.dataset_winners_analysis(),
+            'friedman_ranking': self.friedman_ranking_analysis(), 
+            'component_anova': self.component_anova_analysis()
+        }
+        
+        return self.statistical_results
+    
+    def print_winners_summary(self):
+        """Print concise summary of winners"""
+        if not self.statistical_results:
+            print("Run statistical analysis first!")
+            return
+            
+        print("\n" + "="*50)
+        print("WINNERS SUMMARY")
+        print("="*50)
+        
+        # Overall winners from Friedman test
+        friedman_results = self.statistical_results.get('friedman_ranking', {})
+        for task_type in ['Classification', 'Regression']:
+            if task_type in friedman_results and 'rankings' in friedman_results[task_type]:
+                rankings = friedman_results[task_type]['rankings']
+                if rankings:
+                    winner = rankings[0][0]
+                    fp, model = winner.split('_')
+                    rank = rankings[0][1]
+                    print(f"\nOverall {task_type} Winner: {fp} + {model} (avg rank: {rank:.2f})")
+        
+        # Best components from ANOVA
+        anova_results = self.statistical_results.get('component_anova', {})
+        for task_type in ['Classification', 'Regression']:
+            if task_type in anova_results and 'fingerprint_means' in anova_results[task_type]:
+                fp_means = anova_results[task_type]['fingerprint_means']
+                model_means = anova_results[task_type]['model_means']
+                
+                if not fp_means.empty and not model_means.empty:
+                    best_fp = fp_means.index[0]
+                    best_model = model_means.index[0]
+                    print(f"{task_type} - Best Fingerprint: {best_fp} ({fp_means.iloc[0]:.4f})")
+                    print(f"{task_type} - Best Model: {best_model} ({model_means.iloc[0]:.4f})")
     
     def plot_detailed_comparison(self, figsize=(16, 10)):
         """Create detailed comparison plots grouped by model with fingerprint performance"""
@@ -368,6 +653,12 @@ def run_analysis(db_manager, save_dir="./analysis_results"):
     
     # Analyze all datasets
     analyzer.analyze_all_datasets()
+    
+    # Run statistical analysis
+    analyzer.run_statistical_analysis()
+    
+    # Print winners summary
+    analyzer.print_winners_summary()
     
     # Create visualization
     analyzer.plot_detailed_comparison()
