@@ -77,13 +77,15 @@ class StudyManager:
         task_type = util.get_task_type(Y)
         
         study_id = str(self.method)
+
+        study = optuna.create_study(study_name=f"{study_id}_{seed}", direction="minimize")
         
-        study = optuna.create_study(
-            study_name=f"{study_id}_{seed}",
-            storage=self.storage_url,
-            direction="minimize",
-            load_if_exists=True
-        )
+        # study = optuna.create_study(
+        #     study_name=f"{study_id}_{seed}",
+        #     storage=self.storage_url,
+        #     direction="minimize",
+        #     load_if_exists=True
+        # )
         
         def objective(trial):
             hyperparams = model_class.get_hyperparameter_space(trial)
@@ -117,7 +119,7 @@ class StudyManager:
         data = datasets.Dataset(self.method)
         self.db.store_dataset_targets(self.method.dataset, data.Y)
         
-        self.setup_optuna_storage()
+        #self.setup_optuna_storage()
         
         predictions = [None for _ in range(env.N_TESTS)]
         indices = [None for _ in range(env.N_TESTS)]

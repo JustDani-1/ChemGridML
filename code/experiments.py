@@ -119,7 +119,7 @@ class ExperimentRegistry:
                 Group(
                     name="LEARNABLE",
                     methods=methods,
-                    resources=Resources(wall_time="24:00:0", memory=8, cores=10, gpu=False)
+                    resources=Resources(wall_time="48:00:0", memory=16, cores=10, gpu=False)
                 )
             ]
         )
