@@ -197,12 +197,34 @@ class BenchmarkManager:
             
             # Create ranking matrix: rows=datasets, columns=methods
             datasets = df['dataset'].unique()
-            methods = df['method'].unique()
+            
+            # Find common methods across all datasets for this task type
+            common_methods = set(df['method'].unique())
+            for dataset in datasets:
+                dataset_methods = set(df[df['dataset'] == dataset]['method'].unique())
+                common_methods = common_methods.intersection(dataset_methods)
+            
+            common_methods = sorted(list(common_methods))
+            
+            if len(common_methods) < 2:
+                print(f"Insufficient common methods ({len(common_methods)}) for Friedman test")
+                results[task_type] = {'error': 'Insufficient common methods'}
+                continue
+            
+            print(f"Found {len(common_methods)} common methods across {len(datasets)} datasets")
             
             rank_matrix = []
             for dataset in datasets:
                 dataset_data = df[df['dataset'] == dataset]
                 method_means = dataset_data.groupby('method')['score'].mean()
+                
+                # Only use common methods
+                method_means = method_means[common_methods]
+                
+                # Check if we have all methods for this dataset
+                if len(method_means) != len(common_methods):
+                    print(f"Warning: Dataset {dataset} missing some methods, skipping")
+                    continue
                 
                 # Rank methods (1=best)
                 if task_type == 'Classification':  # Higher AUROC is better
@@ -212,6 +234,11 @@ class BenchmarkManager:
                 
                 rank_matrix.append(ranks)
             
+            if len(rank_matrix) < 2:
+                print(f"Insufficient datasets ({len(rank_matrix)}) for Friedman test")
+                results[task_type] = {'error': 'Insufficient datasets'}
+                continue
+            
             rank_matrix = np.array(rank_matrix)
             
             # Friedman test
@@ -220,17 +247,20 @@ class BenchmarkManager:
                 
                 # Calculate mean ranks
                 mean_ranks = np.mean(rank_matrix, axis=0)
-                method_rankings = list(zip(methods, mean_ranks))
+                method_rankings = list(zip(common_methods, mean_ranks))
                 method_rankings.sort(key=lambda x: x[1])  # Sort by rank (lower is better)
                 
                 results[task_type] = {
                     'friedman_stat': statistic,
                     'friedman_p': p_value,
                     'rankings': method_rankings,
-                    'significant': p_value < 0.05
+                    'significant': p_value < 0.05,
+                    'n_datasets': len(rank_matrix),
+                    'n_methods': len(common_methods)
                 }
                 
                 print(f"Friedman test: χ² = {statistic:.3f}, p = {p_value:.4f}")
+                print(f"Based on {len(rank_matrix)} datasets and {len(common_methods)} methods")
                 if p_value < 0.05:
                     print("Significant differences between methods detected!")
                     print("Top 5 methods:")
