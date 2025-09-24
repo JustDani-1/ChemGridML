@@ -164,8 +164,8 @@ class ExperimentRegistry:
 
         # CYCLODEXTRIN experiment
         features = ['DATA']
-        models = ['FNN', 'XGBoost']
-        datasets = ['dataset.csv']
+        models = ['XGBoost']
+        datasets = ['FinalCSV.csv']
 
         methods = self._create_by_product(features, models, datasets)
         

@@ -34,6 +34,7 @@ class Dataset():
             smiles = df['Drug']
             mols = [Chem.MolFromSmiles(x) for x in smiles]
             self.X = features.getFeature(mols, method.feature)
+            labels = df['Y']
         else:
             try:
                 data = ADME(name=method.dataset)
@@ -41,11 +42,29 @@ class Dataset():
                 smiles = df['Drug']
                 mols = [Chem.MolFromSmiles(x) for x in smiles]
                 self.X = features.getFeature(mols, method.feature)
+                labels = df['Y']
             except:
                 df = pd.read_csv(f"./data/{method.dataset}")
-                feature_columns = [col for col in df.columns if col != 'Y']
-                self.X = df[feature_columns].values.astype(np.float32)
-
-            
-        labels = df['Y']
+                df = df[(df['SMILES_LIGANDS'] != '') & (df['SMILES_LIGANDS'].notna())]
+                labels = df['Dock']
+                smiles_CD = df['SMILES_CD']
+                smiles_LIG = df['SMILES_LIGANDS']
+                #smiles_LIG = [x for x in smiles_LIG if x != '']
+                mols_CD = [Chem.MolFromSmiles(x) for x in smiles_CD]
+                mols_LIG = [Chem.MolFromSmiles(x) for x in smiles_LIG]
+                ECFP_CD = features.getFeature(mols_CD, 'ECFP')
+                ECFP_LIG = features.getFeature(mols_LIG, 'ECFP')
+                RDKit_CD = features.getFeature(mols_CD, 'RDKit')
+                RDKit_LIG = features.getFeature(mols_LIG, 'RDKit')
+                self.X = np.concatenate([ECFP_CD, ECFP_LIG, RDKit_CD, RDKit_LIG], axis=1)
+                
         self.Y = np.array(labels)
+
+
+
+if __name__ == '__main__':
+    df = pd.read_csv(f"./data/FinalCSV.csv")
+    smiles_CD = df['SMILES_CD']
+    mols_CD = [Chem.MolFromSmiles(x) for x in smiles_CD]
+    print("here")
+    RdKit_CD = features.getFeature(mols_CD, 'RDKit')

@@ -126,6 +126,7 @@ class StudyManager:
         max_workers = min(allocated_cores, env.N_TESTS)
         if env.DEVICE != 'cpu':
             max_workers = 1
+        max_workers = 2
         
         with ProcessPoolExecutor(max_workers=max_workers) as executor:
             future_to_seed = {

@@ -5,6 +5,8 @@ import numpy as np
 import env
 import numpy as np
 import deepchem as dc
+from rdkit.Chem import Descriptors
+from rdkit.ML.Descriptors import MoleculeDescriptors
 
 def generate(mols, gen):
     fingerprints = []
@@ -38,6 +40,13 @@ def MACCS(mols):
 def RDKitFP(mols, fpSize=env.DEFAULT_FP_SIZE):
     gen = rdFingerprintGenerator.GetRDKitFPGenerator(fpSize=fpSize)
     return generate(mols, gen)
+
+def RDKit(mols):
+    descriptor_names = [desc[0] for desc in Descriptors.descList]
+    calculator = MoleculeDescriptors.MolecularDescriptorCalculator(descriptor_names)
+    result = np.stack([np.array(calculator.CalcDescriptors(mol)) for mol in mols])
+    print(result.shape)
+    return result
 
 def TOPOTOR(mols, fpSize=env.DEFAULT_FP_SIZE):
     gen = rdFingerprintGenerator.GetTopologicalTorsionGenerator(includeChirality=True, fpSize=fpSize)
