@@ -23,7 +23,6 @@ class BenchmarkManager:
     def __init__(self, db_manager, save_dir: str = "analysis_results"):
         self.db_manager = db_manager
         self.save_dir = save_dir
-        self.run_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         
         # Create save directory if it doesn't exist
         os.makedirs(save_dir, exist_ok=True)
@@ -405,7 +404,7 @@ class BenchmarkManager:
             }
             
             sig_text = " (significant)" if significant else ""
-            print(f"{dataset}: {best_fp}+{best_model} = {best_score:.4f}{sig_text}")
+            print(f"{dataset}: {best_fp}+{best_model} = {best_score:.4f} {p_value:.2f} {sig_text}")
         
         return winners
     
@@ -630,17 +629,6 @@ class BenchmarkManager:
         plot_path = os.path.join(self.save_dir, f'detailed_comparison.png')
         plt.savefig(plot_path, dpi=300, bbox_inches='tight')
         plt.show()
-    
-    def save_results(self, filename: Optional[str] = None):
-        """Save analysis results to CSV"""
-        if filename is None:
-            filename = f"analysis_results_{self.run_timestamp}.csv"
-        
-        df = self.get_summary_statistics()
-        filepath = os.path.join(self.save_dir, filename)
-        df.to_csv(filepath, index=False)
-        print(f"Results saved to: {filepath}")
-        return filepath
     
     def print_summary(self):
         """Print a summary of the analysis results"""
