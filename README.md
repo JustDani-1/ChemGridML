@@ -8,7 +8,7 @@ Its purpose is to provide an easy-to-use interface for molecular machine learnin
 
 ### Environment
 
-There are two possbile ways to created the conda environment needed:
+There are two possbile ways to created the conda environment:
 
 #### Option 1: Create environment from file
 
@@ -26,31 +26,41 @@ chmod +x environment.sh
 ./environment.sh
 ```
 
-### Prerequisites
+### HPC clusters
 
-Anaconda or Miniconda installed
-CUDA-compatible GPU (recommended)
-
-## Installation
-
-Option 1: Using environment.yml (Recommended)
-bash# Clone the repository
-git clone 
-cd ChemGridML
-
-### Create environment from file
-
-conda env create -f environment.yml
-
-### Activate environment
-
-conda activate ChemGridML
-Option 2: Using setup script
+In order to use a cluster, log onto it and execute:
 
 ```console
-# Make script executable
-chmod +x environment.sh
+# Go into home directory
+cd ~
+# Create Scratch directory if not exists
+mkdir -p Scratch
+cd Scratch
+# Clone this repository
+git clone https://github.com/JustDani-1/ChemGridML.git
+cd ChemGridML
+```
 
-### Run setup script
-./environment.sh
+Afterwards, set up your conda environment as described above.
+
+## Getting Started
+
+ChemGridML uses the following abstraction for executing ML experiments:
+
+![Experiment Composition](assets/strategy.png)
+
+### Local
+
+### HPC clusters
+
+The syntax for running experiments is:
+
+```console
+qsub ./scripts/submit_master.sh <experiment1> [experiment2] ...
+```
+
+For example:
+
+```console
+qsub ./scripts/submit_master.sh FINGERPRINT
 ```
