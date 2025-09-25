@@ -1,4 +1,6 @@
-# ChemGridML: A small framework for high-throughput molecular ML experiments on SGE-Clusters
+# ChemGridML: A small framework for high-throughput molecular ML experiments on SGE clusters
+
+This project originated from my internship "Leveraging computational chemistry to optimise Machine Learning Models in Drug Discovery" at the UCL School of Pharmacy
 
 ## Setup
 
