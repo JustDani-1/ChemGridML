@@ -506,7 +506,7 @@ class BenchmarkManager:
         else:
             axes = axes.flatten()
         
-        fig.suptitle(f'Performance by Dataset and Model (Mean ± Std across seeds)\nRun: {self.run_timestamp}',
+        fig.suptitle(f'Performance by Dataset and Model (Mean ± Std across seeds)',
                     fontsize=16, fontweight='bold')
         
         # Define consistent colors for fingerprints across all datasets
