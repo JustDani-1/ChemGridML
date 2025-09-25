@@ -1,12 +1,14 @@
 # ChemGridML: A small framework for high-throughput molecular ML experiments on SGE clusters
 
-This project originated from my internship "Leveraging computational chemistry to optimise Machine Learning Models in Drug Discovery" at the UCL School of Pharmacy
+This project originated from my internship "Leveraging computational chemistry to optimise Machine Learning Models in Drug Discovery" at the UCL School of Pharmacy.
+
+Its purpose is to provide an easy-to-use interface for molecular machine learning, supporting both local execution and SGE-based HPC systems (developed using UCL's Myriad cluster). A collection of molecular featurization methods and ML models are included, with code designed to be easily extensible. The cluster acceleration enables systematic exploration of many feature-model combinations to improve performance for a given dataset.
 
 ## Setup
 
 ### Environment
 
-There are two possbile ways to created the cuda environment needed:
+There are two possbile ways to created the conda environment needed:
 
 #### Option 1: Create environment from file
 
@@ -20,7 +22,7 @@ conda env create -f environment.yml
 # Make script executable
 chmod +x environment.sh
 
-### Run setup script
+# Run setup script
 ./environment.sh
 ```
 
