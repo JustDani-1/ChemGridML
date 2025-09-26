@@ -33,7 +33,7 @@ Since ChemGridML is designed as a base framework for extension, the following wo
    git merge upstream/main
    ```
 
-This approach allows you to:#
+This approach allows you to:
 
 - Maintain your own version with custom extensions
 - Receive updates from the original framework
