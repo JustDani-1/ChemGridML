@@ -1,7 +1,7 @@
 conda deactivate
-conda remove --name internship --all
-conda create -n internship python=3.9
-conda activate internship
+conda remove --name ChemGridML --all
+conda create -n ChemGridML python=3.9
+conda activate ChemGridML
 conda install -c conda-forge numpy pandas pytorch transformers torchdata torch-geometric tqdm matplotlib optuna xgboost lightning jax dm-haiku plotly
 conda install -c conda-forge dgl dgllife rdkit pytdc deepchem gensim joblib scikit-learn
 conda install cudatoolkit cuda-version=11

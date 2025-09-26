@@ -119,15 +119,15 @@ class ExperimentRegistry:
                 Group(
                     name="LEARNABLE",
                     methods=methods,
-                    resources=Resources(wall_time="24:00:0", memory=8, cores=10, gpu=False)
+                    resources=Resources(wall_time="48:00:0", memory=16, cores=10, gpu=False)
                 )
             ]
         )
 
         # DATASIZE experiment - get predictive performance of models on different sizes of datasets
-        features = ['ECFP', 'MOL2VEC', 'MACCS']
+        features = ['ECFP', 'MOL2VEC', 'MACCS', 'AtomPair']
         models_slow = ['FNN', 'RF']
-        models_fast = ['XGBoost', 'KNN']
+        models_fast = ['XGBoost', 'SVM']
         datasets_small = ['Solubility_005','Solubility_010','Solubility_020','Solubility_030','Solubility_040', 'Solubility_050']
         datasets_large = ['Solubility_060','Solubility_070','Solubility_080','Solubility_090','Solubility_100']
 
