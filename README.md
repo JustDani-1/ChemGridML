@@ -6,6 +6,22 @@ Its purpose is to provide an easy-to-use interface for molecular machine learnin
 
 ## Getting Started with ChemGridML
 
+### Prerequisites: Git LFS Setup
+
+This repository uses Git Large File Storage (LFS) for managing large files (e.g., database files). So please ensure Git LFS is installed and configured:
+
+```console
+# Install Git LFS (if not already installed)
+# On Ubuntu/Debian:
+sudo apt install git-lfs
+# On macOS with Homebrew:
+brew install git-lfs
+# On other systems, see: https://git-lfs.github.io/
+
+# Configure Git LFS for your user account (one-time setup)
+git lfs install
+```
+
 ### For Users: Fork and Extend (Recommended)
 
 Since ChemGridML is designed as a base framework for extension, the following workflow is recommended:
@@ -115,7 +131,7 @@ where the `TASK_ID` should be in the range of 1 and the total number of methods 
 
 ```console
 # Need to specify your own master job ID for the output folders
-python master.py <MASTER_JOB_ID> <EXPERIMENT1> [EXPERIMENT2] ...
+python ./code/master.py <MASTER_JOB_ID> <EXPERIMENT1> [EXPERIMENT2] ...
 ```
 
 ### Running on HPC clusters
