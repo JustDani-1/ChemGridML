@@ -65,25 +65,83 @@ def submit_experiment(master_job_id: str, experiment: Experiment):
             if os.path.exists(script_filename):
                 os.remove(script_filename)
 
+
+def run_experiment(master_job_id: str, experiment: Experiment):
+    """Run an experiment locally by calling main.py for each method"""
+    
+    os.makedirs(f"./output/{master_job_id}/{experiment.name}", exist_ok=True)
+    
+    for task_id in range(1, experiment.total_methods() + 1):
+        print(f"\nRunning method {task_id}/{experiment.total_methods()}")
+        
+        try:
+            # Call main.py with the same arguments as would be used in the cluster
+            # Let output stream through directly
+            result = subprocess.run([
+                'python', './code/main.py', 
+                master_job_id, 
+                experiment.name, 
+                str(task_id)
+            ], check=True)
+            
+            print(f"Method {task_id} completed successfully")
+                
+        except subprocess.CalledProcessError as e:
+            print(f"Method {task_id} failed with exit code {e.returncode}")
+            # Continue with next method even if one fails
+            continue
+    
+    print(f"\nCompleted experiment '{experiment.name}'")
+
+
+
+                
+def print_experiments():
+    registry = ExperimentRegistry()
+    for exp_name in registry.list_experiments():
+        exp = registry.get_experiment(exp_name)
+        print(f"  {exp_name}: {exp.total_methods()} methods")
+
 def main():
-    if len(sys.argv) < 3:
+    if len(sys.argv) > 1:
+        if sys.argv[1] == 'CLUSTER':
+            if len(sys.argv) < 4:
+                print("Usage: python master.py CLUSTER <master_job_id> <experiment1> [experiment2] ...")
+                print("\nAvailable experiments:")
+                print_experiments()
+                sys.exit(1)
+            
+            master_job_id = sys.argv[2]
+            experiments = sys.argv[3:]
+            
+            experiment_registry = ExperimentRegistry()
+            
+            # Submit each experiment
+            for exp in experiments:
+                experiment = experiment_registry.get_experiment(exp)
+                submit_experiment(master_job_id, experiment)
+        else:
+            if len(sys.argv) < 3:
+                print("Usage: python master.py <master_job_id> <experiment1> [experiment2] ...")
+                print("\nAvailable experiments:")
+                print_experiments()
+                sys.exit(1)
+            
+            master_job_id = sys.argv[1]
+            experiments = sys.argv[2:]
+            
+            experiment_registry = ExperimentRegistry()
+            
+            # Submit each experiment
+            for exp in experiments:
+                experiment = experiment_registry.get_experiment(exp)
+                run_experiment(master_job_id, experiment)     
+    else:
         print("Usage: python master.py <master_job_id> <experiment1> [experiment2] ...")
         print("\nAvailable experiments:")
-        registry = ExperimentRegistry()
-        for exp_name in registry.list_experiments():
-            exp = registry.get_experiment(exp_name)
-            print(f"  {exp_name}: {exp.total_methods()} methods")
+        print_experiments()
         sys.exit(1)
-    
-    master_job_id = sys.argv[1]
-    experiments = sys.argv[2:]
-    
-    experiment_registry = ExperimentRegistry()
-    
-    # Submit each experiment
-    for exp in experiments:
-        experiment = experiment_registry.get_experiment(exp)
-        submit_experiment(master_job_id, experiment)
+
     
 
 if __name__ == "__main__":

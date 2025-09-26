@@ -101,14 +101,29 @@ Available experiments are `FINGERPRINT`, `LEARNABLE` and `DATASIZE`, which where
 
 ### Local
 
-bla
+On the local machine, you can either run single methods of an experiments or entire experiments.
+**To run a single method:**
+
+```console
+# Need to specify your own master job ID for the output folders
+python ./code/main.py <MASTER_JOB_ID> <EXPERIMENT> <TASK_ID>
+```
+
+where the `TASK_ID` should be in the range of 1 and the total number of methods in that experiment.
+
+**To run an entire experiment:**
+
+```console
+# Need to specify your own master job ID for the output folders
+python master.py <MASTER_JOB_ID> <EXPERIMENT1> [EXPERIMENT2] ...
+```
 
 ### Running on HPC clusters
 
 The syntax for running experiments is:
 
 ```console
-qsub ./scripts/submit_master.sh <experiment1> [experiment2] ...
+qsub ./scripts/submit_master.sh <EXPERIMENT1> [EXPERIMENT2] ...
 ```
 
 For example:
@@ -129,10 +144,12 @@ qstat
 
 To expand the framework with new features, models or datasets, alter the respective python file in `/code/`. The abstractions and interfaces in those files make it easy and intuitive to add new:
 
-- **Molecular Features**: Implement new featurization methods
-- **ML Models**: Add new model classes following the existing interface patterns
-- **Datasets**: Include additional datasets
-- **Experiments**: Define new experiments in `/code/experiments.py`
+- **Molecular Features**
+- **ML Models**
+- **Datasets**
+- **Experiments**
+
+At the start of these files are instructions how to extend them.
 
 ### Contributing Back
 

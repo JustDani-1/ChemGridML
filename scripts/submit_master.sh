@@ -16,7 +16,7 @@ mkdir -p ./output/$JOB_ID
 conda activate internship
 
 # Run master script with job ID and experiment names
-python ./code/master.py $JOB_ID "$@"
+python ./code/master.py CLUSTER $JOB_ID "$@"
 
 # Move log to output directory
 mv ./_master.log ./output/$JOB_ID
