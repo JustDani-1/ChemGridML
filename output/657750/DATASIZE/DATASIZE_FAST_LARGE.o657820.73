@@ -1,0 +1,94 @@
+No normalization for SPS. Feature removed!
+No normalization for AvgIpc. Feature removed!
+No normalization for NumAmideBonds. Feature removed!
+No normalization for NumAtomStereoCenters. Feature removed!
+No normalization for NumBridgeheadAtoms. Feature removed!
+No normalization for NumHeterocycles. Feature removed!
+No normalization for NumSpiroAtoms. Feature removed!
+No normalization for NumUnspecifiedAtomStereoCenters. Feature removed!
+No normalization for Phi. Feature removed!
+WARNING:tensorflow:From /home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/tensorflow/python/util/deprecation.py:588: calling function (from tensorflow.python.eager.polymorphic_function.polymorphic_function) with experimental_relax_shapes is deprecated and will be removed in a future version.
+Instructions for updating:
+experimental_relax_shapes is deprecated, use reduce_retracing instead
+WARNING:deepchem.models:Skipped loading some Jax models, missing a dependency. No module named 'jax.extend'
+Found local copy...
+Loading...
+Done!
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] Explicit valence for atom # 5 N, 4, is greater than permitted
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+[21:40:55] WARNING: not removing hydrogen atom without neighbors
+cpu
+Feature failed for 1 molecules
+Seed 0 failed: Found input variables with inconsistent numbers of samples: [5988, 5989, 5989]
+concurrent.futures.process._RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/concurrent/futures/process.py", line 246, in _process_worker
+    r = call_item.fn(*call_item.args, **call_item.kwargs)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 102, in run_single_experiment
+    X_train, X_test, Y_train, Y_test, train_indices, test_indices = train_test_split(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sklearn/utils/_param_validation.py", line 216, in wrapper
+    return func(*args, **kwargs)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sklearn/model_selection/_split.py", line 2848, in train_test_split
+    arrays = indexable(*arrays)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sklearn/utils/validation.py", line 532, in indexable
+    check_consistent_length(*result)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sklearn/utils/validation.py", line 475, in check_consistent_length
+    raise ValueError(
+ValueError: Found input variables with inconsistent numbers of samples: [5988, 5989, 5989]
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/./code/main.py", line 29, in <module>
+    manager.run_nested_cv()
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 146, in run_nested_cv
+    raise exc
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 141, in run_nested_cv
+    seed_result, test_predictions, test_indices = future.result()
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/concurrent/futures/_base.py", line 439, in result
+    return self.__get_result()
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/concurrent/futures/_base.py", line 391, in __get_result
+    raise self._exception
+ValueError: Found input variables with inconsistent numbers of samples: [5988, 5989, 5989]
