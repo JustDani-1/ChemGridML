@@ -41,17 +41,7 @@ class Dataset():
 
         mols = [Chem.MolFromSmiles(x) for x in smiles]
 
-        # Labels
-        self.Y = np.array(labels)
-
-        self.X = features.getFeature(mols, method.feature)
+        # Get features and valid indices
+        self.X, valid_indices = features.getFeature(mols, method.feature)
         
-        # Store original data for potential use
-        # self.smiles = smiles
-        # self.mols = mols
-        # self.method = method
-
-    def _ensure_datasets(self):
-        if not Path("./data/HIV.csv").exists():
-            print("loading HIV")
-            _ = dc.deepchem.molnet.load_hiv(data_dir="./data", reload=False)
+        self.Y = np.array(labels)[valid_indices]
