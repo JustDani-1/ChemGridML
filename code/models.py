@@ -201,7 +201,6 @@ class DeepchemBase(ModelBase):
         return X_train, X_val, Y_train, Y_val
 
     def fit(self, X_train, Y_train):
-        # TODO: Implement deepchem fitting
         dataset = NumpyDataset(X=X_train, y=Y_train)
 
         # Create actual model
@@ -213,7 +212,6 @@ class DeepchemBase(ModelBase):
 
 
     def predict(self, X):
-        # TODO: Implement deepchem prediction
         dataset = NumpyDataset(X)
         prediction = self.model.predict(dataset)
         if self.task_type == 'classification':

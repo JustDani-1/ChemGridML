@@ -102,27 +102,30 @@ def GRAPH(mols):
     failed_count = 0
     
     featurizer = dc.deepchem.feat.MolGraphConvFeaturizer()
+
+    # Featurize all molecules at once
+    all_features = featurizer.featurize(mols)
     
-    for i, mol in enumerate(mols):
-        try:
-            if mol is not None:
-                fp = featurizer.featurize([mol])
-                if fp is not None and len(fp) > 0 and fp[0] is not None:
-                    fingerprints.append(fp[0])
-                    valid_indices.append(i)
-                else:
-                    failed_count += 1
+    # Check each featurized result
+    for i, fp in enumerate(all_features):
+        # Check if it's a valid GraphData object
+        if hasattr(fp, 'node_features') and hasattr(fp, 'edge_index'):
+            # Additional check to ensure it's not empty
+            if fp.node_features.shape[0] > 0:
+                fingerprints.append(fp)
+                valid_indices.append(i)
             else:
                 failed_count += 1
-        except Exception as e:
+        # Check if it's an empty array (the failure case you observed)
+        elif isinstance(fp, np.ndarray) and fp.size == 0:
+            failed_count += 1
+        # Handle any other unexpected types
+        else:
             failed_count += 1
     
     print(f"Feature failed for {failed_count} molecules")
     
-    if fingerprints:
-        return fingerprints, valid_indices  # Don't stack for graph features
-    else:
-        return [], []
+    return np.array(fingerprints), valid_indices
 
 def getFeature(mols, fingerprint: str):
     if fingerprint not in globals():
