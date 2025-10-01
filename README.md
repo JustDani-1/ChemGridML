@@ -16,9 +16,18 @@ This repository uses Git Large File Storage (LFS) for managing large files (e.g.
 sudo apt install git-lfs
 # On macOS with Homebrew:
 brew install git-lfs
-# On other systems, see: https://git-lfs.github.io/
+# On other systems, such as most SGE clusters:
+cd ~
+# adjust plattform and version as needed
+wget https://github.com/git-lfs/git-lfs/releases/download/v3.5.1/git-lfs-linux-amd64-v3.5.1.tar.gz
+tar -xzf git-lfs-linux-amd64-v3.5.1.tar.gz
+mkdir -p ~/bin
+mv git-lfs-3.5.1/git-lfs ~/bin/
+chmod +x ~/bin/git-lfs
+echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
 
-# Configure Git LFS for your user account (one-time setup)
+# After installation, configure Git LFS for your user account (one-time setup)
 git lfs install
 ```
 

@@ -69,8 +69,6 @@ def submit_experiment(master_job_id: str, experiment: Experiment):
 def run_experiment(master_job_id: str, experiment: Experiment):
     """Run an experiment locally by calling main.py for each method"""
     
-    os.makedirs(f"./output/{master_job_id}/{experiment.name}", exist_ok=True)
-    
     for task_id in range(1, experiment.total_methods() + 1):
         print(f"\nRunning method {task_id}/{experiment.total_methods()}")
         
