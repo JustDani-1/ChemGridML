@@ -20,10 +20,10 @@ def create_job_script(master_job_id: str, experiment: Experiment, group: Group) 
 #$ -N {group.name}
 
 #$ -j y
-#$ -o $HOME/Scratch/UCL_internship/output/{master_job_id}/{experiment.name}/
-#$ -wd $HOME/Scratch/UCL_internship
+#$ -o $HOME/Scratch/ChemGridML/output/{master_job_id}/{experiment.name}/
+#$ -wd $HOME/Scratch/ChemGridML
 
-conda activate internship
+conda activate ChemGridML
 
 python ./code/main.py {master_job_id} {experiment.name} $SGE_TASK_ID
 

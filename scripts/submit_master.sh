@@ -7,13 +7,13 @@
 #$ -N MASTER
 
 #$ -j y
-#$ -o $HOME/Scratch/UCL_internship/_master.log
-#$ -wd $HOME/Scratch/UCL_internship
+#$ -o $HOME/Scratch/ChemGridML/_master.log
+#$ -wd $HOME/Scratch/ChemGridML
 
 # Create output directory
 mkdir -p ./output/$JOB_ID
 
-conda activate internship
+conda activate ChemGridML
 
 # Run master script with job ID and experiment names
 python ./code/master.py CLUSTER $JOB_ID "$@"
