@@ -1,0 +1,14 @@
+Seed 1 failed: (sqlite3.OperationalError) table study_directions already exists
+[SQL: 
+CREATE TABLE study_directions (
+	study_direction_id INTEGER NOT NULL, 
+	direction VARCHAR(8) NOT NULL, 
+	study_id INTEGER NOT NULL, 
+	objective INTEGER NOT NULL, 
+	PRIMARY KEY (study_direction_id), 
+	UNIQUE (study_id, objective), 
+	FOREIGN KEY(study_id) REFERENCES studies (study_id)
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)

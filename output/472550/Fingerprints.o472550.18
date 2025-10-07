@@ -1,0 +1,9 @@
+Seed 2 failed: (sqlite3.OperationalError) table alembic_version already exists
+[SQL: 
+CREATE TABLE alembic_version (
+	version_num VARCHAR(32) NOT NULL, 
+	CONSTRAINT alembic_version_pkc PRIMARY KEY (version_num)
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)

@@ -1,0 +1,34 @@
+name: ChemGridML
+channels:
+  - conda-forge
+  - pytorch
+  - nvidia
+dependencies:
+  - python=3.9
+  - numpy
+  - pandas
+  - pytorch
+  - transformers
+  - torchdata=0.7.1
+  - torch-geometric
+  - tqdm
+  - matplotlib
+  - optuna
+  - xgboost
+  - lightning
+  - jax
+  - dm-haiku
+  - plotly
+  - dgl
+  - dgllife
+  - rdkit
+  - pytdc
+  - deepchem
+  - gensim
+  - joblib
+  - scikit-learn
+  - cudatoolkit
+  - cuda-version=11
+  - pip
+  - pip:
+    - git+https://github.com/samoturk/mol2vec

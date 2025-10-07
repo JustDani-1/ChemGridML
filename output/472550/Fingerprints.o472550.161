@@ -1,0 +1,14 @@
+Seed 2 failed: (sqlite3.OperationalError) table study_system_attributes already exists
+[SQL: 
+CREATE TABLE study_system_attributes (
+	study_system_attribute_id INTEGER NOT NULL, 
+	study_id INTEGER, 
+	"key" VARCHAR(512), 
+	value_json TEXT, 
+	PRIMARY KEY (study_system_attribute_id), 
+	UNIQUE (study_id, "key"), 
+	FOREIGN KEY(study_id) REFERENCES studies (study_id)
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)

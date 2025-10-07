@@ -1,0 +1,80 @@
+No normalization for SPS. Feature removed!
+No normalization for AvgIpc. Feature removed!
+No normalization for NumAmideBonds. Feature removed!
+No normalization for NumAtomStereoCenters. Feature removed!
+No normalization for NumBridgeheadAtoms. Feature removed!
+No normalization for NumHeterocycles. Feature removed!
+No normalization for NumSpiroAtoms. Feature removed!
+No normalization for NumUnspecifiedAtomStereoCenters. Feature removed!
+No normalization for Phi. Feature removed!
+2025-09-09 14:02:55.304444: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-09-09 14:02:55.422663: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:From /home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/tensorflow/python/util/deprecation.py:588: calling function (from tensorflow.python.eager.polymorphic_function.polymorphic_function) with experimental_relax_shapes is deprecated and will be removed in a future version.
+Instructions for updating:
+experimental_relax_shapes is deprecated, use reduce_retracing instead
+Skipped loading modules with transformers dependency. No module named 'transformers'
+cannot import name 'HuggingFaceModel' from 'deepchem.models.torch_models' (/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/deepchem/models/torch_models/__init__.py)
+Found local copy...
+Loading...
+Done!
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/./code/main.py", line 18, in <module>
+    manager.run_nested_cv(fingerprint, model_name, dataset_name)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 118, in run_nested_cv
+    self.setup_optuna_storage(study_id)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 21, in setup_optuna_storage
+    temp_storage = optuna.storages.RDBStorage(f"sqlite:///{storage_path}")
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_rdb/storage.py", line 238, in __init__
+    models.BaseModel.metadata.create_all(self.engine)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/sql/schema.py", line 5924, in create_all
+    bind._run_ddl_visitor(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 3252, in _run_ddl_visitor
+    conn._run_ddl_visitor(visitorcallable, element, **kwargs)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2457, in _run_ddl_visitor
+    visitorcallable(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/sql/visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/sql/ddl.py", line 984, in visit_metadata
+    self.traverse_single(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/sql/visitors.py", line 661, in traverse_single
+    return meth(obj, **kw)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/sql/ddl.py", line 1017, in visit_table
+    CreateTable(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/sql/ddl.py", line 321, in _invoke_with
+    return bind.execute(self)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/sql/ddl.py", line 187, in _execute_on_connection
+    return connection._execute_ddl(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1530, in _execute_ddl
+    ret = self._execute_context(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 951, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) database is locked
+[SQL: 
+CREATE TABLE studies (
+	study_id INTEGER NOT NULL, 
+	study_name VARCHAR(512) NOT NULL, 
+	PRIMARY KEY (study_id)
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)

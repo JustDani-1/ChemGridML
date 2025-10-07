@@ -1,12 +1,8 @@
-import sqlite3
+# database_manager.py
+import sqlite3, time, random
 import numpy as np
 import pandas as pd
 from contextlib import contextmanager
-from typing import List, Dict, Tuple, Optional
-import json
-import time
-import random
-import os
 
 class DatabaseManager:
     """Multi-process safe database manager for storing molecular property prediction results"""

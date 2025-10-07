@@ -1,0 +1,264 @@
+Found local copy...
+Loading...
+Done!
+[I 2025-09-06 01:21:55,511] A new study created in RDB with name: __init__
+[I 2025-09-06 01:22:45,899] A new study created in RDB with name: TOPOTOR_SVM_PAMPA_NCATS_2
+[I 2025-09-06 01:22:45,917] A new study created in RDB with name: TOPOTOR_SVM_PAMPA_NCATS_0
+[I 2025-09-06 01:22:45,961] A new study created in RDB with name: TOPOTOR_SVM_PAMPA_NCATS_3
+[I 2025-09-06 01:23:01,968] A new study created in RDB with name: TOPOTOR_SVM_PAMPA_NCATS_1
+[W 2025-09-06 01:23:14,725] Trial 0 failed with parameters: {} because of the following error: StorageInternalError('An exception is raised during the commit. This typically happens due to invalid data in the commit, e.g. exceeding max length. ').
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1819, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 732, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_rdb/storage.py", line 77, in _create_scoped_session
+    yield session
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_rdb/storage.py", line 807, in _get_trials
+    models.StudyModel.find_or_raise_by_id(study_id, session)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_rdb/models.py", line 71, in find_or_raise_by_id
+    study = query.one_or_none()
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2845, in one_or_none
+    return self._iter().one_or_none()
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2903, in _iter
+    result = self.session.execute(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1696, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1631, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 325, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1498, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1862, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2043, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1819, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 732, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) database is locked
+[SQL: SELECT studies.study_id AS studies_study_id, studies.study_name AS studies_study_name 
+FROM studies 
+WHERE studies.study_id = ?]
+[parameters: (4,)]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 201, in _run_trial
+    value_or_values = func(trial)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 81, in objective
+    hyperparams = model_class.get_hyperparameter_space(trial)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/models.py", line 335, in get_hyperparameter_space
+    'C': trial.suggest_float('C', 0.001, 10, log=True),
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/trial/_trial.py", line 161, in suggest_float
+    suggested_value = self._suggest(name, distribution)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/trial/_trial.py", line 635, in _suggest
+    param_value = self.study.sampler.sample_independent(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/samplers/_tpe/sampler.py", line 455, in sample_independent
+    trials = study._get_trials(deepcopy=False, states=states, use_cache=True)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/study.py", line 277, in _get_trials
+    self._thread_local.cached_all_trials = self._storage.get_all_trials(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_cached_storage.py", line 219, in get_all_trials
+    self._read_trials_from_remote_storage(study_id)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_cached_storage.py", line 240, in _read_trials_from_remote_storage
+    trials = self._backend._get_trials(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_rdb/storage.py", line 857, in _get_trials
+    trials = [self._build_frozen_trial_from_trial_model(trial) for trial in trial_models]
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/contextlib.py", line 137, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_rdb/storage.py", line 95, in _create_scoped_session
+    raise optuna.exceptions.StorageInternalError(message) from e
+optuna.exceptions.StorageInternalError: An exception is raised during the commit. This typically happens due to invalid data in the commit, e.g. exceeding max length. 
+[W 2025-09-06 01:23:14,806] Trial 0 failed with value None.
+[I 2025-09-06 01:23:23,639] A new study created in RDB with name: TOPOTOR_SVM_PAMPA_NCATS_4
+[I 2025-09-06 01:23:49,373] Trial 0 finished with value: 0.45113405585289 and parameters: {'C': 0.6937611721598222, 'kernel': 'rbf'}. Best is trial 0 with value: 0.45113405585289.
+[I 2025-09-06 01:23:49,392] Trial 0 finished with value: 0.4538123309612274 and parameters: {'C': 1.1963345080055419, 'kernel': 'rbf'}. Best is trial 0 with value: 0.4538123309612274.
+[I 2025-09-06 01:23:49,405] Trial 0 finished with value: 0.45708462595939636 and parameters: {'C': 0.14786208933060405, 'kernel': 'rbf'}. Best is trial 0 with value: 0.45708462595939636.
+[I 2025-09-06 01:25:11,105] Trial 1 finished with value: 0.4589284658432007 and parameters: {'C': 0.026584025052994304, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.4538123309612274.
+[I 2025-09-06 01:25:11,199] A new study created in RDB with name: TOPOTOR_SVM_PAMPA_NCATS_5
+[I 2025-09-06 01:25:11,226] A new study created in RDB with name: TOPOTOR_SVM_PAMPA_NCATS_7
+[I 2025-09-06 01:25:11,375] A new study created in RDB with name: TOPOTOR_SVM_PAMPA_NCATS_6
+[I 2025-09-06 01:25:41,374] Trial 2 finished with value: 0.4589284658432007 and parameters: {'C': 0.007392555628288138, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.4538123309612274.
+[I 2025-09-06 01:25:41,413] Trial 0 finished with value: 0.45892852544784546 and parameters: {'C': 0.16795305143832903, 'kernel': 'rbf'}. Best is trial 0 with value: 0.45892852544784546.
+[I 2025-09-06 01:25:44,921] Trial 0 finished with value: 0.4576992690563202 and parameters: {'C': 0.00813670279182373, 'kernel': 'poly'}. Best is trial 0 with value: 0.4576992690563202.
+[I 2025-09-06 01:25:47,355] Trial 0 finished with value: 0.4632309377193451 and parameters: {'C': 0.0042914495241798065, 'kernel': 'poly'}. Best is trial 0 with value: 0.4632309377193451.
+[I 2025-09-06 01:26:14,402] Trial 3 finished with value: 0.4589284658432007 and parameters: {'C': 0.14336672071838202, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.4538123309612274.
+[I 2025-09-06 01:26:14,423] Trial 1 finished with value: 0.45892852544784546 and parameters: {'C': 0.0010505831772865057, 'kernel': 'poly'}. Best is trial 0 with value: 0.45892852544784546.
+[I 2025-09-06 01:26:21,540] Trial 1 finished with value: 0.45319417119026184 and parameters: {'C': 3.83736507406946, 'kernel': 'poly'}. Best is trial 1 with value: 0.45319417119026184.
+[I 2025-09-06 01:26:21,559] Trial 1 finished with value: 0.4576992690563202 and parameters: {'C': 0.07003781840315572, 'kernel': 'rbf'}. Best is trial 0 with value: 0.4576992690563202.
+[I 2025-09-06 01:27:00,004] Trial 2 finished with value: 0.4576992690563202 and parameters: {'C': 0.024471643458477375, 'kernel': 'rbf'}. Best is trial 0 with value: 0.4576992690563202.
+[I 2025-09-06 01:27:01,235] Trial 2 finished with value: 0.4583997130393982 and parameters: {'C': 0.652497136725982, 'kernel': 'rbf'}. Best is trial 2 with value: 0.4583997130393982.
+[I 2025-09-06 01:27:01,273] Trial 4 finished with value: 0.4589284658432007 and parameters: {'C': 0.28172291708695113, 'kernel': 'poly'}. Best is trial 0 with value: 0.4538123309612274.
+[I 2025-09-06 01:27:11,533] Trial 2 finished with value: 0.4632309377193451 and parameters: {'C': 0.05618370282823135, 'kernel': 'poly'}. Best is trial 1 with value: 0.45319417119026184.
+[I 2025-09-06 01:27:45,317] Trial 3 finished with value: 0.45892852544784546 and parameters: {'C': 0.06724823027734037, 'kernel': 'poly'}. Best is trial 2 with value: 0.4583997130393982.
+[I 2025-09-06 01:27:45,337] Trial 3 finished with value: 0.4576992690563202 and parameters: {'C': 0.001985765862734563, 'kernel': 'poly'}. Best is trial 0 with value: 0.4576992690563202.
+[I 2025-09-06 01:27:45,358] Trial 5 finished with value: 0.4538123309612274 and parameters: {'C': 1.239262012112841, 'kernel': 'rbf'}. Best is trial 0 with value: 0.4538123309612274.
+[I 2025-09-06 01:27:45,492] Trial 3 finished with value: 0.4632309377193451 and parameters: {'C': 0.06021803415374623, 'kernel': 'rbf'}. Best is trial 1 with value: 0.45319417119026184.
+[I 2025-09-06 01:28:21,729] Trial 4 finished with value: 0.4537709951400757 and parameters: {'C': 7.534869783247261, 'kernel': 'poly'}. Best is trial 1 with value: 0.45319417119026184.
+[I 2025-09-06 01:28:21,741] Trial 4 finished with value: 0.4576992690563202 and parameters: {'C': 0.005003660504298235, 'kernel': 'poly'}. Best is trial 0 with value: 0.4576992690563202.
+[I 2025-09-06 01:28:52,767] Trial 6 finished with value: 0.4589284658432007 and parameters: {'C': 0.04327871822889813, 'kernel': 'poly'}. Best is trial 0 with value: 0.4538123309612274.
+[I 2025-09-06 01:28:52,788] Trial 4 finished with value: 0.45092111825942993 and parameters: {'C': 1.8588207303264457, 'kernel': 'poly'}. Best is trial 4 with value: 0.45092111825942993.
+[I 2025-09-06 01:28:52,804] Trial 5 finished with value: 0.4576992690563202 and parameters: {'C': 0.03636006638384829, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.4576992690563202.
+[I 2025-09-06 01:28:52,822] Trial 5 finished with value: 0.4631931483745575 and parameters: {'C': 0.48415832453558105, 'kernel': 'poly'}. Best is trial 1 with value: 0.45319417119026184.
+[I 2025-09-06 01:30:16,291] Trial 6 finished with value: 0.45072537660598755 and parameters: {'C': 2.5601644223347884, 'kernel': 'poly'}. Best is trial 6 with value: 0.45072537660598755.
+[I 2025-09-06 01:30:16,300] Trial 6 finished with value: 0.4632309377193451 and parameters: {'C': 0.22729401639526944, 'kernel': 'rbf'}. Best is trial 1 with value: 0.45319417119026184.
+[I 2025-09-06 01:30:16,311] Trial 7 finished with value: 0.4589284658432007 and parameters: {'C': 0.08283514957780182, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.4538123309612274.
+[I 2025-09-06 01:31:12,770] Trial 5 finished with value: 0.45892852544784546 and parameters: {'C': 0.00782369963581428, 'kernel': 'rbf'}. Best is trial 4 with value: 0.45092111825942993.
+[I 2025-09-06 01:31:12,790] Trial 8 finished with value: 0.4589284658432007 and parameters: {'C': 0.08494046174604654, 'kernel': 'rbf'}. Best is trial 0 with value: 0.4538123309612274.
+[I 2025-09-06 01:31:12,803] Trial 7 finished with value: 0.4576992690563202 and parameters: {'C': 0.06054135384911747, 'kernel': 'sigmoid'}. Best is trial 6 with value: 0.45072537660598755.
+[I 2025-09-06 01:31:12,829] Trial 7 finished with value: 0.4632309377193451 and parameters: {'C': 0.0051530040105985594, 'kernel': 'sigmoid'}. Best is trial 1 with value: 0.45319417119026184.
+[I 2025-09-06 01:32:01,191] A new study created in RDB with name: TOPOTOR_SVM_PAMPA_NCATS_8
+[I 2025-09-06 01:32:20,665] A new study created in RDB with name: TOPOTOR_SVM_PAMPA_NCATS_9
+[I 2025-09-06 01:32:41,022] Trial 8 finished with value: 0.4632309377193451 and parameters: {'C': 0.003587407822247601, 'kernel': 'rbf'}. Best is trial 1 with value: 0.45319417119026184.
+[I 2025-09-06 01:32:53,438] Trial 0 finished with value: 0.45831388235092163 and parameters: {'C': 0.0018413314999038046, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.45831388235092163.
+[I 2025-09-06 01:33:25,152] Trial 0 finished with value: 0.4506017863750458 and parameters: {'C': 3.0607472558696043, 'kernel': 'rbf'}. Best is trial 0 with value: 0.4506017863750458.
+[I 2025-09-06 01:33:25,283] Trial 9 finished with value: 0.4565386176109314 and parameters: {'C': 2.9183659865525424, 'kernel': 'rbf'}. Best is trial 1 with value: 0.45319417119026184.
+[I 2025-09-06 01:33:50,955] Trial 1 finished with value: 0.45831388235092163 and parameters: {'C': 0.2423168048102666, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.45831388235092163.
+[I 2025-09-06 01:33:50,963] Trial 10 finished with value: 0.4636361002922058 and parameters: {'C': 1.6036748043475497, 'kernel': 'sigmoid'}. Best is trial 1 with value: 0.45319417119026184.
+[I 2025-09-06 01:33:50,987] Trial 1 finished with value: 0.46015772223472595 and parameters: {'C': 0.002423923154077003, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.4506017863750458.
+[I 2025-09-06 01:34:08,163] Trial 2 finished with value: 0.46015772223472595 and parameters: {'C': 0.0037783862569233774, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.4506017863750458.
+[I 2025-09-06 01:34:20,013] Trial 2 finished with value: 0.45831388235092163 and parameters: {'C': 0.013408736013443567, 'kernel': 'rbf'}. Best is trial 0 with value: 0.45831388235092163.
+[I 2025-09-06 01:34:24,475] Trial 11 finished with value: 0.4537709951400757 and parameters: {'C': 7.734205484927369, 'kernel': 'poly'}. Best is trial 1 with value: 0.45319417119026184.
+[I 2025-09-06 01:34:41,092] Trial 3 finished with value: 0.45694729685783386 and parameters: {'C': 0.9363571399203174, 'kernel': 'poly'}. Best is trial 0 with value: 0.4506017863750458.
+[I 2025-09-06 01:34:54,822] Trial 3 finished with value: 0.45831388235092163 and parameters: {'C': 0.46335556635276465, 'kernel': 'rbf'}. Best is trial 0 with value: 0.45831388235092163.
+[I 2025-09-06 01:34:58,518] Trial 4 finished with value: 0.46015772223472595 and parameters: {'C': 0.007344355326295265, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.4506017863750458.
+[I 2025-09-06 01:34:58,531] Trial 12 finished with value: 0.4535374939441681 and parameters: {'C': 9.355817707009855, 'kernel': 'poly'}. Best is trial 1 with value: 0.45319417119026184.
+[I 2025-09-06 01:35:13,870] Trial 4 finished with value: 0.462636798620224 and parameters: {'C': 4.461317441497737, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.45831388235092163.
+[I 2025-09-06 01:35:30,917] Trial 5 finished with value: 0.46015772223472595 and parameters: {'C': 0.3369732953320167, 'kernel': 'poly'}. Best is trial 0 with value: 0.4506017863750458.
+[I 2025-09-06 01:35:31,319] Trial 13 finished with value: 0.4547325074672699 and parameters: {'C': 1.3084449129760827, 'kernel': 'poly'}. Best is trial 1 with value: 0.45319417119026184.
+[I 2025-09-06 01:35:31,719] Trial 5 finished with value: 0.45831388235092163 and parameters: {'C': 0.059515455163851434, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.45831388235092163.
+[I 2025-09-06 01:36:04,122] Trial 6 finished with value: 0.46015772223472595 and parameters: {'C': 0.21471511828477777, 'kernel': 'poly'}. Best is trial 0 with value: 0.4506017863750458.
+[I 2025-09-06 01:36:04,273] Trial 14 finished with value: 0.4627261757850647 and parameters: {'C': 0.4236714584104622, 'kernel': 'poly'}. Best is trial 1 with value: 0.45319417119026184.
+[I 2025-09-06 01:36:04,668] Trial 6 finished with value: 0.45757564902305603 and parameters: {'C': 0.5989946179252599, 'kernel': 'poly'}. Best is trial 6 with value: 0.45757564902305603.
+[I 2025-09-06 01:36:20,615] Trial 7 finished with value: 0.46015772223472595 and parameters: {'C': 0.01738347757179975, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.4506017863750458.
+[I 2025-09-06 01:36:27,177] Trial 7 finished with value: 0.45831388235092163 and parameters: {'C': 0.05242672607114914, 'kernel': 'rbf'}. Best is trial 6 with value: 0.45757564902305603.
+[I 2025-09-06 01:36:32,737] Trial 8 finished with value: 0.46015772223472595 and parameters: {'C': 0.5151165292814427, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.4506017863750458.
+[I 2025-09-06 01:36:47,007] Trial 9 finished with value: 0.46015772223472595 and parameters: {'C': 0.0757612097655221, 'kernel': 'sigmoid'}. Best is trial 0 with value: 0.4506017863750458.
+[I 2025-09-06 01:36:47,027] Trial 8 finished with value: 0.4522842466831207 and parameters: {'C': 2.8612154233365055, 'kernel': 'poly'}. Best is trial 8 with value: 0.4522842466831207.
+[I 2025-09-06 01:37:05,469] Trial 9 finished with value: 0.45831388235092163 and parameters: {'C': 0.005890563390113217, 'kernel': 'poly'}. Best is trial 8 with value: 0.4522842466831207.
+[I 2025-09-06 01:37:10,078] Trial 10 finished with value: 0.45610588788986206 and parameters: {'C': 9.822334905033125, 'kernel': 'rbf'}. Best is trial 0 with value: 0.4506017863750458.
+[I 2025-09-06 01:37:46,690] Trial 10 finished with value: 0.4511270523071289 and parameters: {'C': 9.223476047095575, 'kernel': 'poly'}. Best is trial 10 with value: 0.4511270523071289.
+[I 2025-09-06 01:37:46,704] Trial 11 finished with value: 0.45423799753189087 and parameters: {'C': 6.803479106408699, 'kernel': 'rbf'}. Best is trial 0 with value: 0.4506017863750458.
+[I 2025-09-06 01:38:38,218] Trial 11 finished with value: 0.4511270523071289 and parameters: {'C': 9.194914562670554, 'kernel': 'poly'}. Best is trial 10 with value: 0.4511270523071289.
+[I 2025-09-06 01:38:47,039] Trial 12 finished with value: 0.4557865858078003 and parameters: {'C': 8.843377041481098, 'kernel': 'rbf'}. Best is trial 0 with value: 0.4506017863750458.
+[I 2025-09-06 01:38:59,066] Trial 12 finished with value: 0.4511270523071289 and parameters: {'C': 9.640435386443858, 'kernel': 'poly'}. Best is trial 10 with value: 0.4511270523071289.
+[I 2025-09-06 01:39:38,999] Trial 13 finished with value: 0.4507494270801544 and parameters: {'C': 2.884094679022017, 'kernel': 'rbf'}. Best is trial 0 with value: 0.4506017863750458.
+[I 2025-09-06 01:39:39,019] Trial 13 finished with value: 0.45019659399986267 and parameters: {'C': 1.6490021406212958, 'kernel': 'poly'}. Best is trial 13 with value: 0.45019659399986267.
+[I 2025-09-06 01:39:53,371] Trial 14 finished with value: 0.453898161649704 and parameters: {'C': 1.8651761590237412, 'kernel': 'rbf'}. Best is trial 0 with value: 0.4506017863750458.
+[I 2025-09-06 01:40:10,824] Trial 14 finished with value: 0.45072537660598755 and parameters: {'C': 1.4986188632276998, 'kernel': 'poly'}. Best is trial 13 with value: 0.45019659399986267.
+concurrent.futures.process._RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1819, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 732, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_rdb/storage.py", line 77, in _create_scoped_session
+    yield session
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_rdb/storage.py", line 807, in _get_trials
+    models.StudyModel.find_or_raise_by_id(study_id, session)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_rdb/models.py", line 71, in find_or_raise_by_id
+    study = query.one_or_none()
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2845, in one_or_none
+    return self._iter().one_or_none()
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2903, in _iter
+    result = self.session.execute(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1696, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1631, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 325, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1498, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1862, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2043, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1819, in _execute_context
+    self.dialect.do_execute(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 732, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) database is locked
+[SQL: SELECT studies.study_id AS studies_study_id, studies.study_name AS studies_study_name 
+FROM studies 
+WHERE studies.study_id = ?]
+[parameters: (4,)]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/concurrent/futures/process.py", line 243, in _process_worker
+    r = call_item.fn(*call_item.args, **call_item.kwargs)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 97, in run_single_experiment
+    best_hyperparams = self.run_hyperparameter_optimization(
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 85, in run_hyperparameter_optimization
+    study.optimize(objective, n_trials=env.N_TRIALS)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/study.py", line 490, in optimize
+    _optimize(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 63, in _optimize
+    _optimize_sequential(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 160, in _optimize_sequential
+    frozen_trial_id = _run_trial(study, func, catch)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 258, in _run_trial
+    raise func_err
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/_optimize.py", line 201, in _run_trial
+    value_or_values = func(trial)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 81, in objective
+    hyperparams = model_class.get_hyperparameter_space(trial)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/models.py", line 335, in get_hyperparameter_space
+    'C': trial.suggest_float('C', 0.001, 10, log=True),
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/trial/_trial.py", line 161, in suggest_float
+    suggested_value = self._suggest(name, distribution)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/trial/_trial.py", line 635, in _suggest
+    param_value = self.study.sampler.sample_independent(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/samplers/_tpe/sampler.py", line 455, in sample_independent
+    trials = study._get_trials(deepcopy=False, states=states, use_cache=True)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/study/study.py", line 277, in _get_trials
+    self._thread_local.cached_all_trials = self._storage.get_all_trials(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_cached_storage.py", line 219, in get_all_trials
+    self._read_trials_from_remote_storage(study_id)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_cached_storage.py", line 240, in _read_trials_from_remote_storage
+    trials = self._backend._get_trials(
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_rdb/storage.py", line 857, in _get_trials
+    trials = [self._build_frozen_trial_from_trial_model(trial) for trial in trial_models]
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/contextlib.py", line 137, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/optuna/storages/_rdb/storage.py", line 95, in _create_scoped_session
+    raise optuna.exceptions.StorageInternalError(message) from e
+optuna.exceptions.StorageInternalError: An exception is raised during the commit. This typically happens due to invalid data in the commit, e.g. exceeding max length. 
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/./code/main.py", line 18, in <module>
+    manager.run_nested_cv(fingerprint, model_name, dataset_name)
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 136, in run_nested_cv
+    raise exc
+  File "/myriadfs/home/ucnwdma/Scratch/UCL_internship/code/study_manager.py", line 131, in run_nested_cv
+    seed_result, test_predictions, test_indices = future.result()
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+optuna.exceptions.StorageInternalError: An exception is raised during the commit. This typically happens due to invalid data in the commit, e.g. exceeding max length. 

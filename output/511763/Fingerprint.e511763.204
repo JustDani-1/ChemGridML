@@ -1,0 +1,181 @@
+No normalization for SPS. Feature removed!
+No normalization for AvgIpc. Feature removed!
+No normalization for NumAmideBonds. Feature removed!
+No normalization for NumAtomStereoCenters. Feature removed!
+No normalization for NumBridgeheadAtoms. Feature removed!
+No normalization for NumHeterocycles. Feature removed!
+No normalization for NumSpiroAtoms. Feature removed!
+No normalization for NumUnspecifiedAtomStereoCenters. Feature removed!
+No normalization for Phi. Feature removed!
+2025-09-10 18:53:13.750263: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-09-10 18:53:13.901512: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:From /home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/tensorflow/python/util/deprecation.py:588: calling function (from tensorflow.python.eager.polymorphic_function.polymorphic_function) with experimental_relax_shapes is deprecated and will be removed in a future version.
+Instructions for updating:
+experimental_relax_shapes is deprecated, use reduce_retracing instead
+Skipped loading modules with transformers dependency. No module named 'transformers'
+cannot import name 'HuggingFaceModel' from 'deepchem.models.torch_models' (/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/deepchem/models/torch_models/__init__.py)
+Found local copy...
+Loading...
+Done!
+[I 2025-09-10 18:53:36,668] A new study created in RDB with name: __init__
+[I 2025-09-10 18:53:36,906] A new study created in RDB with name: ECFP_ElasticNet_Pgp_Broccatelli_0
+[I 2025-09-10 18:53:36,916] A new study created in RDB with name: ECFP_ElasticNet_Pgp_Broccatelli_1
+[I 2025-09-10 18:53:36,948] A new study created in RDB with name: ECFP_ElasticNet_Pgp_Broccatelli_2
+[I 2025-09-10 18:53:36,975] A new study created in RDB with name: ECFP_ElasticNet_Pgp_Broccatelli_3
+[I 2025-09-10 18:53:37,005] A new study created in RDB with name: ECFP_ElasticNet_Pgp_Broccatelli_4
+[I 2025-09-10 18:54:41,989] Trial 0 finished with value: 0.4325600384386235 and parameters: {'alpha': 6.910535322129269, 'l1_ratio': 0.3865321346212073}. Best is trial 0 with value: 0.4325600384386235.
+[I 2025-09-10 18:54:52,128] Trial 0 finished with value: 0.6432112581472342 and parameters: {'alpha': 0.1416755805667632, 'l1_ratio': 0.7164957958812588}. Best is trial 0 with value: 0.6432112581472342.
+[I 2025-09-10 18:54:54,398] Trial 0 finished with value: 0.7128347639111347 and parameters: {'alpha': 0.46900021769766015, 'l1_ratio': 0.1498245268748397}. Best is trial 0 with value: 0.7128347639111347.
+[I 2025-09-10 18:54:55,508] Trial 0 finished with value: 0.6449475846381645 and parameters: {'alpha': 0.18465962304924796, 'l1_ratio': 0.24947328857085405}. Best is trial 0 with value: 0.6449475846381645.
+[I 2025-09-10 18:55:02,523] Trial 0 finished with value: 0.6607701768287094 and parameters: {'alpha': 0.014619220188825251, 'l1_ratio': 0.6649857433870427}. Best is trial 0 with value: 0.6607701768287094.
+[I 2025-09-10 18:55:50,778] Trial 1 finished with value: 0.4284931704767028 and parameters: {'alpha': 5.813953856185162, 'l1_ratio': 0.8019433465119087}. Best is trial 1 with value: 0.4284931704767028.
+[I 2025-09-10 18:55:55,662] Trial 1 finished with value: 0.37815177102570685 and parameters: {'alpha': 8.297408113118436, 'l1_ratio': 0.5672279462921467}. Best is trial 1 with value: 0.37815177102570685.
+[I 2025-09-10 18:56:10,561] Trial 1 finished with value: 0.6899802780060935 and parameters: {'alpha': 0.5638234812155247, 'l1_ratio': 0.20159327685084547}. Best is trial 1 with value: 0.6899802780060935.
+[I 2025-09-10 18:56:16,811] Trial 1 finished with value: 0.417295184923792 and parameters: {'alpha': 4.710590980487728, 'l1_ratio': 0.27483203715714044}. Best is trial 1 with value: 0.417295184923792.
+[I 2025-09-10 18:56:24,192] Trial 1 finished with value: 0.6999603684885793 and parameters: {'alpha': 0.00339839650839003, 'l1_ratio': 0.34090970322708203}. Best is trial 0 with value: 0.6432112581472342.
+[I 2025-09-10 18:57:03,584] Trial 2 finished with value: 0.38179981915039335 and parameters: {'alpha': 7.483696740245245, 'l1_ratio': 0.8053954928372912}. Best is trial 1 with value: 0.37815177102570685.
+[I 2025-09-10 18:57:09,726] Trial 2 finished with value: 0.6805447413421242 and parameters: {'alpha': 0.0652846206512739, 'l1_ratio': 0.6057185949059066}. Best is trial 1 with value: 0.4284931704767028.
+[I 2025-09-10 18:57:24,696] Trial 2 finished with value: 0.6462022015666109 and parameters: {'alpha': 0.9315227327905322, 'l1_ratio': 0.26413659701684217}. Best is trial 2 with value: 0.6462022015666109.
+[I 2025-09-10 18:57:31,452] Trial 2 finished with value: 0.45510922412500343 and parameters: {'alpha': 2.827476012915174, 'l1_ratio': 0.24646629638017076}. Best is trial 1 with value: 0.417295184923792.
+[I 2025-09-10 18:57:55,590] Trial 2 finished with value: 0.6994223678075617 and parameters: {'alpha': 0.004522266044697465, 'l1_ratio': 0.41131132758371114}. Best is trial 0 with value: 0.6432112581472342.
+[I 2025-09-10 18:58:36,698] Trial 3 finished with value: 0.6954705432021395 and parameters: {'alpha': 0.002264612217361661, 'l1_ratio': 0.22659913257019487}. Best is trial 1 with value: 0.37815177102570685.
+[I 2025-09-10 18:58:39,412] Trial 3 finished with value: 0.7080006856012041 and parameters: {'alpha': 0.01251854106392121, 'l1_ratio': 0.3423754438757105}. Best is trial 1 with value: 0.4284931704767028.
+[I 2025-09-10 18:58:41,392] Trial 3 finished with value: 0.42604072647331803 and parameters: {'alpha': 3.5069160512847146, 'l1_ratio': 0.642487737936725}. Best is trial 1 with value: 0.417295184923792.
+[I 2025-09-10 18:58:48,986] Trial 3 finished with value: 0.7925417531869378 and parameters: {'alpha': 0.01735912801788591, 'l1_ratio': 0.788053925365502}. Best is trial 2 with value: 0.6462022015666109.
+[I 2025-09-10 18:59:24,207] Trial 3 finished with value: 0.6973548719542962 and parameters: {'alpha': 0.0064839605484794055, 'l1_ratio': 0.7873262947788723}. Best is trial 0 with value: 0.6432112581472342.
+[I 2025-09-10 18:59:48,066] Trial 4 finished with value: 0.40728711174465804 and parameters: {'alpha': 4.7246092713690855, 'l1_ratio': 0.44772226550007754}. Best is trial 1 with value: 0.37815177102570685.
+[I 2025-09-10 18:59:57,021] Trial 4 finished with value: 0.6668222362551344 and parameters: {'alpha': 0.1110110736159514, 'l1_ratio': 0.5214995836712328}. Best is trial 1 with value: 0.4284931704767028.
+[I 2025-09-10 19:00:13,960] Trial 4 finished with value: 0.6682783735288255 and parameters: {'alpha': 0.001376617444311422, 'l1_ratio': 0.47442678424971574}. Best is trial 1 with value: 0.417295184923792.
+[I 2025-09-10 19:00:15,053] Trial 4 finished with value: 0.7936221961899073 and parameters: {'alpha': 0.025698716403237943, 'l1_ratio': 0.38128561781623793}. Best is trial 2 with value: 0.6462022015666109.
+[I 2025-09-10 19:00:32,777] Trial 4 finished with value: 0.42863148387187183 and parameters: {'alpha': 5.823105979700381, 'l1_ratio': 0.20162595286883286}. Best is trial 4 with value: 0.42863148387187183.
+[I 2025-09-10 19:01:04,001] Trial 5 finished with value: 0.6191821731140263 and parameters: {'alpha': 0.21005271090697872, 'l1_ratio': 0.43742282210257233}. Best is trial 1 with value: 0.37815177102570685.
+[I 2025-09-10 19:01:22,887] Trial 5 finished with value: 0.39607000184401153 and parameters: {'alpha': 5.887938960296527, 'l1_ratio': 0.5459048455473126}. Best is trial 5 with value: 0.39607000184401153.
+[I 2025-09-10 19:01:29,191] Trial 5 finished with value: 0.7108730340891218 and parameters: {'alpha': 0.0028584248140157537, 'l1_ratio': 0.6372456236317177}. Best is trial 1 with value: 0.4284931704767028.
+[I 2025-09-10 19:01:35,846] Trial 5 finished with value: 0.7796140524277917 and parameters: {'alpha': 0.04977661065443834, 'l1_ratio': 0.5793738741487875}. Best is trial 2 with value: 0.6462022015666109.
+[I 2025-09-10 19:01:47,251] Trial 5 finished with value: 0.5156416392941212 and parameters: {'alpha': 2.0078205771207847, 'l1_ratio': 0.1817548974132258}. Best is trial 4 with value: 0.42863148387187183.
+[I 2025-09-10 19:02:16,782] Trial 6 finished with value: 0.4632238289342375 and parameters: {'alpha': 2.2496602135022017, 'l1_ratio': 0.3338442393457178}. Best is trial 1 with value: 0.37815177102570685.
+[I 2025-09-10 19:02:50,635] Trial 6 finished with value: 0.660170030025355 and parameters: {'alpha': 0.03830377201196745, 'l1_ratio': 0.16166818665142524}. Best is trial 5 with value: 0.39607000184401153.
+[I 2025-09-10 19:02:52,165] Trial 6 finished with value: 0.6116965153390197 and parameters: {'alpha': 1.7516206620654353, 'l1_ratio': 0.1012849352455664}. Best is trial 6 with value: 0.6116965153390197.
+[I 2025-09-10 19:02:53,744] Trial 6 finished with value: 0.700332881983182 and parameters: {'alpha': 0.026295544920239087, 'l1_ratio': 0.5101127803198929}. Best is trial 1 with value: 0.4284931704767028.
+[I 2025-09-10 19:03:17,014] Trial 6 finished with value: 0.6976949662161964 and parameters: {'alpha': 0.008042483791799475, 'l1_ratio': 0.5171272047678174}. Best is trial 4 with value: 0.42863148387187183.
+[I 2025-09-10 19:03:50,217] Trial 7 finished with value: 0.695623395228421 and parameters: {'alpha': 0.001156702346972718, 'l1_ratio': 0.4392865493584094}. Best is trial 1 with value: 0.37815177102570685.
+[I 2025-09-10 19:03:57,572] Trial 7 finished with value: 0.4729739716077906 and parameters: {'alpha': 6.8032211975676455, 'l1_ratio': 0.2953987793377614}. Best is trial 7 with value: 0.4729739716077906.
+[I 2025-09-10 19:03:59,947] Trial 7 finished with value: 0.48122915683865003 and parameters: {'alpha': 1.2598724407802762, 'l1_ratio': 0.774279467980677}. Best is trial 5 with value: 0.39607000184401153.
+[I 2025-09-10 19:04:04,962] Trial 7 finished with value: 0.5830537752446727 and parameters: {'alpha': 0.6092408436432444, 'l1_ratio': 0.5243963843994717}. Best is trial 1 with value: 0.4284931704767028.
+[I 2025-09-10 19:04:27,430] Trial 7 finished with value: 0.5660478841267113 and parameters: {'alpha': 0.6110287681812813, 'l1_ratio': 0.6183499708010693}. Best is trial 4 with value: 0.42863148387187183.
+[I 2025-09-10 19:05:04,120] Trial 8 finished with value: 0.5650981721879894 and parameters: {'alpha': 0.5691752744937795, 'l1_ratio': 0.3166665694862674}. Best is trial 1 with value: 0.37815177102570685.
+[I 2025-09-10 19:05:13,315] Trial 8 finished with value: 0.722307579391676 and parameters: {'alpha': 0.23092903545156562, 'l1_ratio': 0.4597581180423359}. Best is trial 7 with value: 0.4729739716077906.
+[I 2025-09-10 19:05:31,352] Trial 8 finished with value: 0.6667362778249738 and parameters: {'alpha': 0.006211947935940756, 'l1_ratio': 0.33190680826758046}. Best is trial 5 with value: 0.39607000184401153.
+[I 2025-09-10 19:05:36,052] Trial 8 finished with value: 0.7095445951648178 and parameters: {'alpha': 0.006676951671832552, 'l1_ratio': 0.45913129533872066}. Best is trial 1 with value: 0.4284931704767028.
+[I 2025-09-10 19:05:36,385] Trial 8 finished with value: 0.5241210001525387 and parameters: {'alpha': 0.9152473099486795, 'l1_ratio': 0.8642334760930929}. Best is trial 4 with value: 0.42863148387187183.
+[I 2025-09-10 19:06:34,725] Trial 9 finished with value: 0.6931327838481387 and parameters: {'alpha': 0.005820769168851659, 'l1_ratio': 0.5193725318438713}. Best is trial 1 with value: 0.37815177102570685.
+[I 2025-09-10 19:06:46,330] Trial 9 finished with value: 0.8020159016847817 and parameters: {'alpha': 0.0035083620955850803, 'l1_ratio': 0.1655641324934849}. Best is trial 7 with value: 0.4729739716077906.
+[I 2025-09-10 19:06:49,070] Trial 9 finished with value: 0.5537322930372275 and parameters: {'alpha': 1.2512327687911824, 'l1_ratio': 0.25954528358628537}. Best is trial 1 with value: 0.4284931704767028.
+[I 2025-09-10 19:07:00,280] Trial 9 finished with value: 0.6892041940708877 and parameters: {'alpha': 0.028097719769187464, 'l1_ratio': 0.5441662738381182}. Best is trial 4 with value: 0.42863148387187183.
+[I 2025-09-10 19:07:04,005] Trial 9 finished with value: 0.6682917305061876 and parameters: {'alpha': 0.0015151483827649647, 'l1_ratio': 0.39982831716976586}. Best is trial 5 with value: 0.39607000184401153.
+[I 2025-09-10 19:07:44,435] Trial 10 finished with value: 0.43237967204566785 and parameters: {'alpha': 8.079648903771309, 'l1_ratio': 0.5689880399028097}. Best is trial 10 with value: 0.43237967204566785.
+[I 2025-09-10 19:07:57,406] Trial 10 finished with value: 0.43920630870745125 and parameters: {'alpha': 4.885706652192479, 'l1_ratio': 0.8674436163559516}. Best is trial 1 with value: 0.4284931704767028.
+[I 2025-09-10 19:07:57,687] Trial 10 finished with value: 0.6811941757058677 and parameters: {'alpha': 0.02296574996648701, 'l1_ratio': 0.7204418930645952}. Best is trial 1 with value: 0.37815177102570685.
+[I 2025-09-10 19:08:00,454] Trial 10 finished with value: 0.4446178029012538 and parameters: {'alpha': 5.731688639424968, 'l1_ratio': 0.10650043528705128}. Best is trial 4 with value: 0.42863148387187183.
+[I 2025-09-10 19:08:13,647] Trial 10 finished with value: 0.5234157560032431 and parameters: {'alpha': 0.5345109879287822, 'l1_ratio': 0.8997243290831434}. Best is trial 5 with value: 0.39607000184401153.
+[I 2025-09-10 19:08:37,206] Trial 11 finished with value: 0.4126942893630689 and parameters: {'alpha': 9.21303101400708, 'l1_ratio': 0.656395129522796}. Best is trial 11 with value: 0.4126942893630689.
+[I 2025-09-10 19:08:52,101] Trial 11 finished with value: 0.4171058624834782 and parameters: {'alpha': 8.155105790396398, 'l1_ratio': 0.11812239707675357}. Best is trial 11 with value: 0.4171058624834782.
+[I 2025-09-10 19:08:59,414] Trial 11 finished with value: 0.37907995788001925 and parameters: {'alpha': 8.537747090301083, 'l1_ratio': 0.8988002514667408}. Best is trial 1 with value: 0.37815177102570685.
+[I 2025-09-10 19:09:03,960] Trial 11 finished with value: 0.4139624090936084 and parameters: {'alpha': 6.690298346608155, 'l1_ratio': 0.8807779620829281}. Best is trial 11 with value: 0.4139624090936084.
+[I 2025-09-10 19:09:11,423] Trial 11 finished with value: 0.3787989583267824 and parameters: {'alpha': 8.117233893302146, 'l1_ratio': 0.532734034869411}. Best is trial 11 with value: 0.3787989583267824.
+[I 2025-09-10 19:09:33,613] Trial 12 finished with value: 0.4221606184386894 and parameters: {'alpha': 8.203387096484473, 'l1_ratio': 0.6648722123201105}. Best is trial 11 with value: 0.4126942893630689.
+[I 2025-09-10 19:09:58,101] Trial 12 finished with value: 0.4155727941909791 and parameters: {'alpha': 6.39187478950989, 'l1_ratio': 0.24111184297967708}. Best is trial 12 with value: 0.4155727941909791.
+[I 2025-09-10 19:10:07,758] Trial 12 finished with value: 0.46059033384559267 and parameters: {'alpha': 1.6009642752948305, 'l1_ratio': 0.8840443633063603}. Best is trial 1 with value: 0.37815177102570685.
+[I 2025-09-10 19:10:12,372] Trial 12 finished with value: 0.5344946741451501 and parameters: {'alpha': 1.3899857706362053, 'l1_ratio': 0.8998590257749014}. Best is trial 11 with value: 0.4139624090936084.
+[I 2025-09-10 19:10:23,428] Trial 12 finished with value: 0.5492898726131733 and parameters: {'alpha': 0.425978420118478, 'l1_ratio': 0.5791703743723378}. Best is trial 11 with value: 0.3787989583267824.
+[I 2025-09-10 19:10:42,736] Trial 13 finished with value: 0.5388848794546451 and parameters: {'alpha': 2.539127576180343, 'l1_ratio': 0.7639919254391615}. Best is trial 11 with value: 0.4126942893630689.
+[I 2025-09-10 19:10:51,098] Trial 13 finished with value: 0.37895412177354176 and parameters: {'alpha': 9.369457454124532, 'l1_ratio': 0.3105715386226588}. Best is trial 13 with value: 0.37895412177354176.
+[I 2025-09-10 19:11:05,633] Trial 13 finished with value: 0.3752084640794849 and parameters: {'alpha': 9.334373174002094, 'l1_ratio': 0.6423813206081952}. Best is trial 13 with value: 0.3752084640794849.
+[I 2025-09-10 19:11:18,218] Trial 13 finished with value: 0.3757737688010175 and parameters: {'alpha': 8.705757412973306, 'l1_ratio': 0.5089945672731673}. Best is trial 13 with value: 0.3757737688010175.
+[I 2025-09-10 19:11:23,190] Trial 13 finished with value: 0.6027103183866795 and parameters: {'alpha': 0.3484443609222648, 'l1_ratio': 0.7558405991813529}. Best is trial 11 with value: 0.4139624090936084.
+[I 2025-09-10 19:11:33,514] Trial 14 finished with value: 0.4081287878627346 and parameters: {'alpha': 9.781442080446887, 'l1_ratio': 0.6579261840685643}. Best is trial 14 with value: 0.4081287878627346.
+[I 2025-09-10 19:11:47,164] A new study created in RDB with name: ECFP_ElasticNet_Pgp_Broccatelli_5
+[I 2025-09-10 19:12:09,645] Trial 14 finished with value: 0.6629318343953484 and parameters: {'alpha': 0.1389826526437311, 'l1_ratio': 0.3316652881284041}. Best is trial 13 with value: 0.37895412177354176.
+[I 2025-09-10 19:12:15,692] Trial 14 finished with value: 0.5094923571306456 and parameters: {'alpha': 0.8551015056013792, 'l1_ratio': 0.626335683058158}. Best is trial 13 with value: 0.3752084640794849.
+[I 2025-09-10 19:12:22,498] A new study created in RDB with name: ECFP_ElasticNet_Pgp_Broccatelli_6
+[I 2025-09-10 19:12:28,147] A new study created in RDB with name: ECFP_ElasticNet_Pgp_Broccatelli_7
+[I 2025-09-10 19:12:31,636] Trial 14 finished with value: 0.4774914921306312 and parameters: {'alpha': 3.2514878858842815, 'l1_ratio': 0.7737418331369801}. Best is trial 11 with value: 0.4139624090936084.
+[I 2025-09-10 19:12:34,458] Trial 14 finished with value: 0.6006081928183296 and parameters: {'alpha': 0.2118513526133151, 'l1_ratio': 0.45990987159623065}. Best is trial 13 with value: 0.3757737688010175.
+[I 2025-09-10 19:12:46,256] A new study created in RDB with name: ECFP_ElasticNet_Pgp_Broccatelli_8
+[I 2025-09-10 19:12:48,990] A new study created in RDB with name: ECFP_ElasticNet_Pgp_Broccatelli_9
+[I 2025-09-10 19:12:56,069] Trial 0 finished with value: 0.45610852260206647 and parameters: {'alpha': 2.213196898265667, 'l1_ratio': 0.838892572652336}. Best is trial 0 with value: 0.45610852260206647.
+[I 2025-09-10 19:13:35,062] Trial 0 finished with value: 0.4579615644417426 and parameters: {'alpha': 4.303212801324214, 'l1_ratio': 0.3968734505105843}. Best is trial 0 with value: 0.4579615644417426.
+[I 2025-09-10 19:14:01,997] Trial 0 finished with value: 0.7234496281599588 and parameters: {'alpha': 0.0015804066594914904, 'l1_ratio': 0.5390005608967349}. Best is trial 0 with value: 0.7234496281599588.
+[I 2025-09-10 19:14:14,414] Trial 1 finished with value: 0.7089926681757828 and parameters: {'alpha': 0.11022116653486029, 'l1_ratio': 0.41710596187209725}. Best is trial 0 with value: 0.45610852260206647.
+[I 2025-09-10 19:14:19,476] Trial 0 finished with value: 0.674338935211043 and parameters: {'alpha': 0.005064991554358338, 'l1_ratio': 0.27874203169591993}. Best is trial 0 with value: 0.674338935211043.
+[I 2025-09-10 19:14:20,471] Trial 0 finished with value: 0.7184382968990166 and parameters: {'alpha': 0.005007972875905241, 'l1_ratio': 0.3440013628453248}. Best is trial 0 with value: 0.7184382968990166.
+[I 2025-09-10 19:14:46,741] Trial 1 finished with value: 0.5344630350304825 and parameters: {'alpha': 1.7249839580976871, 'l1_ratio': 0.4257282110727941}. Best is trial 0 with value: 0.4579615644417426.
+[I 2025-09-10 19:15:26,461] Trial 2 finished with value: 0.6171949867744886 and parameters: {'alpha': 0.3330314935319091, 'l1_ratio': 0.5996837131626188}. Best is trial 0 with value: 0.45610852260206647.
+[I 2025-09-10 19:15:26,508] Trial 1 finished with value: 0.6983418792003675 and parameters: {'alpha': 0.1166523252588387, 'l1_ratio': 0.1128683481320242}. Best is trial 1 with value: 0.6983418792003675.
+[I 2025-09-10 19:15:30,583] Trial 1 finished with value: 0.4542438171118938 and parameters: {'alpha': 2.449400420243519, 'l1_ratio': 0.5717498742285754}. Best is trial 1 with value: 0.4542438171118938.
+[I 2025-09-10 19:15:40,391] Trial 1 finished with value: 0.6547389004567181 and parameters: {'alpha': 0.0343055620259943, 'l1_ratio': 0.7193966273490026}. Best is trial 1 with value: 0.6547389004567181.
+[I 2025-09-10 19:16:11,158] Trial 2 finished with value: 0.7666318223218672 and parameters: {'alpha': 0.022104472969750315, 'l1_ratio': 0.5554849647471887}. Best is trial 0 with value: 0.4579615644417426.
+[I 2025-09-10 19:16:38,928] Trial 2 finished with value: 0.46785460826685943 and parameters: {'alpha': 2.1775247289188853, 'l1_ratio': 0.34248952189256876}. Best is trial 2 with value: 0.46785460826685943.
+[I 2025-09-10 19:16:49,998] Trial 2 finished with value: 0.6802127664793582 and parameters: {'alpha': 0.10382421349888214, 'l1_ratio': 0.29142494685291087}. Best is trial 1 with value: 0.4542438171118938.
+[I 2025-09-10 19:16:52,736] Trial 2 finished with value: 0.5393531283435536 and parameters: {'alpha': 0.4586070114610756, 'l1_ratio': 0.4982097515961016}. Best is trial 2 with value: 0.5393531283435536.
+[I 2025-09-10 19:16:58,881] Trial 3 finished with value: 0.762037501047642 and parameters: {'alpha': 0.0018946056190347297, 'l1_ratio': 0.6599771671562585}. Best is trial 0 with value: 0.45610852260206647.
+[I 2025-09-10 19:17:06,856] Trial 3 finished with value: 0.443483852213706 and parameters: {'alpha': 7.558217033802718, 'l1_ratio': 0.11884556862458524}. Best is trial 3 with value: 0.443483852213706.
+[I 2025-09-10 19:18:08,477] Trial 3 finished with value: 0.5034757685078264 and parameters: {'alpha': 1.3087009639173277, 'l1_ratio': 0.19207289827036186}. Best is trial 3 with value: 0.5034757685078264.
+[I 2025-09-10 19:18:09,895] Trial 3 finished with value: 0.721436278639141 and parameters: {'alpha': 0.004405550978805752, 'l1_ratio': 0.6045725167382564}. Best is trial 2 with value: 0.46785460826685943.
+[I 2025-09-10 19:18:11,944] Trial 4 finished with value: 0.5942683677603765 and parameters: {'alpha': 0.3827401082459991, 'l1_ratio': 0.7956439715702881}. Best is trial 0 with value: 0.45610852260206647.
+[I 2025-09-10 19:18:13,604] Trial 3 finished with value: 0.6981979072184039 and parameters: {'alpha': 0.02680506581482026, 'l1_ratio': 0.7656883280115802}. Best is trial 1 with value: 0.4542438171118938.
+[I 2025-09-10 19:18:32,037] Trial 4 finished with value: 0.7260130819382994 and parameters: {'alpha': 0.1774949948564336, 'l1_ratio': 0.25806202902976666}. Best is trial 3 with value: 0.443483852213706.
+[I 2025-09-10 19:19:23,222] Trial 4 finished with value: 0.5072648738458769 and parameters: {'alpha': 1.0461705977949003, 'l1_ratio': 0.5930542285773756}. Best is trial 1 with value: 0.4542438171118938.
+[I 2025-09-10 19:19:23,643] Trial 4 finished with value: 0.6061269411738619 and parameters: {'alpha': 0.13224568842410708, 'l1_ratio': 0.687849221832905}. Best is trial 3 with value: 0.5034757685078264.
+[I 2025-09-10 19:19:27,812] Trial 4 finished with value: 0.6780019762314407 and parameters: {'alpha': 0.06103397223924362, 'l1_ratio': 0.8016992415527416}. Best is trial 2 with value: 0.46785460826685943.
+[I 2025-09-10 19:19:43,454] Trial 5 finished with value: 0.7613112248455035 and parameters: {'alpha': 0.0048386007560861565, 'l1_ratio': 0.3110545061692679}. Best is trial 0 with value: 0.45610852260206647.
+[I 2025-09-10 19:20:06,164] Trial 5 finished with value: 0.777228678461857 and parameters: {'alpha': 0.002088185494392688, 'l1_ratio': 0.1311353911244587}. Best is trial 3 with value: 0.443483852213706.
+[I 2025-09-10 19:20:39,649] Trial 5 finished with value: 0.6184963269304635 and parameters: {'alpha': 0.42199800330473336, 'l1_ratio': 0.16701897118428732}. Best is trial 1 with value: 0.4542438171118938.
+[I 2025-09-10 19:20:43,132] Trial 5 finished with value: 0.6321893059316073 and parameters: {'alpha': 0.25908684466517806, 'l1_ratio': 0.3583906530616481}. Best is trial 2 with value: 0.46785460826685943.
+[I 2025-09-10 19:20:45,388] Trial 5 finished with value: 0.6539169907697783 and parameters: {'alpha': 0.0757488435503132, 'l1_ratio': 0.25391707835470967}. Best is trial 3 with value: 0.5034757685078264.
+[I 2025-09-10 19:20:51,948] Trial 6 finished with value: 0.5465169367737867 and parameters: {'alpha': 0.7089190378196092, 'l1_ratio': 0.8822529688230974}. Best is trial 0 with value: 0.45610852260206647.
+[I 2025-09-10 19:21:27,231] Trial 6 finished with value: 0.757462317523173 and parameters: {'alpha': 0.035580932903383315, 'l1_ratio': 0.6476478131698388}. Best is trial 3 with value: 0.443483852213706.
+[I 2025-09-10 19:21:56,380] Trial 6 finished with value: 0.6170509322068398 and parameters: {'alpha': 0.1604951592806634, 'l1_ratio': 0.8805003716662849}. Best is trial 2 with value: 0.46785460826685943.
+[I 2025-09-10 19:22:06,467] Trial 6 finished with value: 0.6580177471027076 and parameters: {'alpha': 0.025980175737999402, 'l1_ratio': 0.8184555692014283}. Best is trial 3 with value: 0.5034757685078264.
+[I 2025-09-10 19:22:08,161] Trial 6 finished with value: 0.7149763508265478 and parameters: {'alpha': 0.014097633318870598, 'l1_ratio': 0.28863925251605715}. Best is trial 1 with value: 0.4542438171118938.
+[I 2025-09-10 19:22:24,805] Trial 7 finished with value: 0.7625903796812283 and parameters: {'alpha': 0.0029759378427857935, 'l1_ratio': 0.18178946752724015}. Best is trial 0 with value: 0.45610852260206647.
+[I 2025-09-10 19:22:42,433] Trial 7 finished with value: 0.6944106373297018 and parameters: {'alpha': 0.1996153900226708, 'l1_ratio': 0.5020673541965814}. Best is trial 3 with value: 0.443483852213706.
+[I 2025-09-10 19:23:16,640] Trial 7 finished with value: 0.492989603039307 and parameters: {'alpha': 0.9266077749612202, 'l1_ratio': 0.5422406606769934}. Best is trial 7 with value: 0.492989603039307.
+[I 2025-09-10 19:23:28,926] Trial 7 finished with value: 0.7229353087714466 and parameters: {'alpha': 0.0025851594518855768, 'l1_ratio': 0.5029054849516789}. Best is trial 2 with value: 0.46785460826685943.
+[I 2025-09-10 19:23:37,191] Trial 8 finished with value: 0.5853368686835163 and parameters: {'alpha': 0.6925771534863813, 'l1_ratio': 0.3478733597066189}. Best is trial 0 with value: 0.45610852260206647.
+[I 2025-09-10 19:23:41,071] Trial 7 finished with value: 0.7199116375005267 and parameters: {'alpha': 0.003100702324070186, 'l1_ratio': 0.1390552573091699}. Best is trial 1 with value: 0.4542438171118938.
+[I 2025-09-10 19:23:54,855] Trial 8 finished with value: 0.6429560424303897 and parameters: {'alpha': 0.39103791562431806, 'l1_ratio': 0.5084702342734991}. Best is trial 3 with value: 0.443483852213706.
+[I 2025-09-10 19:24:31,135] Trial 8 finished with value: 0.5735822513334192 and parameters: {'alpha': 0.3658737455807761, 'l1_ratio': 0.34402237508911526}. Best is trial 7 with value: 0.492989603039307.
+[I 2025-09-10 19:24:38,350] Trial 8 finished with value: 0.4991963102553591 and parameters: {'alpha': 0.9907041418286305, 'l1_ratio': 0.7332820643006562}. Best is trial 2 with value: 0.46785460826685943.
+[I 2025-09-10 19:24:49,681] Trial 8 finished with value: 0.4459662823229473 and parameters: {'alpha': 2.6020729343008124, 'l1_ratio': 0.7493962615014038}. Best is trial 8 with value: 0.4459662823229473.
+[I 2025-09-10 19:25:07,539] Trial 9 finished with value: 0.6549519513236387 and parameters: {'alpha': 0.29442006871108084, 'l1_ratio': 0.6173209863582374}. Best is trial 3 with value: 0.443483852213706.
+[I 2025-09-10 19:25:10,765] Trial 9 finished with value: 0.7628947288215537 and parameters: {'alpha': 0.002618858368997936, 'l1_ratio': 0.11403617882201784}. Best is trial 0 with value: 0.45610852260206647.
+[I 2025-09-10 19:25:46,948] Trial 9 finished with value: 0.5897984680418216 and parameters: {'alpha': 0.32033366144278946, 'l1_ratio': 0.2947532452047239}. Best is trial 7 with value: 0.492989603039307.
+[I 2025-09-10 19:25:52,808] Trial 9 finished with value: 0.6280697712803938 and parameters: {'alpha': 0.17016517383675492, 'l1_ratio': 0.6798535060314592}. Best is trial 2 with value: 0.46785460826685943.
+[I 2025-09-10 19:26:00,808] Trial 10 finished with value: 0.3647091834520945 and parameters: {'alpha': 9.437301341681204, 'l1_ratio': 0.7283986123629341}. Best is trial 10 with value: 0.3647091834520945.
+[I 2025-09-10 19:26:06,213] Trial 10 finished with value: 0.38368195541197614 and parameters: {'alpha': 9.317080057683198, 'l1_ratio': 0.8768944892851711}. Best is trial 10 with value: 0.38368195541197614.
+[I 2025-09-10 19:26:20,025] Trial 9 finished with value: 0.7154367771159132 and parameters: {'alpha': 0.021494194000094786, 'l1_ratio': 0.11790195114964358}. Best is trial 8 with value: 0.4459662823229473.
+[I 2025-09-10 19:26:40,361] Trial 10 finished with value: 0.3441457737768932 and parameters: {'alpha': 9.931125088537975, 'l1_ratio': 0.5085834756728302}. Best is trial 10 with value: 0.3441457737768932.
+[I 2025-09-10 19:26:55,569] Trial 11 finished with value: 0.37001670799892017 and parameters: {'alpha': 8.049214206058192, 'l1_ratio': 0.7452391370269581}. Best is trial 10 with value: 0.3647091834520945.
+[I 2025-09-10 19:26:55,648] Trial 10 finished with value: 0.39942469701514505 and parameters: {'alpha': 7.17413937651634, 'l1_ratio': 0.3304698793287465}. Best is trial 10 with value: 0.39942469701514505.
+[I 2025-09-10 19:27:05,214] Trial 11 finished with value: 0.38329147419148163 and parameters: {'alpha': 9.572672816339304, 'l1_ratio': 0.8954342064612247}. Best is trial 11 with value: 0.38329147419148163.
+[I 2025-09-10 19:27:22,854] Trial 10 finished with value: 0.37601427184103225 and parameters: {'alpha': 7.318937456616938, 'l1_ratio': 0.8848058524774631}. Best is trial 10 with value: 0.37601427184103225.
+[I 2025-09-10 19:27:39,832] Trial 11 finished with value: 0.34878829319826704 and parameters: {'alpha': 8.51724042189982, 'l1_ratio': 0.5196716514640203}. Best is trial 10 with value: 0.3441457737768932.
+[I 2025-09-10 19:27:46,010] Trial 12 finished with value: 0.3665175047481269 and parameters: {'alpha': 9.078548102957239, 'l1_ratio': 0.6849491251398439}. Best is trial 10 with value: 0.3647091834520945.
+[I 2025-09-10 19:27:55,243] Trial 11 finished with value: 0.3944822713782631 and parameters: {'alpha': 7.9686352921043015, 'l1_ratio': 0.3149801650557092}. Best is trial 11 with value: 0.3944822713782631.
+[I 2025-09-10 19:28:13,372] Trial 12 finished with value: 0.4911675139240854 and parameters: {'alpha': 2.0676788488187317, 'l1_ratio': 0.8768430501862794}. Best is trial 11 with value: 0.38329147419148163.
+[I 2025-09-10 19:28:23,735] Trial 11 finished with value: 0.37317664836972503 and parameters: {'alpha': 7.953163303058817, 'l1_ratio': 0.8975106747731014}. Best is trial 11 with value: 0.37317664836972503.
+[I 2025-09-10 19:28:34,610] Trial 13 finished with value: 0.3673740671384857 and parameters: {'alpha': 9.461436235146502, 'l1_ratio': 0.5722364837113426}. Best is trial 10 with value: 0.3647091834520945.
+[I 2025-09-10 19:28:35,977] Trial 12 finished with value: 0.34682324631155176 and parameters: {'alpha': 9.094841756911253, 'l1_ratio': 0.4942537868361433}. Best is trial 10 with value: 0.3441457737768932.
+[I 2025-09-10 19:28:49,601] Trial 12 finished with value: 0.38857004557569047 and parameters: {'alpha': 9.07770511558303, 'l1_ratio': 0.29351765040071554}. Best is trial 12 with value: 0.38857004557569047.
+[I 2025-09-10 19:29:21,825] Trial 13 finished with value: 0.5289737800250632 and parameters: {'alpha': 1.316074000323525, 'l1_ratio': 0.8971908193899654}. Best is trial 11 with value: 0.38329147419148163.
+[I 2025-09-10 19:29:24,977] Trial 12 finished with value: 0.3756179447362923 and parameters: {'alpha': 7.41303944310227, 'l1_ratio': 0.860904141834021}. Best is trial 11 with value: 0.37317664836972503.
+[I 2025-09-10 19:29:31,297] Trial 13 finished with value: 0.34839586089873525 and parameters: {'alpha': 8.982749188305467, 'l1_ratio': 0.42035499672984805}. Best is trial 10 with value: 0.3441457737768932.
+[I 2025-09-10 19:29:37,333] Trial 13 finished with value: 0.38751846553090136 and parameters: {'alpha': 9.902890188112018, 'l1_ratio': 0.17414228482884225}. Best is trial 13 with value: 0.38751846553090136.
+[I 2025-09-10 19:29:59,103] Trial 14 finished with value: 0.7501371918890453 and parameters: {'alpha': 0.015823060162462974, 'l1_ratio': 0.702655312920145}. Best is trial 10 with value: 0.3647091834520945.
+[I 2025-09-10 19:30:20,378] Trial 14 finished with value: 0.38506389235086325 and parameters: {'alpha': 9.309424991858553, 'l1_ratio': 0.7551259410565807}. Best is trial 11 with value: 0.38329147419148163.
+[I 2025-09-10 19:30:32,297] Trial 13 finished with value: 0.3872153819642583 and parameters: {'alpha': 5.84505455321177, 'l1_ratio': 0.8949349669939476}. Best is trial 11 with value: 0.37317664836972503.
+[I 2025-09-10 19:30:40,873] Trial 14 finished with value: 0.3938253778931472 and parameters: {'alpha': 3.202026906242924, 'l1_ratio': 0.6363304887221704}. Best is trial 10 with value: 0.3441457737768932.
+[I 2025-09-10 19:30:52,110] Trial 14 finished with value: 0.5095859728686535 and parameters: {'alpha': 1.8249340836141135, 'l1_ratio': 0.14262450760658263}. Best is trial 13 with value: 0.38751846553090136.
+[I 2025-09-10 19:31:44,620] Trial 14 finished with value: 0.5867801536876229 and parameters: {'alpha': 0.26357507700493876, 'l1_ratio': 0.6868199346930077}. Best is trial 11 with value: 0.37317664836972503.

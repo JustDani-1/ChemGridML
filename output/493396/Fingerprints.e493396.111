@@ -1,0 +1,221 @@
+No normalization for SPS. Feature removed!
+No normalization for AvgIpc. Feature removed!
+No normalization for NumAmideBonds. Feature removed!
+No normalization for NumAtomStereoCenters. Feature removed!
+No normalization for NumBridgeheadAtoms. Feature removed!
+No normalization for NumHeterocycles. Feature removed!
+No normalization for NumSpiroAtoms. Feature removed!
+No normalization for NumUnspecifiedAtomStereoCenters. Feature removed!
+No normalization for Phi. Feature removed!
+2025-09-09 13:48:57.420279: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-09-09 13:48:57.459298: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:From /home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/tensorflow/python/util/deprecation.py:588: calling function (from tensorflow.python.eager.polymorphic_function.polymorphic_function) with experimental_relax_shapes is deprecated and will be removed in a future version.
+Instructions for updating:
+experimental_relax_shapes is deprecated, use reduce_retracing instead
+Skipped loading modules with transformers dependency. No module named 'transformers'
+cannot import name 'HuggingFaceModel' from 'deepchem.models.torch_models' (/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/deepchem/models/torch_models/__init__.py)
+Found local copy...
+Loading...
+Done!
+[13:49:24] WARNING: not removing hydrogen atom without neighbors
+[13:49:24] WARNING: not removing hydrogen atom without neighbors
+[13:49:24] WARNING: not removing hydrogen atom without neighbors
+[13:49:24] WARNING: not removing hydrogen atom without neighbors
+[13:49:24] WARNING: not removing hydrogen atom without neighbors
+[13:49:24] WARNING: not removing hydrogen atom without neighbors
+[13:49:24] WARNING: not removing hydrogen atom without neighbors
+[13:49:24] WARNING: not removing hydrogen atom without neighbors
+[13:49:24] WARNING: not removing hydrogen atom without neighbors
+[13:49:24] WARNING: not removing hydrogen atom without neighbors
+[13:49:24] WARNING: not removing hydrogen atom without neighbors
+[13:49:24] WARNING: not removing hydrogen atom without neighbors
+[13:49:24] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[13:49:25] WARNING: not removing hydrogen atom without neighbors
+[I 2025-09-09 13:49:31,290] A new study created in RDB with name: __init__
+[I 2025-09-09 13:49:31,515] A new study created in RDB with name: RDKitFP_FNN_BBB_Martins_0
+[I 2025-09-09 13:49:31,555] A new study created in RDB with name: RDKitFP_FNN_BBB_Martins_1
+[I 2025-09-09 13:49:31,561] A new study created in RDB with name: RDKitFP_FNN_BBB_Martins_2
+[I 2025-09-09 13:49:31,611] A new study created in RDB with name: RDKitFP_FNN_BBB_Martins_3
+[I 2025-09-09 13:50:26,898] Trial 0 finished with value: 0.4726424515247345 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.4, 'epochs': 50, 'lr': 0.0004033639239222317, 'batch_size': 64}. Best is trial 0 with value: 0.4726424515247345.
+[I 2025-09-09 13:51:08,378] Trial 0 finished with value: 0.9310529828071594 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.4, 'epochs': 50, 'lr': 0.0016946052003843674, 'batch_size': 64}. Best is trial 0 with value: 0.9310529828071594.
+[I 2025-09-09 13:53:25,548] Trial 0 finished with value: 0.5273157954216003 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.1, 'epochs': 50, 'lr': 3.060215403785335e-05, 'batch_size': 16}. Best is trial 0 with value: 0.5273157954216003.
+[I 2025-09-09 13:53:49,772] Trial 0 finished with value: 0.5603329539299011 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.1, 'epochs': 150, 'lr': 2.5539452971959638e-05, 'batch_size': 64}. Best is trial 0 with value: 0.5603329539299011.
+[I 2025-09-09 13:54:27,274] Trial 1 finished with value: 0.5515201687812805 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.1, 'epochs': 50, 'lr': 0.00010699001641016545, 'batch_size': 16}. Best is trial 1 with value: 0.5515201687812805.
+[I 2025-09-09 13:55:53,667] Trial 1 finished with value: 0.41674718260765076 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.0, 'epochs': 100, 'lr': 4.868327101895883e-05, 'batch_size': 64}. Best is trial 1 with value: 0.41674718260765076.
+[I 2025-09-09 13:57:01,821] Trial 1 finished with value: 0.6493673324584961 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.0, 'epochs': 50, 'lr': 5.185130887155633e-05, 'batch_size': 16}. Best is trial 0 with value: 0.5273157954216003.
+[I 2025-09-09 13:58:16,124] Trial 2 finished with value: 1.2124662399291992 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.4, 'epochs': 50, 'lr': 0.0022954451411870596, 'batch_size': 32}. Best is trial 1 with value: 0.41674718260765076.
+[I 2025-09-09 13:58:55,111] Trial 2 finished with value: 0.9059463739395142 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.0, 'epochs': 50, 'lr': 0.002387680971322676, 'batch_size': 16}. Best is trial 1 with value: 0.5515201687812805.
+[I 2025-09-09 13:59:43,003] Trial 2 finished with value: 1.0414680242538452 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.5, 'epochs': 150, 'lr': 0.0012357404967383674, 'batch_size': 64}. Best is trial 0 with value: 0.5273157954216003.
+[I 2025-09-09 14:02:50,656] Trial 3 finished with value: 1.2124855518341064 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 0.0020045162240404195, 'batch_size': 32}. Best is trial 0 with value: 0.5273157954216003.
+[I 2025-09-09 14:03:01,052] Trial 1 finished with value: 1.0628087520599365 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.4, 'epochs': 150, 'lr': 0.0001505186897598718, 'batch_size': 16}. Best is trial 0 with value: 0.4726424515247345.
+[I 2025-09-09 14:03:18,680] Trial 3 finished with value: 1.3154243230819702 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.0, 'epochs': 150, 'lr': 0.003170305089824851, 'batch_size': 32}. Best is trial 1 with value: 0.41674718260765076.
+[I 2025-09-09 14:04:36,441] Trial 4 finished with value: 0.4272945523262024 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.1, 'epochs': 100, 'lr': 1.0210314512374298e-05, 'batch_size': 64}. Best is trial 4 with value: 0.4272945523262024.
+[I 2025-09-09 14:05:44,481] Trial 4 finished with value: 0.4255574345588684 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.4, 'epochs': 150, 'lr': 9.812624447804232e-05, 'batch_size': 64}. Best is trial 1 with value: 0.41674718260765076.
+[I 2025-09-09 14:06:15,245] Trial 2 finished with value: 0.6739473938941956 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.25, 'epochs': 50, 'lr': 0.00020033009040869464, 'batch_size': 16}. Best is trial 0 with value: 0.4726424515247345.
+[I 2025-09-09 14:07:10,524] Trial 5 finished with value: 0.844520092010498 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.1, 'epochs': 150, 'lr': 0.0008044911947956003, 'batch_size': 64}. Best is trial 4 with value: 0.4272945523262024.
+[I 2025-09-09 14:07:21,025] Trial 3 finished with value: 1.0488014221191406 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.1, 'epochs': 100, 'lr': 0.0006652883526031447, 'batch_size': 16}. Best is trial 1 with value: 0.5515201687812805.
+[I 2025-09-09 14:08:38,949] Trial 5 finished with value: 1.5742440223693848 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.1, 'epochs': 50, 'lr': 0.004549427603734999, 'batch_size': 16}. Best is trial 1 with value: 0.41674718260765076.
+[I 2025-09-09 14:08:58,680] Trial 3 finished with value: 0.5223143696784973 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 0.0001409805718360267, 'batch_size': 32}. Best is trial 0 with value: 0.4726424515247345.
+[I 2025-09-09 14:09:52,085] Trial 6 finished with value: 1.4277002811431885 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.4, 'epochs': 100, 'lr': 0.002803767750774812, 'batch_size': 32}. Best is trial 4 with value: 0.4272945523262024.
+[I 2025-09-09 14:11:06,193] Trial 4 finished with value: 1.4960075616836548 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 0.003675363136899546, 'batch_size': 64}. Best is trial 0 with value: 0.4726424515247345.
+[I 2025-09-09 14:11:23,809] Trial 4 finished with value: 1.6123874187469482 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.1, 'epochs': 150, 'lr': 0.0037559274549628973, 'batch_size': 32}. Best is trial 1 with value: 0.5515201687812805.
+[I 2025-09-09 14:11:26,847] Trial 7 finished with value: 0.9453508853912354 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.0, 'epochs': 50, 'lr': 0.0012879327634922975, 'batch_size': 32}. Best is trial 4 with value: 0.4272945523262024.
+[I 2025-09-09 14:11:34,837] Trial 6 finished with value: 1.6734310388565063 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.1, 'epochs': 150, 'lr': 0.0037677686973923747, 'batch_size': 64}. Best is trial 1 with value: 0.41674718260765076.
+[I 2025-09-09 14:12:34,995] Trial 8 finished with value: 0.8009435534477234 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.1, 'epochs': 50, 'lr': 0.0020029066733566804, 'batch_size': 32}. Best is trial 4 with value: 0.4272945523262024.
+[I 2025-09-09 14:12:58,544] Trial 5 finished with value: 0.36304599046707153 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.0, 'epochs': 50, 'lr': 1.3896877615457061e-05, 'batch_size': 32}. Best is trial 5 with value: 0.36304599046707153.
+[I 2025-09-09 14:14:11,846] Trial 5 finished with value: 0.5382947325706482 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.1, 'epochs': 50, 'lr': 5.4916407347170644e-05, 'batch_size': 32}. Best is trial 5 with value: 0.5382947325706482.
+[I 2025-09-09 14:14:18,721] Trial 9 finished with value: 0.33700549602508545 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.25, 'epochs': 50, 'lr': 1.305755741027195e-05, 'batch_size': 32}. Best is trial 9 with value: 0.33700549602508545.
+[I 2025-09-09 14:15:55,433] Trial 10 finished with value: 0.7473723292350769 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.25, 'epochs': 50, 'lr': 0.00016176020862310474, 'batch_size': 32}. Best is trial 9 with value: 0.33700549602508545.
+[I 2025-09-09 14:16:12,639] Trial 7 finished with value: 0.7342687845230103 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.1, 'epochs': 100, 'lr': 0.00010019638220085532, 'batch_size': 32}. Best is trial 1 with value: 0.41674718260765076.
+[I 2025-09-09 14:17:45,344] Trial 11 finished with value: 0.40287622809410095 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 1.0760820310757843e-05, 'batch_size': 64}. Best is trial 9 with value: 0.33700549602508545.
+[I 2025-09-09 14:19:04,032] Trial 6 finished with value: 0.8526108264923096 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.0, 'epochs': 150, 'lr': 0.001377663932020512, 'batch_size': 32}. Best is trial 5 with value: 0.5382947325706482.
+[I 2025-09-09 14:19:54,224] Trial 12 finished with value: 0.3584342896938324 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 1.3797607335426117e-05, 'batch_size': 64}. Best is trial 9 with value: 0.33700549602508545.
+[I 2025-09-09 14:20:36,506] Trial 8 finished with value: 0.8623288869857788 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.4, 'epochs': 150, 'lr': 0.0005218638874518114, 'batch_size': 32}. Best is trial 1 with value: 0.41674718260765076.
+[I 2025-09-09 14:20:49,058] Trial 7 finished with value: 1.121597409248352 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.5, 'epochs': 100, 'lr': 0.0031727160356828195, 'batch_size': 64}. Best is trial 5 with value: 0.5382947325706482.
+[I 2025-09-09 14:21:11,082] Trial 13 finished with value: 0.5827257633209229 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 0.0001022915828186342, 'batch_size': 64}. Best is trial 9 with value: 0.33700549602508545.
+[I 2025-09-09 14:22:10,487] Trial 9 finished with value: 0.8235248923301697 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.1, 'epochs': 50, 'lr': 0.0030428270705541507, 'batch_size': 32}. Best is trial 1 with value: 0.41674718260765076.
+[I 2025-09-09 14:24:49,542] Trial 8 finished with value: 1.176277995109558 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.5, 'epochs': 150, 'lr': 0.0020768632417321646, 'batch_size': 32}. Best is trial 5 with value: 0.5382947325706482.
+[I 2025-09-09 14:26:15,763] Trial 6 finished with value: 0.8400716781616211 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.5, 'epochs': 150, 'lr': 4.622838039828352e-05, 'batch_size': 16}. Best is trial 5 with value: 0.36304599046707153.
+[I 2025-09-09 14:27:43,038] Trial 7 finished with value: 0.4985180199146271 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.4, 'epochs': 50, 'lr': 0.00031339041829647643, 'batch_size': 32}. Best is trial 5 with value: 0.36304599046707153.
+[I 2025-09-09 14:28:09,209] Trial 10 finished with value: 0.3142838180065155 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 1.1115096850694971e-05, 'batch_size': 16}. Best is trial 10 with value: 0.3142838180065155.
+[I 2025-09-09 14:33:56,564] Trial 9 finished with value: 1.0067740678787231 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.1, 'epochs': 100, 'lr': 0.00036295048138664074, 'batch_size': 16}. Best is trial 5 with value: 0.5382947325706482.
+[I 2025-09-09 14:34:15,191] Trial 14 finished with value: 0.8527913689613342 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.25, 'epochs': 150, 'lr': 3.1479748099581524e-05, 'batch_size': 16}. Best is trial 9 with value: 0.33700549602508545.
+[I 2025-09-09 14:34:23,199] Trial 11 finished with value: 0.3182774782180786 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 1.0445480859865446e-05, 'batch_size': 16}. Best is trial 10 with value: 0.3142838180065155.
+[I 2025-09-09 14:34:51,545] A new study created in RDB with name: RDKitFP_FNN_BBB_Martins_4
+[I 2025-09-09 14:34:52,894] Trial 8 finished with value: 0.8242035508155823 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.0, 'epochs': 150, 'lr': 0.0004964916040600078, 'batch_size': 16}. Best is trial 5 with value: 0.36304599046707153.
+[I 2025-09-09 14:36:22,106] Trial 10 finished with value: 0.3500380218029022 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.25, 'epochs': 50, 'lr': 1.1345848747661272e-05, 'batch_size': 32}. Best is trial 10 with value: 0.3500380218029022.
+[I 2025-09-09 14:37:18,494] Trial 0 finished with value: 0.9074628353118896 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.1, 'epochs': 50, 'lr': 0.0008006017612858136, 'batch_size': 32}. Best is trial 0 with value: 0.9074628353118896.
+[I 2025-09-09 14:38:45,197] Trial 11 finished with value: 0.357677698135376 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.25, 'epochs': 50, 'lr': 1.0311962611021033e-05, 'batch_size': 32}. Best is trial 10 with value: 0.3500380218029022.
+[I 2025-09-09 14:38:45,230] Trial 9 finished with value: 0.8137204051017761 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.4, 'epochs': 100, 'lr': 0.00019829688067424543, 'batch_size': 32}. Best is trial 5 with value: 0.36304599046707153.
+[I 2025-09-09 14:40:23,359] Trial 10 finished with value: 0.34082040190696716 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.0, 'epochs': 50, 'lr': 1.67176415545378e-05, 'batch_size': 32}. Best is trial 10 with value: 0.34082040190696716.
+[I 2025-09-09 14:40:26,000] Trial 12 finished with value: 0.32453227043151855 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 1.032520858291142e-05, 'batch_size': 16}. Best is trial 10 with value: 0.3142838180065155.
+[I 2025-09-09 14:41:12,082] Trial 12 finished with value: 0.3319312036037445 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.25, 'epochs': 50, 'lr': 1.2492796637500882e-05, 'batch_size': 32}. Best is trial 12 with value: 0.3319312036037445.
+[I 2025-09-09 14:42:00,917] Trial 11 finished with value: 0.36896568536758423 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.0, 'epochs': 50, 'lr': 1.320021384551186e-05, 'batch_size': 32}. Best is trial 10 with value: 0.34082040190696716.
+[I 2025-09-09 14:43:33,602] Trial 13 finished with value: 0.34370583295822144 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.25, 'epochs': 50, 'lr': 1.0731989231945512e-05, 'batch_size': 32}. Best is trial 12 with value: 0.3319312036037445.
+[I 2025-09-09 14:43:41,189] Trial 12 finished with value: 0.3849647045135498 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.1, 'epochs': 50, 'lr': 1.2458222228526374e-05, 'batch_size': 32}. Best is trial 10 with value: 0.34082040190696716.
+[I 2025-09-09 14:45:16,871] Trial 13 finished with value: 0.32118579745292664 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.0, 'epochs': 50, 'lr': 3.4340224627161184e-05, 'batch_size': 32}. Best is trial 13 with value: 0.32118579745292664.
+[I 2025-09-09 14:45:56,237] Trial 14 finished with value: 0.37880048155784607 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.25, 'epochs': 50, 'lr': 2.797626969611803e-05, 'batch_size': 32}. Best is trial 12 with value: 0.3319312036037445.
+[I 2025-09-09 14:46:00,800] Trial 13 finished with value: 0.3377233147621155 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 1.4152945348788396e-05, 'batch_size': 16}. Best is trial 10 with value: 0.3142838180065155.
+[I 2025-09-09 14:46:25,284] A new study created in RDB with name: RDKitFP_FNN_BBB_Martins_5
+[I 2025-09-09 14:46:52,575] Trial 14 finished with value: 0.3613724112510681 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.0, 'epochs': 50, 'lr': 4.3246699736051436e-05, 'batch_size': 32}. Best is trial 13 with value: 0.32118579745292664.
+[I 2025-09-09 14:47:01,722] Trial 1 finished with value: 0.5069082379341125 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.4, 'epochs': 150, 'lr': 2.34942811371255e-05, 'batch_size': 16}. Best is trial 1 with value: 0.5069082379341125.
+[I 2025-09-09 14:47:17,645] A new study created in RDB with name: RDKitFP_FNN_BBB_Martins_6
+[I 2025-09-09 14:51:23,943] Trial 0 finished with value: 1.1886085271835327 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.0, 'epochs': 150, 'lr': 0.0008642725141696547, 'batch_size': 32}. Best is trial 0 with value: 1.1886085271835327.
+[I 2025-09-09 14:51:24,987] Trial 2 finished with value: 2.8151161670684814 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.25, 'epochs': 150, 'lr': 0.005234944917720525, 'batch_size': 64}. Best is trial 1 with value: 0.5069082379341125.
+[I 2025-09-09 14:51:43,471] Trial 14 finished with value: 1.0388412475585938 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 0.00036983701431055375, 'batch_size': 16}. Best is trial 10 with value: 0.3142838180065155.
+[I 2025-09-09 14:52:33,434] Trial 1 finished with value: 1.5558332204818726 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.4, 'epochs': 50, 'lr': 0.008950086944277113, 'batch_size': 64}. Best is trial 0 with value: 1.1886085271835327.
+[I 2025-09-09 14:52:54,377] Trial 3 finished with value: 1.6346155405044556 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.4, 'epochs': 50, 'lr': 0.007713867922066086, 'batch_size': 32}. Best is trial 1 with value: 0.5069082379341125.
+[I 2025-09-09 14:53:15,602] A new study created in RDB with name: RDKitFP_FNN_BBB_Martins_7
+[I 2025-09-09 14:54:30,717] Trial 4 finished with value: 1.0772570371627808 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.1, 'epochs': 50, 'lr': 0.0017891077584470045, 'batch_size': 64}. Best is trial 1 with value: 0.5069082379341125.
+[I 2025-09-09 14:54:48,584] Trial 0 finished with value: 0.7574356198310852 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.4, 'epochs': 150, 'lr': 3.383992716059567e-05, 'batch_size': 32}. Best is trial 0 with value: 0.7574356198310852.
+[I 2025-09-09 14:55:39,607] Trial 5 finished with value: 0.47514808177948 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.5, 'epochs': 50, 'lr': 0.000534051674439689, 'batch_size': 64}. Best is trial 5 with value: 0.47514808177948.
+[I 2025-09-09 14:56:03,083] Trial 2 finished with value: 0.3360089957714081 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.1, 'epochs': 150, 'lr': 2.0934293989924357e-05, 'batch_size': 64}. Best is trial 2 with value: 0.3360089957714081.
+[I 2025-09-09 14:58:01,379] Trial 0 finished with value: 1.674183964729309 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.25, 'epochs': 50, 'lr': 0.0030017853078648884, 'batch_size': 16}. Best is trial 0 with value: 1.674183964729309.
+[I 2025-09-09 14:58:42,458] Trial 1 finished with value: 0.5578042268753052 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.1, 'epochs': 150, 'lr': 2.3077279612665893e-05, 'batch_size': 64}. Best is trial 1 with value: 0.5578042268753052.
+[I 2025-09-09 14:58:51,768] Trial 3 finished with value: 1.7474604845046997 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.4, 'epochs': 50, 'lr': 0.008589898668268717, 'batch_size': 32}. Best is trial 2 with value: 0.3360089957714081.
+[I 2025-09-09 15:01:48,981] Trial 1 finished with value: 1.0142656564712524 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.0, 'epochs': 150, 'lr': 0.0010767491655903222, 'batch_size': 32}. Best is trial 1 with value: 1.0142656564712524.
+[I 2025-09-09 15:02:40,681] Trial 6 finished with value: 0.627508282661438 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 6.412046622843225e-05, 'batch_size': 16}. Best is trial 5 with value: 0.47514808177948.
+[I 2025-09-09 15:05:03,626] Trial 4 finished with value: 0.8803324699401855 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.4, 'epochs': 100, 'lr': 0.00023330917095939577, 'batch_size': 16}. Best is trial 2 with value: 0.3360089957714081.
+[I 2025-09-09 15:05:55,765] Trial 5 finished with value: 0.4566381275653839 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.0, 'epochs': 50, 'lr': 1.4109433159558657e-05, 'batch_size': 64}. Best is trial 2 with value: 0.3360089957714081.
+[I 2025-09-09 15:06:06,917] Trial 2 finished with value: 2.9084646701812744 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.5, 'epochs': 150, 'lr': 0.0027771258045801695, 'batch_size': 32}. Best is trial 1 with value: 0.5578042268753052.
+[I 2025-09-09 15:07:21,862] Trial 7 finished with value: 0.8310574889183044 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.5, 'epochs': 50, 'lr': 0.001974749314994557, 'batch_size': 16}. Best is trial 5 with value: 0.47514808177948.
+[I 2025-09-09 15:07:29,887] Trial 3 finished with value: 0.6914269924163818 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.1, 'epochs': 50, 'lr': 0.00016410652416787877, 'batch_size': 64}. Best is trial 1 with value: 0.5578042268753052.
+[I 2025-09-09 15:07:40,082] Trial 6 finished with value: 1.5634750127792358 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.1, 'epochs': 100, 'lr': 0.006852644135611762, 'batch_size': 64}. Best is trial 2 with value: 0.3360089957714081.
+[I 2025-09-09 15:08:32,224] Trial 7 finished with value: 0.6745288372039795 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.25, 'epochs': 50, 'lr': 0.001615109735412066, 'batch_size': 64}. Best is trial 2 with value: 0.3360089957714081.
+[I 2025-09-09 15:09:29,838] Trial 2 finished with value: 0.6996833682060242 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.0, 'epochs': 150, 'lr': 6.640634983473094e-05, 'batch_size': 16}. Best is trial 2 with value: 0.6996833682060242.
+[I 2025-09-09 15:10:41,651] Trial 8 finished with value: 1.031514048576355 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.0, 'epochs': 50, 'lr': 0.0005976309204872739, 'batch_size': 32}. Best is trial 2 with value: 0.3360089957714081.
+[I 2025-09-09 15:11:05,642] Trial 4 finished with value: 1.7386555671691895 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.5, 'epochs': 100, 'lr': 0.005901447692572658, 'batch_size': 32}. Best is trial 1 with value: 0.5578042268753052.
+[I 2025-09-09 15:13:57,500] Trial 3 finished with value: 0.4232167601585388 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.1, 'epochs': 100, 'lr': 4.207619339294103e-05, 'batch_size': 16}. Best is trial 3 with value: 0.4232167601585388.
+[I 2025-09-09 15:14:34,947] Trial 8 finished with value: 0.7963122129440308 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.25, 'epochs': 150, 'lr': 6.971054620898684e-05, 'batch_size': 32}. Best is trial 5 with value: 0.47514808177948.
+[I 2025-09-09 15:15:48,415] Trial 9 finished with value: 0.8649490475654602 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.25, 'epochs': 150, 'lr': 0.00016404779516281367, 'batch_size': 32}. Best is trial 2 with value: 0.3360089957714081.
+[I 2025-09-09 15:16:06,732] Trial 9 finished with value: 0.7166866064071655 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.4, 'epochs': 50, 'lr': 0.0023049792412414994, 'batch_size': 32}. Best is trial 5 with value: 0.47514808177948.
+[I 2025-09-09 15:17:49,359] Trial 10 finished with value: 0.5045715570449829 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.0, 'epochs': 100, 'lr': 0.0002681451115004462, 'batch_size': 64}. Best is trial 5 with value: 0.47514808177948.
+[I 2025-09-09 15:18:11,988] Trial 5 finished with value: 0.5095290541648865 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.1, 'epochs': 150, 'lr': 5.07530163531004e-05, 'batch_size': 16}. Best is trial 5 with value: 0.5095290541648865.
+[I 2025-09-09 15:19:33,763] Trial 11 finished with value: 0.5490992665290833 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.0, 'epochs': 100, 'lr': 0.00036313515278030035, 'batch_size': 64}. Best is trial 5 with value: 0.47514808177948.
+[I 2025-09-09 15:20:53,487] Trial 6 finished with value: 0.622450590133667 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.0, 'epochs': 150, 'lr': 0.0002948319034093993, 'batch_size': 64}. Best is trial 5 with value: 0.5095290541648865.
+[I 2025-09-09 15:21:27,525] Trial 12 finished with value: 0.3957594335079193 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.5, 'epochs': 100, 'lr': 0.00013586311166019916, 'batch_size': 64}. Best is trial 12 with value: 0.3957594335079193.
+[I 2025-09-09 15:21:46,364] Trial 4 finished with value: 1.3436795473098755 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 0.0008480935899267887, 'batch_size': 16}. Best is trial 3 with value: 0.4232167601585388.
+[I 2025-09-09 15:23:05,860] Trial 10 finished with value: 0.3315187692642212 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.5, 'epochs': 150, 'lr': 1.1714690108269555e-05, 'batch_size': 16}. Best is trial 10 with value: 0.3315187692642212.
+[I 2025-09-09 15:23:21,960] Trial 13 finished with value: 0.41866573691368103 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.5, 'epochs': 100, 'lr': 0.00017015989117034205, 'batch_size': 64}. Best is trial 12 with value: 0.3957594335079193.
+[I 2025-09-09 15:23:27,464] Trial 7 finished with value: 0.4873426556587219 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.25, 'epochs': 50, 'lr': 0.00015595812028185242, 'batch_size': 16}. Best is trial 7 with value: 0.4873426556587219.
+[I 2025-09-09 15:24:24,827] Trial 8 finished with value: 0.3492596745491028 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.25, 'epochs': 50, 'lr': 8.238403978364434e-05, 'batch_size': 64}. Best is trial 8 with value: 0.3492596745491028.
+[I 2025-09-09 15:25:16,271] Trial 14 finished with value: 0.37808677554130554 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.5, 'epochs': 100, 'lr': 0.00012558704410191662, 'batch_size': 64}. Best is trial 14 with value: 0.37808677554130554.
+[I 2025-09-09 15:25:44,344] A new study created in RDB with name: RDKitFP_FNN_BBB_Martins_8
+[I 2025-09-09 15:26:17,544] Trial 5 finished with value: 0.43978580832481384 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.0, 'epochs': 150, 'lr': 1.8276130771163476e-05, 'batch_size': 32}. Best is trial 3 with value: 0.4232167601585388.
+[I 2025-09-09 15:27:32,871] Trial 0 finished with value: 0.6509965658187866 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.4, 'epochs': 50, 'lr': 0.0002626323509824417, 'batch_size': 32}. Best is trial 0 with value: 0.6509965658187866.
+[I 2025-09-09 15:28:59,104] Trial 9 finished with value: 1.1872165203094482 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.25, 'epochs': 50, 'lr': 0.002781367598628805, 'batch_size': 16}. Best is trial 8 with value: 0.3492596745491028.
+[I 2025-09-09 15:30:17,468] Trial 11 finished with value: 0.33017396926879883 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.5, 'epochs': 150, 'lr': 1.0651039130844974e-05, 'batch_size': 16}. Best is trial 11 with value: 0.33017396926879883.
+[I 2025-09-09 15:31:07,052] Trial 10 finished with value: 0.40286481380462646 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 1.1055207308036482e-05, 'batch_size': 64}. Best is trial 8 with value: 0.3492596745491028.
+[I 2025-09-09 15:32:37,030] Trial 1 finished with value: 2.3820998668670654 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.4, 'epochs': 100, 'lr': 0.003109411424173786, 'batch_size': 32}. Best is trial 0 with value: 0.6509965658187866.
+[I 2025-09-09 15:33:06,794] Trial 6 finished with value: 3.505629062652588 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.25, 'epochs': 150, 'lr': 0.003259072609760016, 'batch_size': 16}. Best is trial 3 with value: 0.4232167601585388.
+[I 2025-09-09 15:33:17,173] Trial 11 finished with value: 0.3939979672431946 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 1.2029915975478412e-05, 'batch_size': 64}. Best is trial 8 with value: 0.3492596745491028.
+[I 2025-09-09 15:35:32,691] Trial 12 finished with value: 0.469809889793396 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 6.827794431216957e-05, 'batch_size': 64}. Best is trial 8 with value: 0.3492596745491028.
+[I 2025-09-09 15:35:38,140] Trial 7 finished with value: 0.599381685256958 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.25, 'epochs': 50, 'lr': 0.0003019802560503254, 'batch_size': 16}. Best is trial 3 with value: 0.4232167601585388.
+[I 2025-09-09 15:37:34,276] Trial 2 finished with value: 0.8265106678009033 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 0.00011072332019887612, 'batch_size': 32}. Best is trial 0 with value: 0.6509965658187866.
+[I 2025-09-09 15:37:34,560] Trial 12 finished with value: 0.46852099895477295 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.5, 'epochs': 150, 'lr': 4.917956779196669e-05, 'batch_size': 16}. Best is trial 11 with value: 0.33017396926879883.
+[I 2025-09-09 15:37:45,313] Trial 13 finished with value: 0.41168519854545593 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 1.0061279168513812e-05, 'batch_size': 64}. Best is trial 8 with value: 0.3492596745491028.
+[I 2025-09-09 15:38:41,985] Trial 14 finished with value: 0.5652428865432739 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.4, 'epochs': 50, 'lr': 0.0007305540242643822, 'batch_size': 64}. Best is trial 8 with value: 0.3492596745491028.
+[I 2025-09-09 15:38:57,405] A new study created in RDB with name: RDKitFP_FNN_BBB_Martins_9
+[I 2025-09-09 15:39:52,204] Trial 3 finished with value: 0.8337924480438232 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.5, 'epochs': 100, 'lr': 0.00037296381301075326, 'batch_size': 64}. Best is trial 0 with value: 0.6509965658187866.
+[I 2025-09-09 15:41:37,302] Trial 8 finished with value: 0.6982759833335876 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.25, 'epochs': 100, 'lr': 6.30047356301726e-05, 'batch_size': 16}. Best is trial 3 with value: 0.4232167601585388.
+[I 2025-09-09 15:42:23,192] Trial 4 finished with value: 0.7038992047309875 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.5, 'epochs': 50, 'lr': 0.0010742114546359591, 'batch_size': 16}. Best is trial 0 with value: 0.6509965658187866.
+[I 2025-09-09 15:43:01,926] Trial 9 finished with value: 1.2763879299163818 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.25, 'epochs': 50, 'lr': 0.002446541209071198, 'batch_size': 64}. Best is trial 3 with value: 0.4232167601585388.
+[I 2025-09-09 15:43:20,719] Trial 0 finished with value: 0.7381601333618164 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.5, 'epochs': 50, 'lr': 0.0003385121985764721, 'batch_size': 16}. Best is trial 0 with value: 0.7381601333618164.
+[I 2025-09-09 15:44:50,769] Trial 10 finished with value: 0.3842494487762451 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.1, 'epochs': 100, 'lr': 1.3829330012755315e-05, 'batch_size': 64}. Best is trial 10 with value: 0.3842494487762451.
+[I 2025-09-09 15:45:10,716] Trial 13 finished with value: 0.46662625670433044 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.5, 'epochs': 150, 'lr': 5.171081303533967e-05, 'batch_size': 16}. Best is trial 11 with value: 0.33017396926879883.
+[I 2025-09-09 15:45:49,012] Trial 1 finished with value: 0.45176663994789124 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.1, 'epochs': 50, 'lr': 3.678282949729344e-05, 'batch_size': 32}. Best is trial 1 with value: 0.45176663994789124.
+[I 2025-09-09 15:46:33,520] Trial 11 finished with value: 0.3870178759098053 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.1, 'epochs': 100, 'lr': 1.2613657581680085e-05, 'batch_size': 64}. Best is trial 10 with value: 0.3842494487762451.
+[I 2025-09-09 15:48:25,059] Trial 12 finished with value: 0.3913908302783966 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.1, 'epochs': 100, 'lr': 1.2810238132332705e-05, 'batch_size': 64}. Best is trial 10 with value: 0.3842494487762451.
+[I 2025-09-09 15:48:45,278] Trial 2 finished with value: 1.4605118036270142 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.4, 'epochs': 100, 'lr': 0.0038030101681053516, 'batch_size': 32}. Best is trial 1 with value: 0.45176663994789124.
+[I 2025-09-09 15:50:08,564] Trial 13 finished with value: 0.4779019355773926 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.4, 'epochs': 100, 'lr': 0.00017897239064003587, 'batch_size': 64}. Best is trial 10 with value: 0.3842494487762451.
+[I 2025-09-09 15:51:59,577] Trial 14 finished with value: 0.34863466024398804 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.5, 'epochs': 100, 'lr': 2.6135540220957767e-05, 'batch_size': 64}. Best is trial 14 with value: 0.34863466024398804.
+[I 2025-09-09 15:52:41,389] Trial 14 finished with value: 0.4086993336677551 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.5, 'epochs': 150, 'lr': 3.620013381411234e-05, 'batch_size': 16}. Best is trial 11 with value: 0.33017396926879883.
+[I 2025-09-09 15:55:57,785] Trial 3 finished with value: 0.38118451833724976 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.5, 'epochs': 100, 'lr': 1.464329833082173e-05, 'batch_size': 16}. Best is trial 3 with value: 0.38118451833724976.
+[I 2025-09-09 15:55:58,456] Trial 5 finished with value: 6.223224639892578 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.1, 'epochs': 150, 'lr': 0.0044582782900641745, 'batch_size': 16}. Best is trial 0 with value: 0.6509965658187866.
+[I 2025-09-09 15:56:38,040] Trial 4 finished with value: 0.9757955074310303 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.0, 'epochs': 50, 'lr': 0.002228633868956209, 'batch_size': 64}. Best is trial 3 with value: 0.38118451833724976.
+[I 2025-09-09 15:58:03,994] Trial 5 finished with value: 0.827159583568573 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.5, 'epochs': 100, 'lr': 0.0003728591337054406, 'batch_size': 64}. Best is trial 3 with value: 0.38118451833724976.
+[I 2025-09-09 15:58:48,239] Trial 6 finished with value: 1.0376930236816406 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.4, 'epochs': 150, 'lr': 0.00033462340906200463, 'batch_size': 32}. Best is trial 0 with value: 0.6509965658187866.
+[I 2025-09-09 15:59:59,067] Trial 7 finished with value: 0.7368218302726746 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.5, 'epochs': 50, 'lr': 0.0003671475670563637, 'batch_size': 32}. Best is trial 0 with value: 0.6509965658187866.
+[I 2025-09-09 16:01:14,435] Trial 8 finished with value: 1.0335440635681152 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.0, 'epochs': 150, 'lr': 0.00290823841362563, 'batch_size': 64}. Best is trial 0 with value: 0.6509965658187866.
+[I 2025-09-09 16:03:25,303] Trial 9 finished with value: 2.1736531257629395 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.0, 'epochs': 150, 'lr': 0.0051863889517255795, 'batch_size': 64}. Best is trial 0 with value: 0.6509965658187866.
+[I 2025-09-09 16:04:20,529] Trial 10 finished with value: 0.472856342792511 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.4, 'epochs': 50, 'lr': 1.0500964127451158e-05, 'batch_size': 32}. Best is trial 10 with value: 0.472856342792511.
+[I 2025-09-09 16:05:06,604] Trial 6 finished with value: 0.8727890253067017 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.5, 'epochs': 150, 'lr': 3.7959352761941254e-05, 'batch_size': 16}. Best is trial 3 with value: 0.38118451833724976.
+[I 2025-09-09 16:05:14,872] Trial 11 finished with value: 0.3969534635543823 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.4, 'epochs': 50, 'lr': 1.731417547459531e-05, 'batch_size': 32}. Best is trial 11 with value: 0.3969534635543823.
+[I 2025-09-09 16:06:02,195] Trial 7 finished with value: 0.36380839347839355 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.0, 'epochs': 100, 'lr': 8.886091958701762e-05, 'batch_size': 64}. Best is trial 7 with value: 0.36380839347839355.
+[I 2025-09-09 16:06:11,634] Trial 12 finished with value: 0.4890057444572449 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.4, 'epochs': 50, 'lr': 1.0292971361890095e-05, 'batch_size': 32}. Best is trial 11 with value: 0.3969534635543823.
+[I 2025-09-09 16:07:30,035] Trial 13 finished with value: 0.4804507791996002 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.4, 'epochs': 50, 'lr': 1.1213535328828745e-05, 'batch_size': 32}. Best is trial 11 with value: 0.3969534635543823.
+[I 2025-09-09 16:08:08,872] Trial 8 finished with value: 0.5964088439941406 and parameters: {'hidden_sizes': [256, 128, 64], 'dropout_rate': 0.25, 'epochs': 50, 'lr': 5.811488658621152e-05, 'batch_size': 16}. Best is trial 7 with value: 0.36380839347839355.
+[I 2025-09-09 16:08:41,387] Trial 14 finished with value: 0.3389614224433899 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.1, 'epochs': 50, 'lr': 3.7543041366495166e-05, 'batch_size': 32}. Best is trial 14 with value: 0.3389614224433899.
+[I 2025-09-09 16:09:06,864] Trial 9 finished with value: 0.827873706817627 and parameters: {'hidden_sizes': [128, 64], 'dropout_rate': 0.0, 'epochs': 50, 'lr': 0.00043284663930811304, 'batch_size': 16}. Best is trial 7 with value: 0.36380839347839355.
+[I 2025-09-09 16:09:38,332] Trial 10 finished with value: 0.43474236130714417 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.0, 'epochs': 150, 'lr': 9.423928664745907e-05, 'batch_size': 64}. Best is trial 7 with value: 0.36380839347839355.
+[I 2025-09-09 16:10:00,533] Trial 11 finished with value: 0.3621877431869507 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.1, 'epochs': 100, 'lr': 1.8201133382577323e-05, 'batch_size': 64}. Best is trial 11 with value: 0.3621877431869507.
+[I 2025-09-09 16:10:22,309] Trial 12 finished with value: 0.408570796251297 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.1, 'epochs': 100, 'lr': 1.14550698555373e-05, 'batch_size': 64}. Best is trial 11 with value: 0.3621877431869507.
+[I 2025-09-09 16:10:43,423] Trial 13 finished with value: 0.37274080514907837 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.1, 'epochs': 100, 'lr': 9.551146276714484e-05, 'batch_size': 64}. Best is trial 11 with value: 0.3621877431869507.
+[I 2025-09-09 16:11:04,019] Trial 14 finished with value: 0.8240960836410522 and parameters: {'hidden_sizes': [128], 'dropout_rate': 0.4, 'epochs': 100, 'lr': 0.0012357495853282218, 'batch_size': 64}. Best is trial 11 with value: 0.3621877431869507.

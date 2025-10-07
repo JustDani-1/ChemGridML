@@ -1,0 +1,13 @@
+Seed 3 failed: (sqlite3.OperationalError) table trial_heartbeats already exists
+[SQL: 
+CREATE TABLE trial_heartbeats (
+	trial_heartbeat_id INTEGER NOT NULL, 
+	trial_id INTEGER NOT NULL, 
+	heartbeat DATETIME NOT NULL, 
+	PRIMARY KEY (trial_heartbeat_id), 
+	UNIQUE (trial_id), 
+	FOREIGN KEY(trial_id) REFERENCES trials (trial_id)
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)

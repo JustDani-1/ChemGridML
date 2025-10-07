@@ -1,0 +1,15 @@
+Seed 1 failed: (sqlite3.OperationalError) table trial_params already exists
+[SQL: 
+CREATE TABLE trial_params (
+	param_id INTEGER NOT NULL, 
+	trial_id INTEGER, 
+	param_name VARCHAR(512), 
+	param_value FLOAT, 
+	distribution_json TEXT, 
+	PRIMARY KEY (param_id), 
+	UNIQUE (trial_id, param_name), 
+	FOREIGN KEY(trial_id) REFERENCES trials (trial_id)
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)

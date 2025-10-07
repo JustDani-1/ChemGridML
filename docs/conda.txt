@@ -1,0 +1,9 @@
+conda deactivate
+conda remove --name ChemGridML --all
+conda create -n ChemGridML python=3.9
+conda activate ChemGridML
+conda install -c conda-forge numpy pandas pytorch transformers torchdata torch-geometric tqdm matplotlib optuna xgboost lightning jax dm-haiku plotly
+conda install -c conda-forge dgl dgllife rdkit pytdc deepchem gensim joblib scikit-learn
+conda install cudatoolkit cuda-version=11
+pip install git+https://github.com/samoturk/mol2vec
+conda install torchdata=0.7.1 -c conda-forge

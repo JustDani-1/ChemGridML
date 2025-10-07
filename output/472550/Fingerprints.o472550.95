@@ -1,0 +1,15 @@
+Seed 1 failed: (sqlite3.OperationalError) table trials already exists
+[SQL: 
+CREATE TABLE trials (
+	trial_id INTEGER NOT NULL, 
+	number INTEGER, 
+	study_id INTEGER, 
+	state VARCHAR(8) NOT NULL, 
+	datetime_start DATETIME, 
+	datetime_complete DATETIME, 
+	PRIMARY KEY (trial_id), 
+	FOREIGN KEY(study_id) REFERENCES studies (study_id)
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)

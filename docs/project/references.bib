@@ -74,6 +74,26 @@
   file = {/Users/daniel/Zotero/storage/JU2GBBCW/Mayr et al. - 2018 - Large-scale comparison of machine learning methods for drug target prediction on ChEMBL.pdf;/Users/daniel/Zotero/storage/PUKCF997/Mayr et al. - 2018 - Large-scale comparison of machine learning methods for drug target prediction on ChEMBL.pdf}
 }
 
+@article{nichollsConfidenceLimitsError2016,
+  title = {Confidence Limits, Error Bars and Method Comparison in Molecular Modeling. {{Part}} 2: Comparing Methods},
+  shorttitle = {Confidence Limits, Error Bars and Method Comparison in Molecular Modeling. {{Part}} 2},
+  author = {Nicholls, A.},
+  date = {2016-02-01},
+  journaltitle = {Journal of Computer-Aided Molecular Design},
+  shortjournal = {J Comput Aided Mol Des},
+  volume = {30},
+  number = {2},
+  pages = {103--126},
+  issn = {1573-4951},
+  doi = {10.1007/s10822-016-9904-5},
+  url = {https://doi.org/10.1007/s10822-016-9904-5},
+  urldate = {2025-09-05},
+  abstract = {The calculation of error bars for quantities of interest in computational chemistry comes in two forms: (1) Determining the confidence of a prediction, for instance of the property of a molecule; (2) Assessing uncertainty in measuring the difference between properties, for instance between performance metrics of two or more computational approaches. While a former paper in this series concentrated on the first of these, this second paper focuses on comparison, i.e. how do we calculate differences in methods in an accurate and statistically valid manner. Described within are classical statistical approaches for comparing widely used metrics such as enrichment, area under the curve and Pearson’s product-moment coefficient, as well as generic measures. These are considered of over single and multiple sets of data and for two or more methods that evince either independent or correlated behavior. General issues concerning significance testing and confidence limits from a Bayesian perspective are discussed, along with size-of-effect aspects of evaluation.},
+  langid = {english},
+  keywords = {Bayes,Computational methods,Confidence intervals,Correlation,Error bars,Evaluations,Significance,Statistics},
+  file = {/Users/daniel/Zotero/storage/FYXTDHJG/Nicholls - 2016 - Confidence limits, error bars and method comparison in molecular modeling. Part 2 comparing methods.pdf}
+}
+
 @online{rongSelfSupervisedGraphTransformer2020,
   title = {Self-{{Supervised Graph Transformer}} on {{Large-Scale Molecular Data}}},
   author = {Rong, Yu and Bian, Yatao and Xu, Tingyang and Xie, Weiyang and Wei, Ying and Huang, Wenbing and Huang, Junzhou},
@@ -87,7 +107,7 @@
   abstract = {How to obtain informative representations of molecules is a crucial prerequisite in AI-driven drug design and discovery. Recent researches abstract molecules as graphs and employ Graph Neural Networks (GNNs) for molecular representation learning. Nevertheless, two issues impede the usage of GNNs in real scenarios: (1) insufficient labeled molecules for supervised training; (2) poor generalization capability to new-synthesized molecules. To address them both, we propose a novel framework, GROVER, which stands for Graph Representation frOm self-superVised mEssage passing tRansformer. With carefully designed self-supervised tasks in node-, edge- and graph-level, GROVER can learn rich structural and semantic information of molecules from enormous unlabelled molecular data. Rather, to encode such complex information, GROVER integrates Message Passing Networks into the Transformer-style architecture to deliver a class of more expressive encoders of molecules. The flexibility of GROVER allows it to be trained efficiently on large-scale molecular dataset without requiring any supervision, thus being immunized to the two issues mentioned above. We pre-train GROVER with 100 million parameters on 10 million unlabelled molecules -- the biggest GNN and the largest training dataset in molecular representation learning. We then leverage the pre-trained GROVER for molecular property prediction followed by task-specific fine-tuning, where we observe a huge improvement (more than 6\% on average) from current state-of-the-art methods on 11 challenging benchmarks. The insights we gained are that well-designed self-supervision losses and largely-expressive pre-trained models enjoy the significant potential on performance boosting.},
   pubstate = {prepublished},
   keywords = {Computer Science - Machine Learning,Quantitative Biology - Biomolecules},
-  file = {/Users/daniel/Zotero/storage/UBLLPYF5/Rong et al. - 2020 - Self-Supervised Graph Transformer on Large-Scale Molecular Data.pdf;/Users/daniel/Zotero/storage/LHYMCZFM/2007.html}
+  file = {/Users/daniel/Zotero/storage/UBLLPYF5/Rong et al. - 2020 - Self-Supervised Graph Transformer on Large-Scale Molecular Data.pdf}
 }
 
 @article{stepisnikComprehensiveComparisonMolecular2021,
@@ -105,4 +125,20 @@
   abstract = {Machine learning methods are commonly used for predicting molecular properties to accelerate material and drug design. An important part of this process is deciding how to represent the molecules. Typically, machine learning methods expect examples represented by vectors of values, and many methods for calculating molecular feature representations have been proposed. In this paper, we perform a comprehensive comparison of different molecular features, including traditional methods such as fingerprints and molecular descriptors, and recently proposed learnable representations based on neural networks. Feature representations are evaluated on 11 benchmark datasets, used for predicting properties and measures such as mutagenicity, melting points, activity, solubility, and IC50. Our experiments show that several molecular features work similarly well over all benchmark datasets. The ones that stand out most are Spectrophores, which give significantly worse performance than other features on most datasets. Molecular descriptors from the PaDEL library seem very well suited for predicting physical properties of molecules. Despite their simplicity, MACCS fingerprints performed very well overall. The results show that learnable representations achieve competitive performance compared to expert based representations. However, task-specific representations (graph convolutions and Weave methods) rarely offer any benefits, even though they are computationally more demanding. Lastly, combining different molecular feature representations typically does not give a noticeable improvement in performance compared to individual feature representations.},
   langid = {english},
   file = {/Users/daniel/Zotero/storage/RRAU7HN3/Stepišnik et al. - 2021 - A comprehensive comparison of molecular feature representations for use in predictive modeling.pdf}
+}
+
+@online{ThoughtsSplittingChemical,
+  title = {Some {{Thoughts}} on {{Splitting Chemical Datasets}}},
+  url = {https://practicalcheminformatics.blogspot.com/2024/11/some-thoughts-on-splitting-chemical.html},
+  urldate = {2025-09-05},
+  organization = {Some Thoughts on Splitting Chemical Datasets},
+  file = {/Users/daniel/Zotero/storage/ZEBPBXRW/some-thoughts-on-splitting-chemical.html}
+}
+
+@online{WeNeedBetter,
+  title = {We {{Need Better Benchmarks}} for {{Machine Learning}} in {{Drug Discovery}}},
+  url = {https://practicalcheminformatics.blogspot.com/2023/08/we-need-better-benchmarks-for-machine.html},
+  urldate = {2025-09-05},
+  organization = {We Need Better Benchmarks for Machine Learning in Drug Discovery},
+  file = {/Users/daniel/Zotero/storage/ZM9KKUJY/we-need-better-benchmarks-for-machine.html}
 }

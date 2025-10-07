@@ -1,0 +1,54 @@
+No normalization for SPS. Feature removed!
+No normalization for AvgIpc. Feature removed!
+No normalization for NumAmideBonds. Feature removed!
+No normalization for NumAtomStereoCenters. Feature removed!
+No normalization for NumBridgeheadAtoms. Feature removed!
+No normalization for NumHeterocycles. Feature removed!
+No normalization for NumSpiroAtoms. Feature removed!
+No normalization for NumUnspecifiedAtomStereoCenters. Feature removed!
+No normalization for Phi. Feature removed!
+2025-09-09 14:02:46.223737: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-09-09 14:02:46.264968: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:From /home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/tensorflow/python/util/deprecation.py:588: calling function (from tensorflow.python.eager.polymorphic_function.polymorphic_function) with experimental_relax_shapes is deprecated and will be removed in a future version.
+Instructions for updating:
+experimental_relax_shapes is deprecated, use reduce_retracing instead
+Skipped loading modules with transformers dependency. No module named 'transformers'
+cannot import name 'HuggingFaceModel' from 'deepchem.models.torch_models' (/home/ucnwdma/miniconda3/envs/internship/lib/python3.9/site-packages/deepchem/models/torch_models/__init__.py)
+Found local copy...
+Loading...
+Done!
+[I 2025-09-09 14:03:37,394] A new study created in RDB with name: __init__
+[I 2025-09-09 14:03:37,746] A new study created in RDB with name: GRAPH_GAT_Lipophilicity_AstraZeneca_0
+[I 2025-09-09 14:03:37,885] A new study created in RDB with name: GRAPH_GAT_Lipophilicity_AstraZeneca_1
+[I 2025-09-09 14:03:38,002] A new study created in RDB with name: GRAPH_GAT_Lipophilicity_AstraZeneca_2
+[I 2025-09-09 14:03:38,280] A new study created in RDB with name: GRAPH_GAT_Lipophilicity_AstraZeneca_3
+[I 2025-09-09 14:32:16,818] Trial 0 finished with value: 0.4203484694741654 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'minkowski', 'epochs': 50, 'lr': 0.00020606595934108377, 'batch_size': 16}. Best is trial 0 with value: 0.4203484694741654.
+[I 2025-09-09 14:59:57,712] Trial 0 finished with value: 0.4158336464388366 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'manhattan', 'epochs': 100, 'lr': 0.006039727323606975, 'batch_size': 16}. Best is trial 0 with value: 0.4158336464388366.
+[I 2025-09-09 15:28:47,058] Trial 0 finished with value: 1.1279324333809175 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'manhattan', 'epochs': 150, 'lr': 0.0020583904182477912, 'batch_size': 32}. Best is trial 0 with value: 1.1279324333809175.
+[I 2025-09-09 15:31:20,185] Trial 0 finished with value: 0.33857269770041926 and parameters: {'n_neighbors': 3, 'weights': 'distance', 'metric': 'minkowski', 'epochs': 150, 'lr': 7.783777181818657e-05, 'batch_size': 64}. Best is trial 0 with value: 0.33857269770041926.
+[I 2025-09-09 15:56:28,364] Trial 1 finished with value: 0.3461840000934317 and parameters: {'n_neighbors': 3, 'weights': 'distance', 'metric': 'chebyshev', 'epochs': 150, 'lr': 0.0022566132766180503, 'batch_size': 32}. Best is trial 1 with value: 0.3461840000934317.
+[I 2025-09-09 15:59:22,736] Trial 1 finished with value: 0.5026023821450369 and parameters: {'n_neighbors': 3, 'weights': 'uniform', 'metric': 'chebyshev', 'epochs': 50, 'lr': 0.0006490019435504843, 'batch_size': 32}. Best is trial 0 with value: 0.33857269770041926.
+[I 2025-09-09 16:00:04,857] Trial 1 finished with value: 0.5227729962701151 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'manhattan', 'epochs': 100, 'lr': 0.0025130237878068003, 'batch_size': 16}. Best is trial 0 with value: 0.4158336464388366.
+[I 2025-09-09 16:29:03,551] Trial 2 finished with value: 0.5346686784309175 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'minkowski', 'epochs': 50, 'lr': 0.007500410739945939, 'batch_size': 16}. Best is trial 0 with value: 0.4158336464388366.
+[I 2025-09-09 16:56:55,312] Trial 1 finished with value: 0.4766151849600828 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'chebyshev', 'epochs': 150, 'lr': 0.000177626675107283, 'batch_size': 32}. Best is trial 1 with value: 0.4766151849600828.
+[I 2025-09-09 17:24:51,331] Trial 2 finished with value: 0.3853748389176148 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'manhattan', 'epochs': 150, 'lr': 0.002262682375237513, 'batch_size': 16}. Best is trial 1 with value: 0.3461840000934317.
+[I 2025-09-09 17:25:43,156] Trial 2 finished with value: 0.3995182014947203 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'chebyshev', 'epochs': 150, 'lr': 0.001050211494493976, 'batch_size': 32}. Best is trial 0 with value: 0.33857269770041926.
+[I 2025-09-09 17:54:53,796] Trial 3 finished with value: 0.49278779153168484 and parameters: {'n_neighbors': 3, 'weights': 'distance', 'metric': 'manhattan', 'epochs': 50, 'lr': 9.096167655128383e-05, 'batch_size': 32}. Best is trial 0 with value: 0.33857269770041926.
+[I 2025-09-09 17:56:20,282] Trial 2 finished with value: 8.876041735574864 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'minkowski', 'epochs': 100, 'lr': 0.004125537544153816, 'batch_size': 64}. Best is trial 1 with value: 0.4766151849600828.
+[I 2025-09-09 17:57:11,114] Trial 3 finished with value: 0.5390421809227528 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'minkowski', 'epochs': 150, 'lr': 0.00566868977361416, 'batch_size': 16}. Best is trial 0 with value: 0.4158336464388366.
+[I 2025-09-09 18:26:50,961] Trial 4 finished with value: 0.49471204545511 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'minkowski', 'epochs': 50, 'lr': 0.0001417254192264369, 'batch_size': 64}. Best is trial 0 with value: 0.4158336464388366.
+[I 2025-09-09 18:51:23,335] Trial 3 finished with value: 0.4856343189128345 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'minkowski', 'epochs': 150, 'lr': 0.0068573771246255725, 'batch_size': 32}. Best is trial 1 with value: 0.3461840000934317.
+[I 2025-09-09 18:55:04,504] Trial 3 finished with value: 0.610380264076493 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'minkowski', 'epochs': 100, 'lr': 0.001664951958654214, 'batch_size': 32}. Best is trial 1 with value: 0.4766151849600828.
+[I 2025-09-09 19:18:11,175] Trial 4 finished with value: 0.3984968957570153 and parameters: {'n_neighbors': 7, 'weights': 'distance', 'metric': 'chebyshev', 'epochs': 150, 'lr': 0.0011194427737452515, 'batch_size': 32}. Best is trial 0 with value: 0.33857269770041926.
+[I 2025-09-09 19:24:57,812] Trial 4 finished with value: 0.5476196821046669 and parameters: {'n_neighbors': 7, 'weights': 'uniform', 'metric': 'chebyshev', 'epochs': 50, 'lr': 0.00034732120230326837, 'batch_size': 32}. Best is trial 1 with value: 0.4766151849600828.
+[I 2025-09-09 19:25:13,263] Trial 5 finished with value: 0.35521546921093644 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'chebyshev', 'epochs': 100, 'lr': 0.00494784750953422, 'batch_size': 64}. Best is trial 5 with value: 0.35521546921093644.
+[I 2025-09-09 20:13:34,985] Trial 5 finished with value: 2.22946795566112 and parameters: {'n_neighbors': 11, 'weights': 'uniform', 'metric': 'minkowski', 'epochs': 100, 'lr': 0.00023376570453002363, 'batch_size': 32}. Best is trial 0 with value: 0.33857269770041926.
+[I 2025-09-09 20:16:57,635] Trial 4 finished with value: 0.449440294895304 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'chebyshev', 'epochs': 150, 'lr': 0.0033788974287341502, 'batch_size': 32}. Best is trial 1 with value: 0.3461840000934317.
+[I 2025-09-09 20:28:25,644] Trial 5 finished with value: 0.43267862531356377 and parameters: {'n_neighbors': 5, 'weights': 'distance', 'metric': 'minkowski', 'epochs': 100, 'lr': 0.001975962445302402, 'batch_size': 16}. Best is trial 5 with value: 0.43267862531356377.
+[I 2025-09-09 20:45:21,859] Trial 5 finished with value: 0.4420164875100937 and parameters: {'n_neighbors': 7, 'weights': 'uniform', 'metric': 'minkowski', 'epochs': 50, 'lr': 0.008391538737017703, 'batch_size': 64}. Best is trial 1 with value: 0.3461840000934317.
+[I 2025-09-09 20:53:10,299] Trial 6 finished with value: 0.4057727887922087 and parameters: {'n_neighbors': 11, 'weights': 'distance', 'metric': 'minkowski', 'epochs': 150, 'lr': 1.1111470354925738e-05, 'batch_size': 32}. Best is trial 5 with value: 0.35521546921093644.
+[I 2025-09-09 21:28:51,308] Trial 6 finished with value: 0.8462954975662667 and parameters: {'n_neighbors': 5, 'weights': 'uniform', 'metric': 'chebyshev', 'epochs': 100, 'lr': 0.00017931314914491436, 'batch_size': 16}. Best is trial 5 with value: 0.43267862531356377.
+[I 2025-09-09 21:39:57,254] Trial 6 finished with value: 0.3815016975338404 and parameters: {'n_neighbors': 3, 'weights': 'distance', 'metric': 'manhattan', 'epochs': 150, 'lr': 4.816087729046936e-05, 'batch_size': 16}. Best is trial 0 with value: 0.33857269770041926.
+[I 2025-09-09 21:44:16,057] Trial 6 finished with value: 0.42402424903836655 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'chebyshev', 'epochs': 100, 'lr': 0.004041257081010705, 'batch_size': 16}. Best is trial 1 with value: 0.3461840000934317.
+[I 2025-09-09 21:51:43,678] Trial 7 finished with value: 0.4103681897244091 and parameters: {'n_neighbors': 9, 'weights': 'uniform', 'metric': 'minkowski', 'epochs': 100, 'lr': 0.000871443909860719, 'batch_size': 64}. Best is trial 5 with value: 0.35521546921093644.

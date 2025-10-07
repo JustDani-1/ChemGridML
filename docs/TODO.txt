@@ -64,18 +64,81 @@ TODAYS GOAL:
 
 - new methods!!! pre-trained and learnable representations
 - molbert and GROVER
-- nested CV, launch fingerprint expirement on real scale to get first usable results
-- write script that gets me the combinations of the 10 jobs that took the longest
-- multi-threading in outer loop of nested CV, maybe because some of the combinations are taking a long time
-- standardscaler must be only trained on one, but applied to both
 
 - maybe static method for every model to define data preprocessing pipeline or maybe as part of the dataset depending on fingerprint
 
 - look into why the FNN outperforms always on the classification tasks
 
-- 18 <-> ECFP SVM Caco2_Wang went through but is not in the benchmark
+- wrap basically everything in the model class 
+    - .preprocess => scaling and making to tensor
+    - .fit => fitting the model (for pytorch, the epochs are an attribute)
+    - .predict => predict from trained model
+    => 3 base classes: deepchem, sklearn, pytorch
 
-SVM doesnt terminate: MOL2VEC SVM Caco2_Wang => need to log inside the optuna trials to see wether progress is made
+- for the 10 scores for each model, perform statistical significance tests
+- try out label scaling for the regression tasks
+- use all the deepchem fingerprints instead of RdKit, check if they are the same e.g. for MOL2VEC
+
+- check wether the classification outputs of sklearn are 0|1 => dont just apply BCE-logits-loss to them
+- deepchem outputs probability for each class => also dont just apply BCE-logits
+
+- try out MolBERT and GROVER, for now just as featurizors; then do an end-to-end ML approach where you concatenate a MLP
+- somehow encode which features are possible for which model so that the entire expirement can be run
+
+- GROVER: concatenate 200 dim RdKit descriptors with learned representations
+    - when trying to use GROVER not as FP but with finetuning, the entire READOUT + 2 MLPs have to be optimized
+
+- write get_num and get_combo for new methods abstraction
+- update benchmark manager to produce different plot that compares "methods" 
+
+- write hierarchical submit script with
+    - master.py [FINGERPRINT] [LEARNABLE] [PRETRAINED] [TDC|DATASIZE] 
+    - determines total tasks and produces submit-scripts
+    - maybe one job-array per category, requesting more or less resources each, or GPU
+    - include benchmark_manager afterwards, to produce graphics according to the configuration
+
+master idea:
+    - save everything under job_id of the master
+    - combine output files into single logits
+    - save them in ./output/<master_job_id> under Job.o<master_job_id>.<task_id>
+    - pass master job id to job tasks, so that the studies also get saved under ./studies/<master_job_id>/studies
+    - define "experiments": sets of methods (include feature, model, datset) as well as required resources
+    - then in the master script just define which experiments to run
+        - FINGERPRINT, LEARNABLE, PRETRAINED, DATASIZE (directly with determined subset of methods on different datasets)
+    
+
+
+TIMELINE
+========================================================================================================
+========================================================================================================
+
+Week 5:
+    - get_num, get_combo
+    - start on master.py and submit_master.sh
+
+Week 6:
+    - finish master.py/.sh
+    - smart job submitting, depending on the experiment
+    - include MolBERT and GROVER
+    - make final decision which fingerprints and which graph models to include
+    - make final evaluation of Fingerprint performances, decide on "winners"
+        -> small winner set and a little extra will be included into datasize experiment
+    - write Myriad efficiency script based on Mark's runtimes
+
+Week 7:
+    - datasize experiment 
+    - begin write up, prepare Presentation
+    - maybe support for multi-task problems
+    - different dataset-splits
+    - evaluation of data, writing nice benchmark_manager for everything
+
+Week 8:
+    - prepare presentation
+
+========================================================================================================
+========================================================================================================
+
+
 
 FOR EACH COMBO
 old approach:
@@ -104,15 +167,12 @@ Follow-up:
 - features -> models -> datasets
 
 
-
-
 Methods:
 - We want a vectorization of all features
 - Graphs:
     - test just plain GCN combined with other architectures
     - graphical autoencoder with other architectures, 
     - extract embedding from traditional GCN, combine with other architectures
-
 
 
 
